@@ -55,7 +55,9 @@ pkt_get_requested_ip_address_test()
 {
   struct in_addr addr = {0};
 
-  CU_ASSERT_EQUAL ((get_requested_ip_address (pkt)).s_addr, addr.s_addr);
+  struct in_addr actual = get_requested_ip_address (pkt);
+
+  CU_ASSERT_EQUAL (actual.s_addr, addr.s_addr);
 }
 
 void

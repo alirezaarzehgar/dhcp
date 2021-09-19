@@ -70,10 +70,10 @@ get_requested_ip_address (dhcp_packet_t *pkt)
 
   size_t ipLen = opt->requestedIpAddress.len;
 
-  size_t actulIpLen = strlen (opt->requestedIpAddress.ip);
+  size_t actualIpLen = strlen (opt->requestedIpAddress.ip);
 
   if (option == OPTION_REQUESTED_IP_ADDR
-      && ipLen == 4 &&  actulIpLen == ipLen)
+      && ipLen == 4 &&  actualIpLen == ipLen)
     inet_aton (opt->requestedIpAddress.ip, &addr);
 
   else
