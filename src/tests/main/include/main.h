@@ -4,6 +4,7 @@
 #include <unistd.h>
 
 #include <CUnit/Basic.h>
+#include <CUnit/TestDB.h>
 
 #include "pkt/tests.h"
 #include "cli/tests.h"
@@ -13,31 +14,57 @@
 #if !defined(TESTS_MAIN_H)
 #define TESTS_MAIN_H
 
-typedef void (*test_func_t)();
-
-struct function
+CU_TestInfo pkt_tests[] =
 {
-  test_func_t func;
-  const char *description;
+  {"pkt module test", test_pkt},
+	CU_TEST_INFO_NULL,
 };
 
-typedef struct function function_t;
-
-function_t functions[] =
+CU_TestInfo network_tests[] =
 {
-	/* examples */
-  {test_pkt, "pkt module test"},
-  {test_cli, "cli module test"},
-  {test_lease, "lease module test"},
-  {test_network, "network module test"}
+  {"network module test", test_network},
+	CU_TEST_INFO_NULL,
+};
 
-	/* pkt functions */
+CU_TestInfo lease_tests[] =
+{
+  {"lease module test", test_lease},
+	CU_TEST_INFO_NULL,
+};
 
-	/* cli functions */
+CU_TestInfo cli_tests[] =
+{
+  {"cli module test", test_cli},
+	CU_TEST_INFO_NULL,
+};
 
-	/* lease functions */
-
-	/* network fucntions */
+CU_SuiteInfo suites[] =
+{
+  {
+    .pName = "pkt suite",
+    .pInitFunc = init_suite_pkt,
+    .pCleanupFunc = cleanup_suite_pkt,
+    .pTests = pkt_tests
+  },
+  {
+    .pName = "network suite",
+    .pInitFunc = init_suite_network,
+    .pCleanupFunc = cleanup_suite_network,
+    .pTests = network_tests
+  },
+  {
+    .pName = "lease suite",
+    .pInitFunc = init_suite_lease,
+    .pCleanupFunc = cleanup_suite_lease,
+    .pTests = lease_tests
+  },
+  {
+    .pName = "cli suite",
+    .pInitFunc = init_suite_cli,
+    .pCleanupFunc = cleanup_suite_cli,
+    .pTests = cli_tests
+  },
+  CU_SUITE_INFO_NULL
 };
 
 #endif // TESTS_MAIN_H
