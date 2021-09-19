@@ -12,7 +12,7 @@
 #include "pkt/analyze.h"
 
 char *
-get_magic_cookie (dhcp_packet_t *pkt)
+pkt_get_magic_cookie (dhcp_packet_t *pkt)
 {
   dhcp_options_t *opt = (dhcp_options_t *)pkt->options;
 
@@ -26,16 +26,16 @@ get_magic_cookie (dhcp_packet_t *pkt)
 }
 
 void
-print_magic_cookie (dhcp_packet_t *pkt)
+pkt_print_magic_cookie (dhcp_packet_t *pkt)
 {
-  char *cookie = get_magic_cookie (pkt);
+  char *cookie = pkt_get_magic_cookie (pkt);
 
   for (size_t i = 0; i < DHCP_MAGIC_COOKIE_SIZE; i++)
     printf ("%x", cookie[i] & 0xff);
 }
 
 enum dhcpMessageTypes
-get_dhcp_message_type (dhcp_packet_t *pkt)
+pkt_get_dhcp_message_type (dhcp_packet_t *pkt)
 {
   dhcp_options_t *opt = (dhcp_options_t *)pkt->options;
 
@@ -60,7 +60,7 @@ get_dhcp_message_type (dhcp_packet_t *pkt)
 }
 
 struct in_addr
-get_requested_ip_address (dhcp_packet_t *pkt)
+pkt_get_requested_ip_address (dhcp_packet_t *pkt)
 {
   struct in_addr addr;
 
@@ -80,4 +80,10 @@ get_requested_ip_address (dhcp_packet_t *pkt)
     addr.s_addr = 0;
 
   return addr;
+}
+
+char *
+pkt_get_host_name()
+{
+
 }

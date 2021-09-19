@@ -84,12 +84,14 @@ enum dhcpOptions
   OPTION_END = 255,
 };
 
-char *get_magic_cookie (dhcp_packet_t *pkt);
+char *pkt_get_magic_cookie (dhcp_packet_t *pkt);
 
-void print_magic_cookie (dhcp_packet_t *pkt);
+void pkt_print_magic_cookie (dhcp_packet_t *pkt);
 
-enum dhcpMessageTypes get_dhcp_message_type(dhcp_packet_t *pkt);
+enum dhcpMessageTypes pkt_get_dhcp_message_type (dhcp_packet_t *pkt);
 
-struct in_addr get_requested_ip_address (dhcp_packet_t *pkt);
+struct in_addr pkt_get_requested_ip_address (dhcp_packet_t *pkt);
+
+char *pkt_get_host_name();
 
 #endif // PKT_ANALYZE_H
