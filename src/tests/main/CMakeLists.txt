@@ -6,6 +6,10 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
     cunit
+    lib::pkttests
+    lib::clitests
+    lib::leasetests
+    lib::networktests
 )
 
 target_include_directories(${PROJECT_NAME}

@@ -1,0 +1,30 @@
+/**
+ * @file tests.c
+ * @author alireza arzehgar (alirezaarzehgar82@gmail.com)
+ * @brief
+ * @version 0.1
+ * @date 2021-09-19
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+
+#include "cli/tests.h"
+
+int
+init_suite_cli()
+{
+  return 0;
+}
+
+int
+cleanup_suite_cli()
+{
+  return 0;
+}
+
+void
+test_cli()
+{
+  CU_ASSERT_TRUE (CU_TRUE);
+}
