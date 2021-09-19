@@ -6,37 +6,16 @@
 #include <CUnit/Basic.h>
 #include <CUnit/TestDB.h>
 
-#include "pkt/tests.h"
 #include "cli/tests.h"
-#include "network/tests.h"
 #include "lease/tests.h"
+
+#include "pkt/pkt_test.h"
+#include "pkt/cli_tests.h"
+#include "pkt/network_tests.h"
+#include "pkt/lease_tests.h"
 
 #if !defined(TESTS_MAIN_H)
 #define TESTS_MAIN_H
-
-CU_TestInfo pkt_tests[] =
-{
-  {"pkt module test", test_pkt},
-	CU_TEST_INFO_NULL,
-};
-
-CU_TestInfo network_tests[] =
-{
-  {"network module test", test_network},
-	CU_TEST_INFO_NULL,
-};
-
-CU_TestInfo lease_tests[] =
-{
-  {"lease module test", test_lease},
-	CU_TEST_INFO_NULL,
-};
-
-CU_TestInfo cli_tests[] =
-{
-  {"cli module test", test_cli},
-	CU_TEST_INFO_NULL,
-};
 
 CU_SuiteInfo suites[] =
 {
