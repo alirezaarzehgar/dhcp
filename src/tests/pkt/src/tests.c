@@ -11,9 +11,28 @@
 
 #include "pkt/tests.h"
 
+const char *discovry_path = "src/tests/fake_data/discovery";
+
+const char *magic_cookie_tmp_file = "magic_cookie.tmp";
+
+char buf[DHCP_PACKET_MAX_LEN];
+
+dhcp_packet_t *pkt;
+
 int
 init_suite_pkt()
 {
+  int fd = open (discovry_path, O_RDONLY);
+
+  if (fd == -1)
+    CU_ASSERT_FALSE (CU_TRUE);
+
+  read (fd, buf, DHCP_PACKET_MAX_LEN);
+
+  pkt = (dhcp_packet_t *)buf;
+
+  close (fd);
+
   return 0;
 }
 
@@ -24,7 +43,17 @@ cleanup_suite_pkt()
 }
 
 void
-test_pkt()
+pkt_get_magic_cookie_test()
 {
-  CU_ASSERT_TRUE (CU_TRUE);
+  char validCookie[] = {0x63, -126, 0x53, 0x63, '\0'};
+
+  CU_ASSERT_STRING_EQUAL (get_magic_cookie (pkt), validCookie);
+}
+
+void
+pkt_get_requested_ip_address_test()
+{
+  struct in_addr addr = {0};
+
+  CU_ASSERT_EQUAL ((get_requested_ip_address (pkt)).s_addr, addr.s_addr);
 }

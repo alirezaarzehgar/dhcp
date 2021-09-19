@@ -7,7 +7,8 @@
 
 CU_TestInfo pkt_tests[] =
 {
-  {"pkt module test", test_pkt},
+  {"get magic cookie", pkt_get_magic_cookie_test},
+  {"get requested ip address", pkt_get_requested_ip_address_test},
 	CU_TEST_INFO_NULL,
 };
 

@@ -26,6 +26,8 @@
 #define DHCP_MAX_OPTION_LEN (DHCP_MTU_MAX - DHCP_FIXED_LEN)
 #define DHCP_MIN_OPTION_LEN     (DHCP_MTU_MIN - DHCP_FIXED_LEN)
 
+#define DHCP_PACKET_MAX_LEN     342
+
 // #define DHCP_STRUCT_OPTION()
 
 struct dhcp_packet
