@@ -8,6 +8,7 @@
 CU_TestInfo pkt_tests[] =
 {
   {"get magic cookie", pkt_get_magic_cookie_test},
+  {"get message type", pkt_get_dhcp_message_type_test},
   {"get requested ip address", pkt_get_requested_ip_address_test},
 	CU_TEST_INFO_NULL,
 };

@@ -47,7 +47,7 @@ pkt_get_magic_cookie_test()
 {
   char validCookie[] = {0x63, -126, 0x53, 0x63, '\0'};
 
-  CU_ASSERT_STRING_EQUAL (get_magic_cookie (pkt), validCookie);
+  CU_ASSERT_STRING_EQUAL (get_magic_cookie(pkt), validCookie);
 }
 
 void
@@ -56,4 +56,10 @@ pkt_get_requested_ip_address_test()
   struct in_addr addr = {0};
 
   CU_ASSERT_EQUAL ((get_requested_ip_address (pkt)).s_addr, addr.s_addr);
+}
+
+void
+pkt_get_dhcp_message_type_test()
+{
+  CU_ASSERT_EQUAL (get_dhcp_message_type (pkt), DHCP_MSG_TYPE_DISCOVER);
 }

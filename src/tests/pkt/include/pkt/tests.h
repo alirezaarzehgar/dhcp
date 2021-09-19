@@ -20,4 +20,6 @@ void pkt_get_magic_cookie_test();
 
 void pkt_get_requested_ip_address_test();
 
+void pkt_get_dhcp_message_type_test();
+
 #endif // TESTS_PKT_TESTS_H
