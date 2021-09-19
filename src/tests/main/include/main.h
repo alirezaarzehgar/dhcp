@@ -9,10 +9,10 @@
 #include "cli/tests.h"
 #include "lease/tests.h"
 
-#include "pkt/pkt_test.h"
-#include "pkt/cli_tests.h"
-#include "pkt/network_tests.h"
-#include "pkt/lease_tests.h"
+#include "pkt_test.h"
+#include "cli_tests.h"
+#include "network_tests.h"
+#include "lease_tests.h"
 
 #if !defined(TESTS_MAIN_H)
 #define TESTS_MAIN_H
