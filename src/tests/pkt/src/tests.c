@@ -21,7 +21,7 @@ char buf[DHCP_PACKET_MAX_LEN];
 
 char buf2[DHCP_PACKET_MAX_LEN];
 
-dhcp_packet_t *pkt;
+pktDhcpPacket_t *pkt;
 
 int size;
 
@@ -45,7 +45,7 @@ init_suite_pkt()
       return -1;
     }
 
-  pkt = (dhcp_packet_t *)buf;
+  pkt = (pktDhcpPacket_t *)buf;
 
   close (fd);
   close (fd2);
@@ -70,14 +70,14 @@ pkt_get_magic_cookie_test()
 void
 pkt_get_requested_ip_address_test()
 {
-  requestedIpAddress_t *opts[5];
+  pktRequestedIpAddress_t *opts[5];
 
   int optCounter = 0;
 
   for (size_t i = 0; i < size; i++)
     {
-      if (pkt_is_requested_ip_addr_option_valid ((requestedIpAddress_t *)&buf2[i]))
-        opts[optCounter++] = (requestedIpAddress_t *)&buf2[i];
+      if (pkt_is_requested_ip_addr_option_valid ((pktRequestedIpAddress_t *)&buf2[i]))
+        opts[optCounter++] = (pktRequestedIpAddress_t *)&buf2[i];
     }
 
   CU_ASSERT_TRUE (optCounter > 0);
@@ -94,7 +94,7 @@ pkt_get_host_name_test()
 {
   char *host = pkt_get_host_name (pkt);
 
-  hostName_t *opts[5];
+  pktHostName_t *opts[5];
 
   int optCounter = 0;
 
@@ -102,11 +102,11 @@ pkt_get_host_name_test()
 
   for (size_t i = 0; i < size; i++)
     {
-      if (pkt_is_host_name_option_valid ((hostName_t *)&buf2[i]))
+      if (pkt_is_host_name_option_valid ((pktHostName_t *)&buf2[i]))
         {
           int len;
 
-          opts[optCounter++] = (hostName_t *)&buf2[i];
+          opts[optCounter++] = (pktHostName_t *)&buf2[i];
 
           len = opts[optCounter - 1]->len;
 
@@ -124,7 +124,7 @@ pkt_get_host_name_test()
 void
 pkt_get_parameter_list_test()
 {
-  parameterRequestList_t *list = pkt_get_parameter_list (pkt);
+  pktParameterRequestList_t *list = pkt_get_parameter_list (pkt);
 
   if (!list)
     return;

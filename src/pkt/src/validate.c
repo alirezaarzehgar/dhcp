@@ -31,7 +31,7 @@ pkt_is_msg_type_valid (enum dhcpMessageTypes type)
 }
 
 bool
-pkt_is_msg_type_option_valid (messageType_t *opt)
+pkt_is_msg_type_option_valid (pktMessageType_t *opt)
 {
   return !pkt_is_msg_type_valid (opt->type) ||
          opt->option != OPTION_DHCP_MSG_TYPE ||
@@ -40,7 +40,7 @@ pkt_is_msg_type_option_valid (messageType_t *opt)
 }
 
 bool
-pkt_is_requested_ip_addr_option_valid (requestedIpAddress_t *opt)
+pkt_is_requested_ip_addr_option_valid (pktRequestedIpAddress_t *opt)
 {
   struct in_addr *ip;
   inet_aton (opt->ip, ip);
@@ -51,7 +51,7 @@ pkt_is_requested_ip_addr_option_valid (requestedIpAddress_t *opt)
 }
 
 bool
-pkt_is_host_name_option_valid (hostName_t *opt)
+pkt_is_host_name_option_valid (pktHostName_t *opt)
 {
   if (opt->option == OPTION_HOST_NAME & 0xff && opt->len > 0)
     {
@@ -67,7 +67,7 @@ pkt_is_host_name_option_valid (hostName_t *opt)
 }
 
 bool
-pkt_is_parameter_list_valid (parameterRequestList_t *opt)
+pkt_is_parameter_list_valid (pktParameterRequestList_t *opt)
 {
   return opt->option == OPTION_PARAMETER_REQUERSTED & 0xff && opt->len > 0
          && strlen (opt->list) > 0 ? true : false;

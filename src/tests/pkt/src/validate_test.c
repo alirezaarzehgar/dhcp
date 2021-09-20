@@ -35,7 +35,7 @@ pkt_is_msg_type_valid_test()
 void
 pkt_is_msg_type_option_valid_test()
 {
-  messageType_t opt = {.len = 1, .type = DHCP_MSG_TYPE_DISCOVER, .option = OPTION_DHCP_MSG_TYPE};
+  pktMessageType_t opt = {.len = 1, .type = DHCP_MSG_TYPE_DISCOVER, .option = OPTION_DHCP_MSG_TYPE};
 
   CU_ASSERT_TRUE (pkt_is_msg_type_option_valid (&opt));
 
@@ -60,7 +60,7 @@ pkt_is_msg_type_option_valid_test()
 void
 pkt_is_requested_ip_addr_option_valid_test()
 {
-  requestedIpAddress_t opt = {.len = 0, .option = OPTION_REQUESTED_IP_ADDR};
+  pktRequestedIpAddress_t opt = {.len = 0, .option = OPTION_REQUESTED_IP_ADDR};
 
   CU_ASSERT_TRUE (pkt_is_requested_ip_addr_option_valid (&opt));
 }

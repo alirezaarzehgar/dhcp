@@ -94,16 +94,16 @@ enum pktErr
   PKT_ERR_SUCCESS
 };
 
-char *pkt_get_magic_cookie (dhcp_packet_t *pkt);
+char *pkt_get_magic_cookie (pktDhcpPacket_t *pkt);
 
-void pkt_print_magic_cookie (dhcp_packet_t *pkt);
+void pkt_print_magic_cookie (pktDhcpPacket_t *pkt);
 
-enum dhcpMessageTypes pkt_get_dhcp_message_type (dhcp_packet_t *pkt);
+enum dhcpMessageTypes pkt_get_dhcp_message_type (pktDhcpPacket_t *pkt);
 
-struct in_addr pkt_get_requested_ip_address (dhcp_packet_t *pkt);
+struct in_addr pkt_get_requested_ip_address (pktDhcpPacket_t *pkt);
 
-char *pkt_get_host_name (dhcp_packet_t *pkt);
+char *pkt_get_host_name (pktDhcpPacket_t *pkt);
 
-parameterRequestList_t *pkt_get_parameter_list (dhcp_packet_t *pkt);
+pktParameterRequestList_t *pkt_get_parameter_list (pktDhcpPacket_t *pkt);
 
 #endif // PKT_ANALYZE_H
