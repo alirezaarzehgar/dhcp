@@ -28,7 +28,10 @@
 
 #define DHCP_PACKET_MAX_LEN     342
 
-// #define DHCP_STRUCT_OPTION()
+#define PKT_BASE_MEMBERS          u_int8_t option;  \
+                                  u_int8_t len
+
+#define PKT_IP_STRUCT_MEMBER      char ip[]
 
 struct dhcp_packet
 {
@@ -55,35 +58,62 @@ struct dhcp_packet
 
 struct pktMessageType
 {
-  u_int8_t option;
-  u_int8_t len;
-  char type;
+  PKT_BASE_MEMBERS;
+  char type;          /* RFC 2132 DHCP Message Type */
 };
 
 struct pktRequestedIpAddress
 {
-  u_int8_t option;
-  u_int8_t len;
-  char ip[];
-} ;
+  PKT_BASE_MEMBERS;
+  PKT_IP_STRUCT_MEMBER;         /* RFC 2132 Requested IP Address */
+};
 
 struct pktHostName
 {
-  u_int8_t option;
-  u_int8_t len;
-  char name[];
+  PKT_BASE_MEMBERS;
+  char name[];          /* RFC 2132 Host Name Option */
 };
 
 struct pktParameterRequestList
 {
-  u_int8_t option;
-  u_int8_t len;
-  char list[];
+  PKT_BASE_MEMBERS;
+  char list[];          /* RFC 2132 Parameter Request List */
+};
+
+struct pktServerIdentifier
+{
+  PKT_BASE_MEMBERS;
+  PKT_IP_STRUCT_MEMBER;         /* RFC 2132 Server Identifier */
+};
+
+struct pktIpAddress
+{
+  PKT_BASE_MEMBERS;
+
+  u_int32_t t[4];          /* RFC 2132 IP Address Lease Time Option */
+};
+
+struct pktSubnetMask
+{
+  PKT_BASE_MEMBERS;         /* Option (1) */
+  char subnet[];            /* RFC 2132 Subnet Mask */
+};
+
+struct pktRouter
+{
+  PKT_BASE_MEMBERS;         /* Option (3) */
+  char router[];            /* RFC 2132 Router Option */
+};
+
+struct pktDomainName
+{
+  PKT_BASE_MEMBERS;         /* Option (15) */
+  char domain[];            /* RFC 2132 Domain Name */
 };
 
 struct end
 {
-  u_int8_t option;
+  u_int8_t option;          /* RFC 2132 End Option */
 };
 
 /* complete dhcp option structure */
@@ -91,7 +121,7 @@ struct dhcp_options
 {
   char cookie[4];
 
-  char opts[0];
+  char opts[0];           /* RFC 2132 */
 };
 
 typedef struct dhcp_packet pktDhcpPacket_t;
