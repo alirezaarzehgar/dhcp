@@ -55,29 +55,29 @@ struct dhcp_packet
 
 struct pktMessageType
 {
-  char option;
-  char len;
+  u_int8_t option;
+  u_int8_t len;
   char type;
 };
 
 struct pktRequestedIpAddress
 {
-  char option;
-  char len;
+  u_int8_t option;
+  u_int8_t len;
   char ip[];
 } ;
 
 struct pktHostName
 {
-  char option;
-  char len;
+  u_int8_t option;
+  u_int8_t len;
   char name[];
 };
 
 struct pktParameterRequestList
 {
-  char option;
-  char len;
+  u_int8_t option;
+  u_int8_t len;
   char list[];
 };
 
@@ -106,4 +106,4 @@ typedef struct pktHostName pktHostName_t;
 
 typedef struct pktParameterRequestList pktParameterRequestList_t;
 
-#endif // PKT_DHCP_H
+#endif
