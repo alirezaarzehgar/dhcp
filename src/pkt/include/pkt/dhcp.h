@@ -125,7 +125,6 @@ struct end
 struct dhcp_options
 {
   char cookie[4];
-
   char opts[0];           /* RFC 2132 */
 };
 
