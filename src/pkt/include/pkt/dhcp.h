@@ -51,6 +51,8 @@ struct dhcp_packet
   (actual length dependent on MTU). */
 };
 
+/* DHCP options */
+
 struct pktMessageType
 {
   char option;
@@ -84,14 +86,6 @@ struct end
   u_int8_t option;
 };
 
-typedef struct pktMessageType pktMessageType_t;
-
-typedef struct pktRequestedIpAddress pktRequestedIpAddress_t;
-
-typedef struct pktHostName pktHostName_t;
-
-typedef struct pktParameterRequestList pktParameterRequestList_t;
-
 /* complete dhcp option structure */
 struct dhcp_options
 {
@@ -103,5 +97,13 @@ struct dhcp_options
 typedef struct dhcp_packet pktDhcpPacket_t;
 
 typedef struct dhcp_options pktDhcpOptions_t;
+
+typedef struct pktMessageType pktMessageType_t;
+
+typedef struct pktRequestedIpAddress pktRequestedIpAddress_t;
+
+typedef struct pktHostName pktHostName_t;
+
+typedef struct pktParameterRequestList pktParameterRequestList_t;
 
 #endif // PKT_DHCP_H
