@@ -116,7 +116,6 @@ struct pktMessage
   char msg[];               /* RFC 2132 Message */
 };
 
-
 struct end
 {
   u_int8_t option;          /* RFC 2132 End Option */
