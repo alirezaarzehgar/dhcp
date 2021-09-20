@@ -58,38 +58,37 @@ struct dhcp_packet
 
 struct pktMessageType
 {
-  PKT_BASE_MEMBERS;
+  PKT_BASE_MEMBERS;   /* Option (53) */
   char type;          /* RFC 2132 DHCP Message Type */
 };
 
 struct pktRequestedIpAddress
 {
-  PKT_BASE_MEMBERS;
+  PKT_BASE_MEMBERS;             /* Option 50 */
   PKT_IP_STRUCT_MEMBER;         /* RFC 2132 Requested IP Address */
 };
 
 struct pktHostName
 {
-  PKT_BASE_MEMBERS;
+  PKT_BASE_MEMBERS;     /* Option (12) */
   char name[];          /* RFC 2132 Host Name Option */
 };
 
 struct pktParameterRequestList
 {
-  PKT_BASE_MEMBERS;
+  PKT_BASE_MEMBERS;     /* Option (55) */
   char list[];          /* RFC 2132 Parameter Request List */
 };
 
 struct pktServerIdentifier
 {
-  PKT_BASE_MEMBERS;
+  PKT_BASE_MEMBERS;             /* Option (54) */
   PKT_IP_STRUCT_MEMBER;         /* RFC 2132 Server Identifier */
 };
 
-struct pktIpAddress
+struct pktIpAddressLeaseTime
 {
-  PKT_BASE_MEMBERS;
-
+  PKT_BASE_MEMBERS;        /* Option (51) */
   u_int32_t t[4];          /* RFC 2132 IP Address Lease Time Option */
 };
 
@@ -110,6 +109,13 @@ struct pktDomainName
   PKT_BASE_MEMBERS;         /* Option (15) */
   char domain[];            /* RFC 2132 Domain Name */
 };
+
+struct pktMessage
+{
+  PKT_BASE_MEMBERS;         /* Option (56) */
+  char msg[];               /* RFC 2132 Message */
+};
+
 
 struct end
 {
