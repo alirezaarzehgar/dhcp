@@ -1,6 +1,7 @@
 project(pkt)
 
 add_library(${PROJECT_NAME}
+    src/validate.c
     src/analyze.c
     src/generate.c
     src/core.c

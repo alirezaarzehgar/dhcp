@@ -1,6 +1,7 @@
 project(pkttest)
 
 add_library(${PROJECT_NAME}
+    src/validate_test.c
     src/tests.c
 )
 

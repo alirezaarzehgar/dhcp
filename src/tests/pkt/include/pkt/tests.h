@@ -22,4 +22,6 @@ void pkt_get_requested_ip_address_test();
 
 void pkt_get_dhcp_message_type_test();
 
+void pkt_get_host_name_test();
+
 #endif // TESTS_PKT_TESTS_H

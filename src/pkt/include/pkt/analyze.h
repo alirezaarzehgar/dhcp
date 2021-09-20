@@ -1,4 +1,6 @@
 #include "dhcp.h"
+#include "validate.h"
+#include <errno.h>
 
 #if !defined(PKT_ANALYZE_H)
 #define PKT_ANALYZE_H
@@ -25,7 +27,7 @@ enum dhcpOptions
   OPTION_ROUTER,
   OPTION_TIME_SERVER,               /* RFC 868 */
   OPTION_NS,
-  OPTION_DOMAIN_NS,                 /* RFC 1035 */
+  OPTION_DNS,                 /* RFC 1035 */
   OPTION_LOG_SERVER,
   OPTION_COOKIE_SERVER,             /* RFC 865 */
   OPTION_LRP_SERVER,                /* RFC 1179 */
@@ -84,6 +86,13 @@ enum dhcpOptions
   OPTION_END = 255,
 };
 
+enum pktErr {
+  PKT_ERR_OPT_NOTFOUNT,
+  PKT_ERR_INVALID_LEN,
+  PKT_ERR_FAILURE,
+  PKT_ERR_SUCCESS
+};
+
 char *pkt_get_magic_cookie (dhcp_packet_t *pkt);
 
 void pkt_print_magic_cookie (dhcp_packet_t *pkt);
@@ -92,6 +101,6 @@ enum dhcpMessageTypes pkt_get_dhcp_message_type (dhcp_packet_t *pkt);
 
 struct in_addr pkt_get_requested_ip_address (dhcp_packet_t *pkt);
 
-char *pkt_get_host_name();
+char *pkt_get_host_name(dhcp_packet_t *pkt);
 
 #endif // PKT_ANALYZE_H

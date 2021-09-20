@@ -13,25 +13,42 @@
 
 const char *discovry_path = "src/tests/fake_data/discovery";
 
+const char *all_path = "src/tests/fake_data/all";
+
 const char *magic_cookie_tmp_file = "magic_cookie.tmp";
 
 char buf[DHCP_PACKET_MAX_LEN];
 
+char buf2[DHCP_PACKET_MAX_LEN];
+
 dhcp_packet_t *pkt;
+
+int size;
 
 int
 init_suite_pkt()
 {
   int fd = open (discovry_path, O_RDONLY);
+  int fd2 = open (all_path, O_RDONLY);
+  int readed;
 
   if (fd == -1)
     CU_ASSERT_FALSE (CU_TRUE);
 
   read (fd, buf, DHCP_PACKET_MAX_LEN);
 
+  size = read (fd2, buf2, BUFSIZ);
+
+  if (size == -1)
+    {
+      CU_ASSERT_FALSE (CU_TRUE);
+      return -1;
+    }
+
   pkt = (dhcp_packet_t *)buf;
 
   close (fd);
+  close (fd2);
 
   return 0;
 }
@@ -47,21 +64,59 @@ pkt_get_magic_cookie_test()
 {
   char validCookie[] = {0x63, -126, 0x53, 0x63, '\0'};
 
-  CU_ASSERT_STRING_EQUAL (pkt_get_magic_cookie(pkt), validCookie);
+  CU_ASSERT_STRING_EQUAL (pkt_get_magic_cookie (pkt), validCookie);
 }
 
 void
 pkt_get_requested_ip_address_test()
 {
-  struct in_addr addr = {0};
+  requestedIpAddress_t *opts[5];
 
-  struct in_addr actual = pkt_get_requested_ip_address (pkt);
+  int optCounter = 0;
 
-  CU_ASSERT_EQUAL (actual.s_addr, addr.s_addr);
+  for (size_t i = 0; i < size; i++)
+    {
+      if (pkt_is_requested_ip_addr_option_valid ((requestedIpAddress_t *)&buf2[i]))
+        opts[optCounter++] = (requestedIpAddress_t *)&buf2[i];
+    }
+
+  CU_ASSERT_TRUE (optCounter > 0);
 }
 
 void
 pkt_get_dhcp_message_type_test()
 {
   CU_ASSERT_EQUAL (pkt_get_dhcp_message_type (pkt), DHCP_MSG_TYPE_DISCOVER);
+}
+
+void
+pkt_get_host_name_test()
+{
+  char *host = pkt_get_host_name (pkt);
+
+  hostName_t *opts[5];
+
+  int optCounter = 0;
+
+  CU_ASSERT_STRING_EQUAL (host, "dhcp-server");
+
+  for (size_t i = 0; i < size; i++)
+    {
+      if (pkt_is_host_name_option_valid ((hostName_t *)&buf2[i]))
+        {
+          int len;
+
+          opts[optCounter++] = (hostName_t *)&buf2[i];
+
+          len = opts[optCounter - 1]->len;
+
+          opts[optCounter - 1]->name[len] = 0;
+        }
+    }
+
+  CU_ASSERT_TRUE (optCounter > 0);
+
+  CU_ASSERT_STRING_EQUAL(opts[0]->name, "dhcp-client1");
+
+  CU_ASSERT_STRING_EQUAL(opts[1]->name, "dhcp-client1");
 }
