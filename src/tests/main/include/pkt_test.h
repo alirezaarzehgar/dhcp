@@ -16,6 +16,7 @@ CU_TestInfo pkt_tests[] =
   {"validation function pkt_is_msg_type_valid_test", pkt_is_msg_type_valid_test},
   {"validation function pkt_is_msg_type_option_valid_test", pkt_is_msg_type_option_valid_test},
   {"validation function pkt_is_requested_ip_addr_option_valid_test", pkt_is_requested_ip_addr_option_valid_test},
+  {"get parameter list", pkt_get_parameter_list_test},
 	CU_TEST_INFO_NULL,
 };
 

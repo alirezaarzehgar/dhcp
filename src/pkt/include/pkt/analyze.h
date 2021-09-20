@@ -86,7 +86,8 @@ enum dhcpOptions
   OPTION_END = 255,
 };
 
-enum pktErr {
+enum pktErr
+{
   PKT_ERR_OPT_NOTFOUNT,
   PKT_ERR_INVALID_LEN,
   PKT_ERR_FAILURE,
@@ -101,6 +102,8 @@ enum dhcpMessageTypes pkt_get_dhcp_message_type (dhcp_packet_t *pkt);
 
 struct in_addr pkt_get_requested_ip_address (dhcp_packet_t *pkt);
 
-char *pkt_get_host_name(dhcp_packet_t *pkt);
+char *pkt_get_host_name (dhcp_packet_t *pkt);
+
+parameterRequestList_t *pkt_get_parameter_list (dhcp_packet_t *pkt);
 
 #endif // PKT_ANALYZE_H

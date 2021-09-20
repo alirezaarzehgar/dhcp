@@ -15,4 +15,6 @@ bool pkt_is_requested_ip_addr_option_valid(requestedIpAddress_t *opt);
 
 bool pkt_is_host_name_option_valid(hostName_t *opt);
 
+bool pkt_is_parameter_list_valid(parameterRequestList_t *opt);
+
 #endif // VALIDATE_H

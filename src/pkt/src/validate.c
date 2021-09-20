@@ -65,3 +65,10 @@ pkt_is_host_name_option_valid (hostName_t *opt)
 
   return false;
 }
+
+bool
+pkt_is_parameter_list_valid (parameterRequestList_t *opt)
+{
+  return opt->option == OPTION_PARAMETER_REQUERSTED & 0xff && opt->len > 0
+         && strlen (opt->list) > 0 ? true : false;
+}

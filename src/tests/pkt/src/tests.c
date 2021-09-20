@@ -116,7 +116,22 @@ pkt_get_host_name_test()
 
   CU_ASSERT_TRUE (optCounter > 0);
 
-  CU_ASSERT_STRING_EQUAL(opts[0]->name, "dhcp-client1");
+  CU_ASSERT_STRING_EQUAL (opts[0]->name, "dhcp-client1");
 
-  CU_ASSERT_STRING_EQUAL(opts[1]->name, "dhcp-client1");
+  CU_ASSERT_STRING_EQUAL (opts[1]->name, "dhcp-client1");
+}
+
+void
+pkt_get_parameter_list_test()
+{
+  parameterRequestList_t *list = pkt_get_parameter_list (pkt);
+
+  if (!list)
+    return;
+
+  CU_ASSERT_EQUAL (list->len, 13);
+
+  CU_ASSERT_EQUAL (list->len, strlen (list->list));
+
+  CU_ASSERT_EQUAL (list->option, OPTION_PARAMETER_REQUERSTED);
 }
