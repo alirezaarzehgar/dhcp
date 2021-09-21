@@ -142,5 +142,40 @@ pkt_get_server_identifier_test()
 {
   pktServerIdentifier_t *si;
 
-  pkt_get_server_identifier ((pktDhcpPacket_t *)buf2);
+  struct in_addr addr = *pkt_get_server_identifier ((pktDhcpPacket_t *)buf2);
+
+  CU_ASSERT_STRING_EQUAL (inet_ntoa (addr), "192.168.133.30");
+}
+
+void
+pkt_ip_hex2str_test()
+{
+  char ip[4];
+
+  for (size_t i = 0; i < 4; i++)
+    ip[i] = 1;
+
+  CU_ASSERT_STRING_EQUAL (pkt_ip_hex2str (ip), "1.1.1.1");
+
+  for (size_t i = 0; i < 4; i++)
+    ip[i] = 255;
+
+  CU_ASSERT_STRING_EQUAL (pkt_ip_hex2str (ip), "255.255.255.255");
+
+  bzero (ip, 4);
+
+  CU_ASSERT_STRING_NOT_EQUAL (pkt_ip_hex2str (ip), "255.255.255.255");
+}
+
+void
+pkt_ip_str2hex_test()
+{
+  CU_ASSERT_STRING_EQUAL (pkt_ip_hex2str (pkt_ip_str2hex ("1.1.1.1")),
+                          "1.1.1.1");
+
+  CU_ASSERT_STRING_EQUAL (pkt_ip_hex2str (pkt_ip_str2hex ("1.1.23.1")),
+                          "1.1.23.1");
+
+  CU_ASSERT_STRING_NOT_EQUAL (pkt_ip_hex2str (pkt_ip_str2hex ("192.168.1.13")),
+                              "1.1.1.1");
 }

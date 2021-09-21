@@ -7,6 +7,8 @@
 
 #define DHCP_MAGIC_COOKIE_SIZE               4
 
+#define PKT_IP_MAX_LEN                      16  /* len (255.255.255.255) == 16 */
+
 enum dhcpMessageTypes
 {
   DHCPDISCOVER = 1,       /* RFC 2132 */
@@ -124,6 +126,10 @@ char *pkt_get_host_name (pktDhcpPacket_t *pkt);
 
 pktParameterRequestList_t *pkt_get_parameter_list (pktDhcpPacket_t *pkt);
 
-struct inet_addr *pkt_get_server_identifier (pktDhcpPacket_t *pkt);
+struct in_addr *pkt_get_server_identifier (pktDhcpPacket_t *pkt);
+
+char *pkt_ip_hex2str (char *ip);
+
+char *pkt_ip_str2hex (char *ip);
 
 #endif // PKT_ANALYZE_H

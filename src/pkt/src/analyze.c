@@ -135,12 +135,76 @@ pkt_get_parameter_list (pktDhcpPacket_t *pkt)
   return list;
 }
 
-struct inet_addr *
+char *
+pkt_ip_hex2str (char *ip)
+{
+  char *tmpStr = (char *) calloc (sizeof (char) * PKT_IP_MAX_LEN, sizeof (char));
+
+  char charHolder[5];
+
+  for (size_t i = 0; i < 4; i++)
+    {
+      snprintf (charHolder, 5, "%d%c", ip[i] & 0xff, i != 3 ? '.' : '\0');
+
+      strncat (tmpStr, charHolder, 5);
+    }
+
+  return tmpStr;
+}
+
+char *
+pkt_ip_str2hex (char *ip)
+{
+  char tmpIp[PKT_IP_MAX_LEN];
+
+  struct in_addr testAddr = { inet_addr (ip) };
+
+  char *retIp = (char *)malloc (4);
+
+  char *tmp;
+
+  int index = 0;
+
+  memcpy(tmpIp, ip, PKT_IP_MAX_LEN);
+
+  if (testAddr.s_addr == 0)
+    {
+fail:
+
+      retIp[0] = 0;
+
+      retIp[1] = 0;
+
+      retIp[2] = 0;
+
+      retIp[3] = 0;
+    }
+  else
+    {
+      tmp = strtok (tmpIp, ".");
+      if (tmp == NULL)
+        goto fail;
+
+      do
+        {
+          retIp[index++] = atoi (tmp);
+        }
+      while ((tmp = strtok (NULL, ".")) != NULL);
+    }
+
+  return retIp;
+}
+
+struct in_addr *
 pkt_get_server_identifier (pktDhcpPacket_t *pkt)
 {
   pktDhcpOptions_t *opt = (pktDhcpOptions_t *)pkt->options;
 
   pktServerIdentifier_t *servIden = NULL;
+
+  struct in_addr *addr = (struct in_addr *)malloc (sizeof (struct in_addr));
+
+  char *ip;
 
   for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
     {
@@ -154,5 +218,9 @@ pkt_get_server_identifier (pktDhcpPacket_t *pkt)
   if (!servIden)
     return NULL;
 
-  return NULL;
+  ip = pkt_ip_hex2str (servIden->ip);
+
+  addr->s_addr = inet_addr (ip);
+
+  return addr;
 }
