@@ -54,7 +54,6 @@ pkt_is_msg_type_option_valid_test()
   opt.option = OPTION_COOKIE_SERVER;
 
   CU_ASSERT_FALSE (pkt_is_msg_type_option_valid (&opt));
-
 }
 
 void
