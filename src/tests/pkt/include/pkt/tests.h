@@ -28,4 +28,8 @@ void pkt_get_parameter_list_test();
 
 void pkt_get_server_identifier_test();
 
+void pkt_ip_hex2str_test();
+
+void pkt_ip_str2hex_test();
+
 #endif // TESTS_PKT_TESTS_H

@@ -150,3 +150,4 @@ pkt_is_valid_server_identifier_test()
 
   CU_ASSERT_TRUE (pkt_is_valid_server_identifier (si));
 }
+

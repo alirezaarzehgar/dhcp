@@ -19,4 +19,6 @@ bool pkt_is_parameter_list_valid(pktParameterRequestList_t *opt);
 
 bool pkt_is_valid_server_identifier(pktServerIdentifier_t *opt);
 
+bool pkt_is_valid_str_ip (char *ip);
+
 #endif // VALIDATE_H

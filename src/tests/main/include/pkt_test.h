@@ -21,6 +21,8 @@ CU_TestInfo pkt_tests[] =
   {"get host name", pkt_get_host_name_test},
   {"get parameter list", pkt_get_parameter_list_test},
   {"get server identifier", pkt_get_server_identifier_test},
+  {"convert ip string to hex", pkt_ip_str2hex_test},
+  {"convert ip hex to string", pkt_ip_hex2str_test},
   CU_TEST_INFO_NULL,
 };
 
