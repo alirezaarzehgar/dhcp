@@ -17,4 +17,6 @@ bool pkt_is_host_name_option_valid(pktHostName_t *opt);
 
 bool pkt_is_parameter_list_valid(pktParameterRequestList_t *opt);
 
+bool pkt_is_valid_server_identifier(pktServerIdentifier_t *opt);
+
 #endif // VALIDATE_H

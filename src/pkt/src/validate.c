@@ -14,20 +14,8 @@
 bool
 pkt_is_msg_type_valid (enum dhcpMessageTypes type)
 {
-  switch (type & 0xff)
-    {
-    case DHCP_MSG_TYPE_DISCOVER:
-    case DHCP_MSG_TYPE_OFFER:
-    case DHCP_MSG_TYPE_REQUEST:
-    case DHCP_MSG_TYPE_ACK:
-    case DHCP_MSG_TYPE_DECLIENT:
-    case DHCP_MSG_TYPE_NAK:
-    case DHCP_MSG_TYPE_RELEASE:
-      return true;
-
-    default:
-      return false;
-    }
+  int t = type & 0xff;
+  return t <= DHCPTLS && t >= DHCPDISCOVER ? true : false;
 }
 
 bool
@@ -69,6 +57,16 @@ pkt_is_host_name_option_valid (pktHostName_t *opt)
 bool
 pkt_is_parameter_list_valid (pktParameterRequestList_t *opt)
 {
+  for (size_t i = 0; i < opt->len; i++)
+    if (opt->list[i] < OPTION_SUBNET_MASK || opt->list[i] > OPTION_END)
+      return false;
+
   return opt->option == OPTION_PARAMETER_REQUERSTED & 0xff && opt->len > 0
          && strlen (opt->list) > 0 ? true : false;
+}
+
+bool
+pkt_is_valid_server_identifier (pktServerIdentifier_t *opt)
+{
+
 }

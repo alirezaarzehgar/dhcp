@@ -16,4 +16,10 @@ void pkt_is_msg_type_option_valid_test();
 
 void pkt_is_requested_ip_addr_option_valid_test();
 
+void pkt_is_host_name_option_valid_test();
+
+void pkt_is_parameter_list_valid_test();
+
+void pkt_is_valid_server_identifier_test();
+
 #endif // TEST_VALIDATE_H

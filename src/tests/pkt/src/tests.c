@@ -86,7 +86,7 @@ pkt_get_requested_ip_address_test()
 void
 pkt_get_dhcp_message_type_test()
 {
-  CU_ASSERT_EQUAL (pkt_get_dhcp_message_type (pkt), DHCP_MSG_TYPE_DISCOVER);
+  CU_ASSERT_EQUAL (pkt_get_dhcp_message_type (pkt), DHCPDISCOVER);
 }
 
 void
@@ -134,4 +134,10 @@ pkt_get_parameter_list_test()
   CU_ASSERT_EQUAL (list->len, strlen (list->list));
 
   CU_ASSERT_EQUAL (list->option, OPTION_PARAMETER_REQUERSTED);
+}
+
+void
+pkt_get_server_identifier_test()
+{
+
 }

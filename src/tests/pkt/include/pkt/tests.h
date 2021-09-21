@@ -26,4 +26,6 @@ void pkt_get_host_name_test();
 
 void pkt_get_parameter_list_test();
 
+void pkt_get_server_identifier_test();
+
 #endif // TESTS_PKT_TESTS_H

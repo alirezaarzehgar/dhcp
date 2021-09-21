@@ -9,14 +9,25 @@
 
 enum dhcpMessageTypes
 {
-  DHCP_MSG_TYPE_DISCOVER = 1,
-  DHCP_MSG_TYPE_OFFER,
-  DHCP_MSG_TYPE_REQUEST,
-  DHCP_MSG_TYPE_DECLIENT,
-  DHCP_MSG_TYPE_ACK,
-  DHCP_MSG_TYPE_NAK,
-  DHCP_MSG_TYPE_RELEASE,
-  DHCP_MSG_TYPE_UNKNOW
+  DHCPDISCOVER = 1,       /* RFC 2132 */
+  DHCPOFFER,              /* RFC 2132 */
+  DHCPREQUEST,            /* RFC 2132 */
+  DHCPDECLINE,            /* RFC 2132 */
+  DHCPACK,                /* RFC 2132 */
+  DHCPNAK,                /* RFC 2132 */
+  DHCPRELEASE,            /* RFC 2132 */
+  DHCPINFORM,             /* RFC 2132 */
+  DHCPFORCERENEW,         /* RFC 3203 */
+  DHCPLEASEQUERY,               /* RFC 4388 */
+  DHCPLEASEUNASSIGNED,          /* RFC 4388 */
+  DHCPLEASEUNKNOWN,             /* RFC 4388 */
+  DHCPLEASEACTIVE,              /* RFC 4388 */
+  DHCPBULKLEASEQUERY,           /* RFC 6926 */
+  DHCPLEASEQUERYDONE,           /* RFC 6926 */
+  DHCPACTIVELEASEQUERY,         /* RFC 7724 */
+  DHCPLEASEQUERYSTATUS,         /* RFC 7724 */
+  DHCPTLS,                      /* RFC 7724 */
+  DHCPUNKNOW
 };
 
 enum dhcpOptions
@@ -83,6 +94,13 @@ enum dhcpOptions
   OPTION_REBINDING_T2_TIME_VALUE,
   OPTION_CLASS_IDENTIFIER,
   OPTION_CLIENT_IDENTIFIER,
+
+  OPTION_TFTP_SERVER_NAME = 66,
+  OPTION_BOOT_FILE,
+  OPTION_HOST_AGENT_ADDR,
+  OPTION_USER_CLASS_INFO = 77,
+  OPTION_RELAY_AGENT_INFO = 82,
+  OPTION_DNS_DOMAIN_SEARCH_LIST = 119,
   OPTION_END = 255,
 };
 
@@ -105,5 +123,7 @@ struct in_addr pkt_get_requested_ip_address (pktDhcpPacket_t *pkt);
 char *pkt_get_host_name (pktDhcpPacket_t *pkt);
 
 pktParameterRequestList_t *pkt_get_parameter_list (pktDhcpPacket_t *pkt);
+
+struct inet_addr *pkt_get_server_identifier (pktDhcpPacket_t *pkt);
 
 #endif // PKT_ANALYZE_H

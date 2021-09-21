@@ -53,7 +53,7 @@ pkt_get_dhcp_message_type (pktDhcpPacket_t *pkt)
         }
     }
 
-  return msgType ? msgType->type : DHCP_MSG_TYPE_UNKNOW;
+  return msgType ? msgType->type : DHCPUNKNOW;
 }
 
 struct in_addr
@@ -114,7 +114,7 @@ pkt_get_parameter_list (pktDhcpPacket_t *pkt)
   pktParameterRequestList_t *listOpt = NULL;
 
   pktParameterRequestList_t *list = (pktParameterRequestList_t *)malloc (sizeof (
-                                   pktParameterRequestList_t));
+                                      pktParameterRequestList_t));
 
   for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
     {
@@ -133,4 +133,25 @@ pkt_get_parameter_list (pktDhcpPacket_t *pkt)
   memcpy (list->list, listOpt->list, listOpt->len);
 
   return list;
+}
+
+struct inet_addr *
+pkt_get_server_identifier (pktDhcpPacket_t *pkt)
+{
+  pktDhcpOptions_t *opt = (pktDhcpOptions_t *)pkt->options;
+
+  pktServerIdentifier_t *servIden = NULL;
+
+  for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
+    {
+      if (true)
+        {
+          servIden = (pktServerIdentifier_t *)&opt->opts[i];
+          break;
+        }
+    }
+  if (!servIden)
+    return NULL;
+
+  return NULL;
 }
