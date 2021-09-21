@@ -125,6 +125,12 @@ pkt_is_parameter_list_valid_test()
   list->len = index - 1;
 
   CU_ASSERT_TRUE (pkt_is_parameter_list_valid (list));
+
+  list->list[index++] = (char)500;
+
+  list->len = index;
+
+  CU_ASSERT_FALSE (pkt_is_parameter_list_valid (list));
 }
 
 void
