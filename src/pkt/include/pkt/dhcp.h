@@ -116,7 +116,7 @@ struct pktMessage
   char msg[];               /* RFC 2132 Message */
 };
 
-struct end
+struct pktEnd
 {
   u_int8_t option;          /* RFC 2132 End Option */
 };
@@ -139,5 +139,19 @@ typedef struct pktRequestedIpAddress pktRequestedIpAddress_t;
 typedef struct pktHostName pktHostName_t;
 
 typedef struct pktParameterRequestList pktParameterRequestList_t;
+
+typedef struct pktServerIdentifier pktServerIdentifier_t;
+
+typedef struct pktIpAddressLeaseTime pktIpAddressLeaseTime_t;
+
+typedef struct pktSubnetMask pktSubnetMask_t;
+
+typedef struct pktRouter pktRouter_t;
+
+typedef struct pktDomainName pktDomainName_t;
+
+typedef struct pktMessage pktMessage_t;
+
+typedef struct pktEnd pktEnd_t;
 
 #endif
