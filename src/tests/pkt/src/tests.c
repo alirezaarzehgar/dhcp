@@ -76,7 +76,8 @@ pkt_get_requested_ip_address_test()
 
   for (size_t i = 0; i < size; i++)
     {
-      if (pkt_is_requested_ip_addr_option_valid ((pktRequestedIpAddress_t *)&buf2[i]))
+      if (pkt_is_requested_ip_addr_option_valid ((pktRequestedIpAddress_t *)
+          &buf2[i]))
         opts[optCounter++] = (pktRequestedIpAddress_t *)&buf2[i];
     }
 
@@ -139,5 +140,7 @@ pkt_get_parameter_list_test()
 void
 pkt_get_server_identifier_test()
 {
+  pktServerIdentifier_t *si;
 
+  pkt_get_server_identifier ((pktDhcpPacket_t *)buf2);
 }

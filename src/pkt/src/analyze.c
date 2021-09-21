@@ -144,12 +144,13 @@ pkt_get_server_identifier (pktDhcpPacket_t *pkt)
 
   for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
     {
-      if (true)
+      if (pkt_is_valid_server_identifier ((pktServerIdentifier_t *)&opt->opts[i]))
         {
           servIden = (pktServerIdentifier_t *)&opt->opts[i];
           break;
         }
     }
+
   if (!servIden)
     return NULL;
 

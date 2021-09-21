@@ -136,5 +136,17 @@ pkt_is_parameter_list_valid_test()
 void
 pkt_is_valid_server_identifier_test()
 {
+  pktServerIdentifier_t *si = (pktServerIdentifier_t *)malloc (sizeof (
+                                pktServerIdentifier_t));
 
+  si->option = OPTION_SERVER_IDENTIFIER & 0xff;
+
+  si->len = 4;
+
+  si->ip[0] = 192;
+  si->ip[1] = 168;
+  si->ip[2] = 133;
+  si->ip[3] = 30;
+
+  CU_ASSERT_TRUE (pkt_is_valid_server_identifier (si));
 }

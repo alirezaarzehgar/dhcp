@@ -68,5 +68,10 @@ pkt_is_parameter_list_valid (pktParameterRequestList_t *opt)
 bool
 pkt_is_valid_server_identifier (pktServerIdentifier_t *opt)
 {
-
+  for (size_t i = 0; i < opt->len; i++)
+    if (opt->ip[i] & 0xff < 0 || opt->ip[i] & 0xff > 255)
+      return false;
+  
+  return opt->option == OPTION_SERVER_IDENTIFIER & 0xff && opt->len == 4
+         && strlen (opt->ip) >= 4 ? true : false;
 }
