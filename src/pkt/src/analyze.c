@@ -269,7 +269,9 @@ pkt_lease_time_hex2long (char *time)
 char *
 pkt_lease_time_long2hex (long long time)
 {
-  char *timeHex = (char *) malloc (sizeof (char) * 4);
+  char *timeHexForReturn = (char *)malloc (sizeof (char) * 4);
+
+  char timeHex[4];
 
   char hexFormat[8];
 
@@ -286,7 +288,9 @@ pkt_lease_time_long2hex (long long time)
       timeHex[i] = strtol (tmp, NULL, HEX);
     }
 
-  return timeHex;
+  memcpy (timeHexForReturn, timeHex, 4);
+
+  return timeHexForReturn;
 }
 
 struct in_addr *pkt_get_subnet_mask (pktDhcpPacket_t *pkt)

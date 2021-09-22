@@ -64,7 +64,7 @@ init_suite_pkt()
   pkt = (pktDhcpPacket_t *)bufDiscovery;
 
   close (fdDiscovery);
-  
+
   close (fdAll);
 
   return 0;
@@ -73,6 +73,12 @@ init_suite_pkt()
 int
 cleanup_suite_pkt()
 {
+  bzero (bufDiscovery, sizeof (bufDiscovery) / sizeof (char));
+
+  bzero (bufAll, sizeof (bufAll) / sizeof (char));
+
+  bzero (bufOffer, sizeof (bufOffer) / sizeof (char));
+
   return 0;
 }
 
