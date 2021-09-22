@@ -217,11 +217,11 @@ fail:
 }
 
 struct in_addr *
-pkt_get_server_identifier (pktDhcpPacket_t *pkt)
+pkt_get_address (pktDhcpPacket_t *pkt, pktValidator_t validator)
 {
   pktDhcpOptions_t *opt = (pktDhcpOptions_t *)pkt->options;
 
-  pktServerIdentifier_t *servIden = NULL;
+  pktAddress_t *address = NULL;
 
   struct in_addr *addr = (struct in_addr *)malloc (sizeof (struct in_addr));
 
@@ -232,21 +232,27 @@ pkt_get_server_identifier (pktDhcpPacket_t *pkt)
 
   for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
     {
-      if (pkt_is_valid_server_identifier ((pktServerIdentifier_t *)&opt->opts[i]))
+      if (validator ((pktAddress_t *)&opt->opts[i]))
         {
-          servIden = (pktServerIdentifier_t *)&opt->opts[i];
+          address = (pktAddress_t *)&opt->opts[i];
           break;
         }
     }
 
-  if (!servIden)
+  if (!address)
     return NULL;
 
-  ip = pkt_ip_hex2str (servIden->ip);
+  ip = pkt_ip_hex2str (address->addr);
 
   addr->s_addr = inet_addr (ip);
 
   return addr;
+}
+
+struct in_addr *
+pkt_get_server_identifier (pktDhcpPacket_t *pkt)
+{
+  return pkt_get_address(pkt, (pktValidator_t)pkt_is_valid_server_identifier);
 }
 
 char *
@@ -325,33 +331,6 @@ pkt_lease_time_long2hex (long long time)
 
 struct in_addr *pkt_get_subnet_mask (pktDhcpPacket_t *pkt)
 {
-  pktDhcpOptions_t *opt = (pktDhcpOptions_t *)pkt->options;
-
-  pktSubnetMask_t *mask = NULL;
-
-  struct in_addr *addr = (struct in_addr *)malloc (sizeof (struct in_addr));
-
-  if (!addr)
-    return NULL;
-
-  char *subnet;
-
-  for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
-    {
-      if (pkt_is_valid_subnet_mask ((pktSubnetMask_t *)&opt->opts[i]))
-        {
-          mask = (pktSubnetMask_t *)&opt->opts[i];
-          break;
-        }
-    }
-
-  if (!mask)
-    return NULL;
-
-  subnet = pkt_ip_hex2str (mask->subnet);
-
-  addr->s_addr = inet_addr (subnet);
-
-  return addr;
+  return pkt_get_address(pkt, (pktValidator_t)pkt_is_valid_subnet_mask);
 }
 
