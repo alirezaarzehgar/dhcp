@@ -89,7 +89,8 @@ struct pktServerIdentifier
 struct pktIpAddressLeaseTime
 {
   PKT_BASE_MEMBERS;        /* Option (51) */
-  u_int32_t t[4];          /* RFC 2132 IP Address Lease Time Option */
+  
+  char time[4];            /* RFC 2132 IP Address Lease Time Option */
 };
 
 struct pktSubnetMask

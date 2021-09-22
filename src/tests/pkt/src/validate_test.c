@@ -151,3 +151,15 @@ pkt_is_valid_server_identifier_test()
   CU_ASSERT_TRUE (pkt_is_valid_server_identifier (si));
 }
 
+void
+pkt_is_ip_address_lease_time_option_valid_test()
+{
+  for (size_t i = 0; i < 10; i++)
+    {
+      pktIpAddressLeaseTime_t lt = {.option = OPTION_IP_ADDR_LEASE_TIME & 0xff, .len = 4};
+
+      strncpy (lt.time, pkt_lease_time_long2hex (i * rand() % 14), lt.len);
+
+      CU_ASSERT_TRUE (pkt_is_ip_address_lease_time_option_valid (&lt));
+    }
+}

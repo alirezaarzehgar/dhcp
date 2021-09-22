@@ -9,6 +9,8 @@
 
 #define PKT_IP_MAX_LEN                      16  /* len (255.255.255.255) == 16 */
 
+#define HEX                                 16
+
 enum dhcpMessageTypes
 {
   DHCPDISCOVER = 1,       /* RFC 2132 */
@@ -131,5 +133,11 @@ struct in_addr *pkt_get_server_identifier (pktDhcpPacket_t *pkt);
 char *pkt_ip_hex2str (char *ip);
 
 char *pkt_ip_str2hex (char *ip);
+
+char *pkt_get_ip_address_lease_time (pktDhcpPacket_t *pkt);
+
+long long pkt_lease_time_hex2long (char *time);
+
+char *pkt_lease_time_long2hex (long long time);
 
 #endif // PKT_ANALYZE_H

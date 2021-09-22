@@ -165,7 +165,7 @@ pkt_ip_str2hex (char *ip)
 
   int index = 0;
 
-  memcpy(tmpIp, ip, PKT_IP_MAX_LEN);
+  memcpy (tmpIp, ip, PKT_IP_MAX_LEN);
 
   if (testAddr.s_addr == 0)
     {
@@ -224,3 +224,68 @@ pkt_get_server_identifier (pktDhcpPacket_t *pkt)
 
   return addr;
 }
+
+char *
+pkt_get_ip_address_lease_time (pktDhcpPacket_t *pkt)
+{
+  pktDhcpOptions_t *opt = (pktDhcpOptions_t *)pkt->options;
+
+  pktIpAddressLeaseTime_t *leaseTime = NULL;
+
+  char *time = (char *)malloc (sizeof (char) * 4);
+
+  for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
+    {
+      if (pkt_is_ip_address_lease_time_option_valid ((pktIpAddressLeaseTime_t *)
+          &opt->opts[i]))
+        {
+          leaseTime = (pktIpAddressLeaseTime_t *)&opt->opts[i];
+          break;
+        }
+    }
+
+  if (!leaseTime)
+    return NULL;
+
+  memcpy (time, leaseTime->time, leaseTime->len);
+
+  return time;
+}
+
+long long
+pkt_lease_time_hex2long (char *time)
+{
+  int maxLen = 8;
+
+  char tmp[maxLen];
+
+  /* convert 4 time segment to hex string */
+  snprintf (tmp, maxLen + 1, "%02x%02x%02x%02x", time[0] & 0xff, time[1] & 0xff,
+            time[2] & 0xff, time[3] & 0xff);
+
+  return strtol (tmp, NULL, HEX);
+}
+
+char *
+pkt_lease_time_long2hex (long long time)
+{
+  char *timeHex = (char *) malloc (sizeof (char) * 4);
+
+  char hexFormat[8];
+
+  char tmp[2];
+
+  snprintf (hexFormat, 9, "%08x", time);
+
+  for (size_t i = 0; i < 4; i++)
+    {
+      strncpy (tmp, &hexFormat[i * 2], 2);
+
+      tmp[i * 2 + 2] = '\0';
+
+      timeHex[i] = strtol (tmp, NULL, HEX);
+    }
+
+  return timeHex;
+}
+

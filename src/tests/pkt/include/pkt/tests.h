@@ -32,4 +32,12 @@ void pkt_ip_hex2str_test();
 
 void pkt_ip_str2hex_test();
 
+void pkt_get_ip_address_lease_time_test();
+
+void pkt_offer_file_test();
+
+void pkt_lease_time_hex2long_test();
+
+void pkt_lease_time_long2hex_test();
+
 #endif // TESTS_PKT_TESTS_H

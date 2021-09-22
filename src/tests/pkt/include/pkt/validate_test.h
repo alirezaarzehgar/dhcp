@@ -22,4 +22,6 @@ void pkt_is_parameter_list_valid_test();
 
 void pkt_is_valid_server_identifier_test();
 
+void pkt_is_ip_address_lease_time_option_valid_test();
+
 #endif // TEST_VALIDATE_H
