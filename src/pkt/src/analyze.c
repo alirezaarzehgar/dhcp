@@ -110,7 +110,8 @@ pkt_get_host_name (pktDhcpPacket_t *pkt)
   if (!hostNameOpt)
     return NULL;
 
-  hostname = (char *)malloc (hostNameOpt->len);
+  /* +1 for nul */
+  hostname = (char *)malloc (hostNameOpt->len + 1);
 
   if (!hostname && hostNameOpt->len > 0)
     return NULL;
