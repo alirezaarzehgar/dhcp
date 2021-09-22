@@ -11,13 +11,11 @@
 
 #include "pkt/tests.h"
 
-const char *discovry_path = "src/tests/fake_data/discovery";
+const char *pathDiscovry = "src/tests/fake_data/discovery";
 
-const char *offer_path = "src/tests/fake_data/offer";
+const char *pathOffer = "src/tests/fake_data/offer";
 
-const char *all_path = "src/tests/fake_data/all";
-
-const char *magic_cookie_tmp_file = "magic_cookie.tmp";
+const char *pathAll = "src/tests/fake_data/all";
 
 char bufDiscovery[DHCP_PACKET_MAX_LEN];
 
@@ -33,11 +31,11 @@ int sizeOffer;
 int
 init_suite_pkt()
 {
-  int fdDiscovery = open (discovry_path, O_RDONLY);
+  int fdDiscovery = open (pathDiscovry, O_RDONLY);
 
-  int fdAll = open (all_path, O_RDONLY);
+  int fdAll = open (pathAll, O_RDONLY);
 
-  int fdOffer = open (offer_path, O_RDONLY);
+  int fdOffer = open (pathOffer, O_RDONLY);
 
   int readed;
 
