@@ -140,4 +140,6 @@ long long pkt_lease_time_hex2long (char *time);
 
 char *pkt_lease_time_long2hex (long long time);
 
+struct in_addr *pkt_get_subnet_mask (pktDhcpPacket_t *pkt);
+
 #endif // PKT_ANALYZE_H

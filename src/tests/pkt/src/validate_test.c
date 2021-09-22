@@ -163,3 +163,9 @@ pkt_is_ip_address_lease_time_option_valid_test()
       CU_ASSERT_TRUE (pkt_is_ip_address_lease_time_option_valid (&lt));
     }
 }
+
+void
+pkt_is_valid_subnet_mask_test()
+{
+  /* TODO */
+}

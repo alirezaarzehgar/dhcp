@@ -241,3 +241,9 @@ pkt_lease_time_long2hex_test()
   for (size_t i = 1000000; i < 1006000; i += 50)
     CU_ASSERT_EQUAL (pkt_lease_time_hex2long (pkt_lease_time_long2hex (i)), i);
 }
+
+void
+pkt_get_subnet_mask_test()
+{
+  /* TODO */
+}

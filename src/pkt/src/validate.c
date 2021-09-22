@@ -79,3 +79,9 @@ pkt_is_ip_address_lease_time_option_valid (pktIpAddressLeaseTime_t *opt)
 {
   return opt->option == OPTION_IP_ADDR_LEASE_TIME & 0xff && opt->len == 4;
 }
+
+bool
+pkt_is_valid_subnet_mask (pktSubnetMask_t *opt)
+{
+  /* TODO */
+}
