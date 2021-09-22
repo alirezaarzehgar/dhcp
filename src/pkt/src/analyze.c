@@ -96,6 +96,8 @@ pkt_get_host_name (pktDhcpPacket_t *pkt)
 
   pktHostName_t *hostNameOpt = NULL;
 
+  char *hostname;
+
   for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
     {
       if (pkt_is_host_name_option_valid ((pktHostName_t *)&opt->opts[i]))
@@ -108,7 +110,7 @@ pkt_get_host_name (pktDhcpPacket_t *pkt)
   if (!hostNameOpt)
     return NULL;
 
-  char *hostname = (char *)malloc (hostNameOpt->len);
+  hostname = (char *)malloc (hostNameOpt->len);
 
   if (!hostname && hostNameOpt->len > 0)
     return NULL;
