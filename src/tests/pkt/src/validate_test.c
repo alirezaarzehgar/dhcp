@@ -167,5 +167,16 @@ pkt_is_ip_address_lease_time_option_valid_test()
 void
 pkt_is_valid_subnet_mask_test()
 {
-  /* TODO */
+  pktSubnetMask_t *mask = (pktSubnetMask_t *)malloc (sizeof (pktSubnetMask_t));
+
+  mask->option = OPTION_SUBNET_MASK;
+
+  mask->len = 4;
+
+  mask->subnet[0] = 225;
+  mask->subnet[1] = 225;
+  mask->subnet[2] = 225;
+  mask->subnet[3] = 0;
+
+  CU_ASSERT_TRUE (pkt_is_valid_subnet_mask (mask));
 }

@@ -15,13 +15,31 @@ int
 main (int argc, char const *argv[])
 {
   if (CU_initialize_registry() != CUE_SUCCESS)
-    return CU_get_error();
+    {
+      fprintf (stderr, "%s\n", CU_get_error_msg());
+      return CU_get_error();
+    }
 
-  CU_register_suites (suites);
+  if (CU_register_suites (suites) != CUE_SUCCESS)
+    {
+      fprintf (stderr, "%s\n", CU_get_error_msg());
+      return CU_get_error();
+    }
+
+  /**
+   * Fix undefined behavior and unknow bug
+   * with printing some text on screen for
+   * preventing segment fault
+   */
+  // printf ("start testing ...\n");
 
   CU_basic_set_mode (CU_BRM_VERBOSE);
 
-  CU_basic_run_tests();
+  if (CU_basic_run_tests() != CUE_SUCCESS)
+    {
+      fprintf (stderr, "%s\n", CU_get_error_msg());
+      return CU_get_error();
+    }
 
   CU_cleanup_registry();
 

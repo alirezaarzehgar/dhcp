@@ -18,6 +18,7 @@ CU_TestInfo pkt_tests[] =
   {"validation function pkt_is_ip_address_lease_time_option_valid_test", pkt_is_ip_address_lease_time_option_valid_test},
   {"validation function pkt_lease_time_hex2long_test", pkt_lease_time_hex2long_test},
   {"validation function pkt_lease_time_long2hex_test", pkt_lease_time_long2hex_test},
+  {"validation function pkt_is_valid_subnet_mask_test", pkt_is_valid_subnet_mask_test},
   {"get magic cookie", pkt_get_magic_cookie_test},
   {"get message type", pkt_get_dhcp_message_type_test},
   {"get requested ip address", pkt_get_requested_ip_address_test},
@@ -28,6 +29,7 @@ CU_TestInfo pkt_tests[] =
   {"convert ip hex to string", pkt_ip_hex2str_test},
   {"get ip address lease time", pkt_get_ip_address_lease_time_test},
   {"offer file test", pkt_offer_file_test},
+  {"pkt get subnet mask", pkt_get_subnet_mask_test},
   CU_TEST_INFO_NULL,
 };
 

@@ -41,9 +41,9 @@ CU_SuiteInfo suites[] =
     .pName = "cli suite",
     .pInitFunc = init_suite_cli,
     .pCleanupFunc = cleanup_suite_cli,
-    .pTests = cli_tests
+    .pTests = cli_tests,
   },
-  CU_SUITE_INFO_NULL
+  CU_SUITE_INFO_NULL,
 };
 
 #endif // TESTS_MAIN_H

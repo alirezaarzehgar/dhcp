@@ -26,6 +26,7 @@ char bufOffer[DHCP_PACKET_MAX_LEN];
 pktDhcpPacket_t *pkt;
 
 int size;
+
 int sizeOffer;
 
 int
@@ -63,6 +64,7 @@ init_suite_pkt()
   pkt = (pktDhcpPacket_t *)bufDiscovery;
 
   close (fdDiscovery);
+  
   close (fdAll);
 
   return 0;
@@ -245,5 +247,9 @@ pkt_lease_time_long2hex_test()
 void
 pkt_get_subnet_mask_test()
 {
-  /* TODO */
+  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufOffer;
+
+  struct in_addr *addr = pkt_get_subnet_mask (pkt);
+
+  CU_ASSERT_STRING_EQUAL (inet_ntoa (*addr), "255.255.255.0");
 }
