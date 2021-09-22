@@ -176,3 +176,37 @@ pkt_is_valid_subnet_mask_test()
 
   CU_ASSERT_TRUE (pkt_is_valid_subnet_mask (mask));
 }
+
+void
+pkt_is_address_valid_test()
+{
+  pktSubnetMask_t *mask = (pktSubnetMask_t *)malloc (sizeof (pktSubnetMask_t));
+
+  pktServerIdentifier_t *si = (pktServerIdentifier_t *)malloc (sizeof (
+                                pktServerIdentifier_t));
+
+  mask->option = OPTION_SUBNET_MASK;
+
+  mask->len = 4;
+
+  mask->subnet[0] = 225;
+  mask->subnet[1] = 225;
+  mask->subnet[2] = 225;
+  mask->subnet[3] = 0;
+
+  si->option = OPTION_SERVER_IDENTIFIER & 0xff;
+
+  si->len = 4;
+
+  si->ip[0] = 192;
+  si->ip[1] = 168;
+  si->ip[2] = 133;
+  si->ip[3] = 30;
+
+  CU_ASSERT_TRUE (pkt_is_address_valid ((pktAddress_t *)mask, OPTION_SUBNET_MASK,
+                                        256));
+
+  CU_ASSERT_TRUE (pkt_is_address_valid ((pktAddress_t *)si, OPTION_SERVER_IDENTIFIER,
+                                        255));
+}
+

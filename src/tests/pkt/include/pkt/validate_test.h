@@ -26,4 +26,6 @@ void pkt_is_ip_address_lease_time_option_valid_test();
 
 void pkt_is_valid_subnet_mask_test();
 
+void pkt_is_address_valid_test();
+
 #endif // TEST_VALIDATE_H

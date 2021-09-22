@@ -69,14 +69,19 @@ pkt_is_parameter_list_valid (pktParameterRequestList_t *opt)
 }
 
 bool
-pkt_is_valid_server_identifier (pktServerIdentifier_t *opt)
+pkt_is_address_valid (pktAddress_t *opt, int option,  int max)
 {
   for (size_t i = 0; i < opt->len; i++)
-    if (opt->ip[i] & 0xff < 0 || opt->ip[i] & 0xff > 255)
+    if (opt->addr[i] & 0xff < 0 || opt->addr[i] & 0xff > max)
       return false;
 
-  return opt->option == OPTION_SERVER_IDENTIFIER & 0xff && opt->len == 4
-         && strlen (opt->ip) >= 4;
+  return opt->option == option & 0xff && opt->len == 4;
+}
+
+bool
+pkt_is_valid_server_identifier (pktServerIdentifier_t *opt)
+{
+  return pkt_is_address_valid ((pktAddress_t*)opt, OPTION_SERVER_IDENTIFIER, 255);
 }
 
 bool
@@ -88,5 +93,5 @@ pkt_is_ip_address_lease_time_option_valid (pktIpAddressLeaseTime_t *opt)
 bool
 pkt_is_valid_subnet_mask (pktSubnetMask_t *opt)
 {
-  return opt->option == OPTION_SUBNET_MASK & 0xff && opt->len == 4;
+  return pkt_is_address_valid ((pktAddress_t*)opt, OPTION_SUBNET_MASK, 256);
 }

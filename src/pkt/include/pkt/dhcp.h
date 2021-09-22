@@ -80,6 +80,12 @@ struct pktParameterRequestList
   char list[];          /* RFC 2132 Parameter Request List */
 };
 
+struct pktAddress
+{
+  PKT_BASE_MEMBERS;
+  char addr[];
+};
+
 struct pktServerIdentifier
 {
   PKT_BASE_MEMBERS;             /* Option (54) */
@@ -140,6 +146,8 @@ typedef struct pktRequestedIpAddress pktRequestedIpAddress_t;
 typedef struct pktHostName pktHostName_t;
 
 typedef struct pktParameterRequestList pktParameterRequestList_t;
+
+typedef struct pktAddress pktAddress_t;
 
 typedef struct pktServerIdentifier pktServerIdentifier_t;
 
