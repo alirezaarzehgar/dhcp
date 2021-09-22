@@ -19,9 +19,9 @@ const char *all_path = "src/tests/fake_data/all";
 
 const char *magic_cookie_tmp_file = "magic_cookie.tmp";
 
-char buf[DHCP_PACKET_MAX_LEN];
+char bufDiscovery[DHCP_PACKET_MAX_LEN];
 
-char buf2[DHCP_PACKET_MAX_LEN];
+char bufAll[DHCP_PACKET_MAX_LEN];
 
 char bufOffer[DHCP_PACKET_MAX_LEN];
 
@@ -33,18 +33,20 @@ int sizeOffer;
 int
 init_suite_pkt()
 {
-  int fd = open (discovry_path, O_RDONLY);
-  int fd2 = open (all_path, O_RDONLY);
+  int fdDiscovery = open (discovry_path, O_RDONLY);
+
+  int fdAll = open (all_path, O_RDONLY);
+
   int fdOffer = open (offer_path, O_RDONLY);
 
   int readed;
 
-  if (fd == -1)
+  if (fdDiscovery == -1)
     CU_ASSERT_FALSE (CU_TRUE);
 
-  read (fd, buf, DHCP_PACKET_MAX_LEN);
+  read (fdDiscovery, bufDiscovery, DHCP_PACKET_MAX_LEN);
 
-  size = read (fd2, buf2, BUFSIZ);
+  size = read (fdAll, bufAll, BUFSIZ);
 
   if (size == -1)
     {
@@ -60,10 +62,10 @@ init_suite_pkt()
       return -1;
     }
 
-  pkt = (pktDhcpPacket_t *)buf;
+  pkt = (pktDhcpPacket_t *)bufDiscovery;
 
-  close (fd);
-  close (fd2);
+  close (fdDiscovery);
+  close (fdAll);
 
   return 0;
 }
@@ -92,8 +94,8 @@ pkt_get_requested_ip_address_test()
   for (size_t i = 0; i < size; i++)
     {
       if (pkt_is_requested_ip_addr_option_valid ((pktRequestedIpAddress_t *)
-          &buf2[i]))
-        opts[optCounter++] = (pktRequestedIpAddress_t *)&buf2[i];
+          &bufAll[i]))
+        opts[optCounter++] = (pktRequestedIpAddress_t *)&bufAll[i];
     }
 
   CU_ASSERT_TRUE (optCounter > 0);
@@ -118,11 +120,11 @@ pkt_get_host_name_test()
 
   for (size_t i = 0; i < size; i++)
     {
-      if (pkt_is_host_name_option_valid ((pktHostName_t *)&buf2[i]))
+      if (pkt_is_host_name_option_valid ((pktHostName_t *)&bufAll[i]))
         {
           int len;
 
-          opts[optCounter++] = (pktHostName_t *)&buf2[i];
+          opts[optCounter++] = (pktHostName_t *)&bufAll[i];
 
           len = opts[optCounter - 1]->len;
 
@@ -161,8 +163,8 @@ pkt_get_server_identifier_test()
 
   for (size_t i = 0; i < size; i++)
     {
-      if (pkt_is_valid_server_identifier ((pktServerIdentifier_t *)&buf2[i]))
-        pkts[coutnter++] = (pktDhcpPacket_t *)&buf2[i - 100];
+      if (pkt_is_valid_server_identifier ((pktServerIdentifier_t *)&bufAll[i]))
+        pkts[coutnter++] = (pktDhcpPacket_t *)&bufAll[i - 100];
     }
 
   for (size_t i = 0; i < coutnter - 2; i++)
