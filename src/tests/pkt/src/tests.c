@@ -235,6 +235,9 @@ pkt_get_ip_address_lease_time_test()
   char *n = pkt_get_ip_address_lease_time (pkt);
 
   CU_ASSERT_EQUAL (pkt_lease_time_hex2long (n), 600);
+
+  if (n)
+    free (n);
 }
 
 void
@@ -269,4 +272,7 @@ pkt_get_subnet_mask_test()
   struct in_addr *addr = pkt_get_subnet_mask (pkt);
 
   CU_ASSERT_STRING_EQUAL (inet_ntoa (*addr), "255.255.255.0");
+
+  if (addr)
+    free (addr);
 }
