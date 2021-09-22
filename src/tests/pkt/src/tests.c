@@ -41,7 +41,7 @@ init_suite_pkt()
   int readed;
 
   if (fdDiscovery == -1)
-    CU_ASSERT_FALSE (CU_TRUE);
+    CU_ASSERT_FATAL (CU_TRUE);
 
   read (fdDiscovery, bufDiscovery, DHCP_PACKET_MAX_LEN);
 
@@ -49,7 +49,7 @@ init_suite_pkt()
 
   if (size == -1)
     {
-      CU_ASSERT_FALSE (CU_TRUE);
+      CU_ASSERT_FATAL (CU_TRUE);
       return -1;
     }
 
@@ -57,7 +57,7 @@ init_suite_pkt()
 
   if (sizeOffer == -1)
     {
-      CU_ASSERT_FALSE (CU_TRUE);
+      CU_ASSERT_FATAL (CU_TRUE);
       return -1;
     }
 
@@ -244,7 +244,7 @@ void
 pkt_offer_file_test()
 {
   /* endpoint for checking offer file health */
-  CU_ASSERT_TRUE (CU_TRUE);
+  CU_ASSERT (CU_TRUE);
 }
 
 
@@ -275,4 +275,14 @@ pkt_get_subnet_mask_test()
 
   if (addr)
     free (addr);
+}
+
+void
+pkt_get_address_test()
+{
+  /** 
+   * get_address function didn't need to test
+   *  cause testing its subfunctions can be many test for it. 
+   */
+  CU_ASSERT (CU_TRUE);
 }

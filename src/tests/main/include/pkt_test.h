@@ -31,6 +31,7 @@ CU_TestInfo pkt_tests[] =
   {"get ip address lease time", pkt_get_ip_address_lease_time_test},
   {"offer file test", pkt_offer_file_test},
   {"pkt get subnet mask", pkt_get_subnet_mask_test},
+  {"pkt get address", pkt_get_address_test},
   CU_TEST_INFO_NULL,
 };
 
