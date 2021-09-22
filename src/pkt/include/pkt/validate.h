@@ -7,6 +7,9 @@
 #include "analyze.h"
 #include <ctype.h>
 
+#define PKT_MAX_IP_SEGMENT_LEN                  255
+#define PKT_DEFAULT_ADDRESS_LEN                 4
+
 bool pkt_is_msg_type_valid (enum dhcpMessageTypes type);
 
 bool pkt_is_msg_type_option_valid (pktMessageType_t *opt);
@@ -23,8 +26,10 @@ bool pkt_is_valid_str_ip (char *ip);
 
 bool pkt_is_ip_address_lease_time_option_valid (pktIpAddressLeaseTime_t *opt);
 
-bool pkt_is_valid_subnet_mask (pktSubnetMask_t* opt);
+bool pkt_is_valid_subnet_mask (pktSubnetMask_t *opt);
 
 bool pkt_is_address_valid (pktAddress_t *opt, int option,  int max);
+
+bool pkt_is_valid_router (pktRouter_t *opt);
 
 #endif // VALIDATE_H

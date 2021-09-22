@@ -137,7 +137,7 @@ pkt_is_valid_server_identifier_test()
 
   si->option = OPTION_SERVER_IDENTIFIER & 0xff;
 
-  si->len = 4;
+  si->len =PKT_DEFAULT_ADDRESS_LEN;
 
   si->ip[0] = 192;
   si->ip[1] = 168;
@@ -167,7 +167,7 @@ pkt_is_valid_subnet_mask_test()
 
   mask->option = OPTION_SUBNET_MASK;
 
-  mask->len = 4;
+  mask->len =PKT_DEFAULT_ADDRESS_LEN;
 
   mask->subnet[0] = 225;
   mask->subnet[1] = 225;
@@ -187,7 +187,7 @@ pkt_is_address_valid_test()
 
   mask->option = OPTION_SUBNET_MASK;
 
-  mask->len = 4;
+  mask->len =PKT_DEFAULT_ADDRESS_LEN;
 
   mask->subnet[0] = 225;
   mask->subnet[1] = 225;
@@ -196,7 +196,7 @@ pkt_is_address_valid_test()
 
   si->option = OPTION_SERVER_IDENTIFIER & 0xff;
 
-  si->len = 4;
+  si->len =PKT_DEFAULT_ADDRESS_LEN;
 
   si->ip[0] = 192;
   si->ip[1] = 168;
@@ -206,7 +206,32 @@ pkt_is_address_valid_test()
   CU_ASSERT_TRUE (pkt_is_address_valid ((pktAddress_t *)mask, OPTION_SUBNET_MASK,
                                         256));
 
-  CU_ASSERT_TRUE (pkt_is_address_valid ((pktAddress_t *)si, OPTION_SERVER_IDENTIFIER,
+  CU_ASSERT_TRUE (pkt_is_address_valid ((pktAddress_t *)si,
+                                        OPTION_SERVER_IDENTIFIER,
                                         255));
 }
 
+void
+pkt_is_valid_router_test()
+{
+  pktRouter_t *router = (pktRouter_t *)malloc (sizeof (pktRouter_t));
+
+  router->option = OPTION_ROUTER;
+
+  router->len =PKT_DEFAULT_ADDRESS_LEN;
+
+  router->router[0] = 192;
+  router->router[1] = 168;
+  router->router[2] = 1;
+  router->router[3] = 1;
+
+  CU_ASSERT_TRUE (pkt_is_valid_router (router));
+
+  router->option = OPTION_ARP_CACHE_TIMEOUT;
+
+  CU_ASSERT_FALSE (pkt_is_valid_router (router));
+
+  router->len = 12;
+  
+  CU_ASSERT_FALSE (pkt_is_valid_router (router));
+}

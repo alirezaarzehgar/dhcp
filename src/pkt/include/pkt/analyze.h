@@ -116,7 +116,7 @@ enum pktErr
   PKT_ERR_SUCCESS
 };
 
-typedef bool (*pktValidator_t)(pktAddress_t*);
+typedef bool (*pktValidator_t) (pktAddress_t *);
 
 char *pkt_get_magic_cookie (pktDhcpPacket_t *pkt);
 
@@ -144,6 +144,9 @@ char *pkt_lease_time_long2hex (long long time);
 
 struct in_addr *pkt_get_subnet_mask (pktDhcpPacket_t *pkt);
 
-struct in_addr * pkt_get_address (pktDhcpPacket_t *pkt, pktValidator_t validator);
+struct in_addr *pkt_get_address (pktDhcpPacket_t *pkt,
+                                 pktValidator_t validator);
+
+struct in_addr *pkt_get_router (pktDhcpPacket_t *pkt);
 
 #endif // PKT_ANALYZE_H

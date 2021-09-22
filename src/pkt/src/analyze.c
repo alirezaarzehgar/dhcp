@@ -335,3 +335,8 @@ pkt_get_subnet_mask (pktDhcpPacket_t *pkt)
   return pkt_get_address (pkt, (pktValidator_t)pkt_is_valid_subnet_mask);
 }
 
+struct in_addr *
+pkt_get_router (pktDhcpPacket_t *pkt)
+{
+  return pkt_get_address (pkt, (pktValidator_t)pkt_is_valid_router);
+}

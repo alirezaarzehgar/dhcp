@@ -174,24 +174,13 @@ pkt_get_parameter_list_test()
 void
 pkt_get_server_identifier_test()
 {
-  pktDhcpPacket_t *pkts[5];
+  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufOffer;
 
-  int coutnter = 0;
+  struct in_addr *addr = pkt_get_server_identifier (pkt);
 
-  for (size_t i = 0; i < size; i++)
-    {
-      if (pkt_is_valid_server_identifier ((pktServerIdentifier_t *)&bufAll[i]))
-        pkts[coutnter++] = (pktDhcpPacket_t *)&bufAll[i - 100];
-    }
+  CU_ASSERT_FATAL (addr != NULL);
 
-  for (size_t i = 0; i < coutnter - 2; i++)
-    {
-      struct in_addr *addr = pkt_get_server_identifier (pkts[i]);
-      if (!addr)
-        return;
-
-      CU_ASSERT_STRING_EQUAL (inet_ntoa (*addr), "192.168.133.30");
-    }
+  CU_ASSERT_STRING_EQUAL (inet_ntoa (*addr), "192.168.133.30");
 }
 
 void
@@ -234,6 +223,8 @@ pkt_get_ip_address_lease_time_test()
 
   char *n = pkt_get_ip_address_lease_time (pkt);
 
+  CU_ASSERT_FATAL (n != NULL);
+
   CU_ASSERT_EQUAL (pkt_lease_time_hex2long (n), 600);
 
   if (n)
@@ -271,6 +262,8 @@ pkt_get_subnet_mask_test()
 
   struct in_addr *addr = pkt_get_subnet_mask (pkt);
 
+  CU_ASSERT_FATAL (addr != NULL);
+
   CU_ASSERT_STRING_EQUAL (inet_ntoa (*addr), "255.255.255.0");
 
   if (addr)
@@ -280,9 +273,24 @@ pkt_get_subnet_mask_test()
 void
 pkt_get_address_test()
 {
-  /** 
+  /**
    * get_address function didn't need to test
-   *  cause testing its subfunctions can be many test for it. 
+   *  cause testing its subfunctions can be many test for it.
    */
   CU_ASSERT (CU_TRUE);
+}
+
+void
+pkt_get_router_test()
+{
+  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufOffer;
+
+  struct in_addr *addr = pkt_get_router (pkt);
+
+  CU_ASSERT_FATAL (addr != NULL);
+
+  CU_ASSERT_STRING_EQUAL (inet_ntoa (*addr), "192.168.1.1");
+
+  if (addr)
+    free (addr);
 }

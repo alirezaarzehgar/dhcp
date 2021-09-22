@@ -28,4 +28,6 @@ void pkt_is_valid_subnet_mask_test();
 
 void pkt_is_address_valid_test();
 
+void pkt_is_valid_router_test();
+
 #endif // TEST_VALIDATE_H

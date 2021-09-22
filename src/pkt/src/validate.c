@@ -75,23 +75,33 @@ pkt_is_address_valid (pktAddress_t *opt, int option,  int max)
     if (opt->addr[i] & 0xff < 0 || opt->addr[i] & 0xff > max)
       return false;
 
-  return opt->option == option & 0xff && opt->len == 4;
+  return opt->option == option & 0xff && opt->len == PKT_DEFAULT_ADDRESS_LEN;
 }
 
 bool
 pkt_is_valid_server_identifier (pktServerIdentifier_t *opt)
 {
-  return pkt_is_address_valid ((pktAddress_t*)opt, OPTION_SERVER_IDENTIFIER, 255);
+  return pkt_is_address_valid ((pktAddress_t *)opt, OPTION_SERVER_IDENTIFIER,
+                               PKT_MAX_IP_SEGMENT_LEN);
 }
 
 bool
 pkt_is_ip_address_lease_time_option_valid (pktIpAddressLeaseTime_t *opt)
 {
-  return opt->option == OPTION_IP_ADDR_LEASE_TIME & 0xff && opt->len == 4;
+  return opt->option == OPTION_IP_ADDR_LEASE_TIME & 0xff
+         && opt->len == PKT_DEFAULT_ADDRESS_LEN;
 }
 
 bool
 pkt_is_valid_subnet_mask (pktSubnetMask_t *opt)
 {
-  return pkt_is_address_valid ((pktAddress_t*)opt, OPTION_SUBNET_MASK, 256);
+  return pkt_is_address_valid ((pktAddress_t *)opt, OPTION_SUBNET_MASK,
+                               PKT_MAX_IP_SEGMENT_LEN + 1);
+}
+
+bool
+pkt_is_valid_router (pktRouter_t *opt)
+{
+  return pkt_is_address_valid ((pktAddress_t *)opt, OPTION_ROUTER,
+                               PKT_MAX_IP_SEGMENT_LEN);
 }

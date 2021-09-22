@@ -44,4 +44,6 @@ void pkt_get_subnet_mask_test();
 
 void pkt_get_address_test();
 
+void pkt_get_router_test();
+
 #endif // TESTS_PKT_TESTS_H
