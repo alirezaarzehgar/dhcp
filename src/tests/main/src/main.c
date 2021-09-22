@@ -26,13 +26,6 @@ main (int argc, char const *argv[])
       return CU_get_error();
     }
 
-  /**
-   * Fix undefined behavior and unknow bug
-   * with printing some text on screen for
-   * preventing segment fault
-   */
-  // printf ("start testing ...\n");
-
   CU_basic_set_mode (CU_BRM_VERBOSE);
 
   if (CU_basic_run_tests() != CUE_SUCCESS)
