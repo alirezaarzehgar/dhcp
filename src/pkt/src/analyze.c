@@ -16,16 +16,25 @@ pkt_get_magic_cookie (pktDhcpPacket_t *pkt)
 {
   pktDhcpOptions_t *opt = (pktDhcpOptions_t *)pkt->options;
 
-  char *cookie = (char *)malloc (sizeof (char) * DHCP_MAGIC_COOKIE_SIZE);
+  /* +1 for nul */
+  char *cookieForReturn = (char *)malloc (sizeof (char) *
+                                          DHCP_MAGIC_COOKIE_SIZE + 1);
 
-  if (!cookie && DHCP_MAGIC_COOKIE_SIZE > 0)
-    return cookie;
+  if (!cookieForReturn && DHCP_MAGIC_COOKIE_SIZE > 0)
+    return NULL;
 
-  strncpy (cookie, opt->cookie, 4);
+  /* +1 for nul */
+  char cookie[DHCP_MAGIC_COOKIE_SIZE + 1];
 
-  cookie[4] = 0;
+  memcpy (cookie, opt->cookie, DHCP_MAGIC_COOKIE_SIZE);
 
-  return cookie;
+  cookie[DHCP_MAGIC_COOKIE_SIZE] = '\0';
+
+  memcpy (cookieForReturn, cookie, DHCP_MAGIC_COOKIE_SIZE);
+
+  bzero (cookie, DHCP_MAGIC_COOKIE_SIZE);
+
+  return cookieForReturn;
 }
 
 void
@@ -101,6 +110,9 @@ pkt_get_host_name (pktDhcpPacket_t *pkt)
 
   char *hostname = (char *)malloc (hostNameOpt->len);
 
+  if (!hostname && hostNameOpt->len > 0)
+    return NULL;
+
   memcpy (hostname, hostNameOpt->name, hostNameOpt->len);
 
   return hostname;
@@ -115,6 +127,9 @@ pkt_get_parameter_list (pktDhcpPacket_t *pkt)
 
   pktParameterRequestList_t *list = (pktParameterRequestList_t *)malloc (sizeof (
                                       pktParameterRequestList_t));
+
+  if (!list)
+    return NULL;
 
   for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
     {
@@ -161,6 +176,9 @@ pkt_ip_str2hex (char *ip)
 
   char *retIp = (char *)malloc (4);
 
+  if (!retIp)
+    return NULL;
+
   char *tmp;
 
   int index = 0;
@@ -204,6 +222,9 @@ pkt_get_server_identifier (pktDhcpPacket_t *pkt)
 
   struct in_addr *addr = (struct in_addr *)malloc (sizeof (struct in_addr));
 
+  if (!addr)
+    return 0;
+
   char *ip;
 
   for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
@@ -233,6 +254,9 @@ pkt_get_ip_address_lease_time (pktDhcpPacket_t *pkt)
   pktIpAddressLeaseTime_t *leaseTime = NULL;
 
   char *time = (char *)malloc (sizeof (char) * 4);
+
+  if (!time)
+    return NULL;
 
   for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
     {
@@ -271,6 +295,9 @@ pkt_lease_time_long2hex (long long time)
 {
   char *timeHexForReturn = (char *)malloc (sizeof (char) * 4);
 
+  if (!timeHexForReturn)
+    return NULL;
+
   char timeHex[4];
 
   char hexFormat[8];
@@ -300,6 +327,9 @@ struct in_addr *pkt_get_subnet_mask (pktDhcpPacket_t *pkt)
   pktSubnetMask_t *mask = NULL;
 
   struct in_addr *addr = (struct in_addr *)malloc (sizeof (struct in_addr));
+
+  if (!addr)
+    return NULL;
 
   char *subnet;
 

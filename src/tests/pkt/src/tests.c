@@ -87,7 +87,12 @@ pkt_get_magic_cookie_test()
 {
   char validCookie[] = {0x63, -126, 0x53, 0x63, '\0'};
 
-  CU_ASSERT_STRING_EQUAL (pkt_get_magic_cookie (pkt), validCookie);
+  char *cookie = pkt_get_magic_cookie (pkt);
+
+  CU_ASSERT_STRING_EQUAL (cookie, validCookie);
+
+  if (!cookie)
+    free (cookie);
 }
 
 void
@@ -143,6 +148,9 @@ pkt_get_host_name_test()
   CU_ASSERT_STRING_EQUAL (opts[0]->name, "dhcp-client1");
 
   CU_ASSERT_STRING_EQUAL (opts[1]->name, "dhcp-client1");
+
+  if (host)
+    free (host);
 }
 
 void
@@ -158,6 +166,9 @@ pkt_get_parameter_list_test()
   CU_ASSERT_EQUAL (list->len, strlen (list->list));
 
   CU_ASSERT_EQUAL (list->option, OPTION_PARAMETER_REQUERSTED);
+
+  if (list)
+    free (list);
 }
 
 void
