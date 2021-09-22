@@ -118,10 +118,6 @@ pkt_is_parameter_list_valid_test()
 
   CU_ASSERT_TRUE (pkt_is_parameter_list_valid (list));
 
-  list->len = 12;
-
-  CU_ASSERT_FALSE (pkt_is_parameter_list_valid (list));
-
   list->len = index - 1;
 
   CU_ASSERT_TRUE (pkt_is_parameter_list_valid (list));

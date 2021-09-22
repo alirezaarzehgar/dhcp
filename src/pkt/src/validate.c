@@ -57,7 +57,12 @@ pkt_is_parameter_list_valid (pktParameterRequestList_t *opt)
 {
   for (size_t i = 0; i < opt->len; i++)
     if (opt->list[i] < OPTION_SUBNET_MASK || opt->list[i] > OPTION_END)
-      return false;
+      {
+        if (opt->list[i] == OPTION_END)
+          break;
+
+        return false;
+      }
 
   return opt->option == OPTION_PARAMETER_REQUERSTED & 0xff && opt->len > 0
          && strlen (opt->list) > 0;
