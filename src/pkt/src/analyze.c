@@ -252,7 +252,7 @@ pkt_get_address (pktDhcpPacket_t *pkt, pktValidator_t validator)
 struct in_addr *
 pkt_get_server_identifier (pktDhcpPacket_t *pkt)
 {
-  return pkt_get_address(pkt, (pktValidator_t)pkt_is_valid_server_identifier);
+  return pkt_get_address (pkt, (pktValidator_t)pkt_is_valid_server_identifier);
 }
 
 char *
@@ -329,8 +329,9 @@ pkt_lease_time_long2hex (long long time)
   return timeHexForReturn;
 }
 
-struct in_addr *pkt_get_subnet_mask (pktDhcpPacket_t *pkt)
+struct in_addr *
+pkt_get_subnet_mask (pktDhcpPacket_t *pkt)
 {
-  return pkt_get_address(pkt, (pktValidator_t)pkt_is_valid_subnet_mask);
+  return pkt_get_address (pkt, (pktValidator_t)pkt_is_valid_subnet_mask);
 }
 
