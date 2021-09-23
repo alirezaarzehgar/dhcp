@@ -353,5 +353,5 @@ pkt_get_domain_name (pktDhcpPacket_t *pkt)
 char *
 pkt_get_message (pktDhcpPacket_t *pkt)
 {
-  return pkt_get_string (pkt, (void*)pkt_is_message_valid);
+  return pkt_get_string (pkt, (void *)pkt_is_message_valid);
 }
