@@ -203,10 +203,10 @@ pkt_get_address (pktDhcpPacket_t *pkt, pktValidator_t validator)
 
   struct in_addr *addr = (struct in_addr *)malloc (sizeof (struct in_addr));
 
-  if (!addr)
-    goto failed;
-
   char *ip;
+
+  if (!addr)
+    return NULL;
 
   for (size_t i = 0; i < DHCP_MIN_OPTION_LEN; i++)
     {
@@ -218,20 +218,16 @@ pkt_get_address (pktDhcpPacket_t *pkt, pktValidator_t validator)
     }
 
   if (!address)
-    goto failed;
+    return NULL;
 
   ip = pkt_ip_hex2str (address->addr);
 
   if (!ip)
-    goto failed;
+    return NULL;
 
   addr->s_addr = inet_addr (ip);
 
   return addr;
-
-failed:
-
-  return NULL;
 }
 
 struct in_addr *
