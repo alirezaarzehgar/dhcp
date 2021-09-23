@@ -330,18 +330,25 @@ pkt_lease_time_long2hex_test()
 }
 
 void
-pkt_get_subnet_mask_test()
+subnet_mask (pktDhcpPacket_t *pkt, int index)
 {
-  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufOffer;
-
   struct in_addr *addr = pkt_get_subnet_mask (pkt);
 
-  CU_ASSERT_FATAL (addr != NULL);
+  if (index % 2 == 1 && pkt_get_dhcp_message_type (pkt) != DHCPNAK)
+    {
+      CU_ASSERT_FATAL (addr != NULL);
 
-  CU_ASSERT_STRING_EQUAL (inet_ntoa (*addr), "255.255.255.0");
+      CU_ASSERT_STRING_EQUAL (inet_ntoa (*addr), "255.255.255.0");
+    }
 
   if (addr)
     free (addr);
+}
+
+void
+pkt_get_subnet_mask_test()
+{
+  pkt_test_function_on_all_packets (subnet_mask);
 }
 
 void
