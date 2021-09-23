@@ -86,13 +86,24 @@ cleanup_suite_pkt()
 void
 pkt_get_magic_cookie_test()
 {
-  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufDiscovery;
+  pktDhcpPacket_t *pkts[] =
+  {
+    (pktDhcpPacket_t *)bufDiscovery,
+    (pktDhcpPacket_t *)bufOffer,
+    (pktDhcpPacket_t *)bufRequest,
+    (pktDhcpPacket_t *)bufNak,
+  };
 
   char validCookie[] = {0x63, 0x82, 0x53, 0x63, '\0'};
 
-  char *cookie = pkt_get_magic_cookie (pkt);
+  char *cookie = NULL;
 
-  CU_ASSERT_STRING_EQUAL (cookie, validCookie);
+  for (size_t i = 0; i < sizeof (pkts) / sizeof (pktDhcpPacket_t *); i++)
+    {
+      cookie = pkt_get_magic_cookie (pkts[i]);
+
+      CU_ASSERT_STRING_EQUAL (cookie, validCookie);
+    }
 
   if (cookie)
     free (cookie);

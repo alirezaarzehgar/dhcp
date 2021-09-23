@@ -33,7 +33,7 @@
 
 #define PKT_IP_STRUCT_MEMBER      char ip[]
 
-struct dhcp_packet
+struct pktDhcpPacket
 {
   u_int8_t  op;    /* 0: Message opcode/type */
   u_int8_t  htype;  /* 1: Hardware addr type (net/if_types.h) */
@@ -135,15 +135,15 @@ struct pktEnd
 };
 
 /* complete dhcp option structure */
-struct dhcp_options
+struct pktDhcpOptions
 {
   char cookie[4];
   char opts[0];           /* RFC 2132 */
 };
 
-typedef struct dhcp_packet pktDhcpPacket_t;
+typedef struct pktDhcpPacket pktDhcpPacket_t;
 
-typedef struct dhcp_options pktDhcpOptions_t;
+typedef struct pktDhcpOptions pktDhcpOptions_t;
 
 typedef struct pktMessageType pktMessageType_t;
 
