@@ -255,5 +255,27 @@ pkt_is_valid_string_test()
 void
 pkt_is_domain_name_option_valid_test()
 {
-  /* TODO */
+  pktDomainName_t *domain = (pktDomainName_t *)malloc (sizeof (pktDomainName_t));
+
+  domain->option = OPTION_DOMAIN_NAME;
+
+  domain->len = 10;
+
+  memcpy (domain->domain, "google.org", domain->len);
+
+  CU_ASSERT_FATAL (domain != NULL);
+
+  CU_ASSERT_TRUE (pkt_is_domain_name_option_valid ((pktString_t*)domain));
+
+  domain->len = 12;
+  
+  CU_ASSERT_FALSE (pkt_is_domain_name_option_valid ((pktString_t*)domain));
+
+  domain->len = 10;
+
+  domain->option = OPTION_ARP_CACHE_TIMEOUT;
+
+  CU_ASSERT_FALSE (pkt_is_domain_name_option_valid ((pktString_t*)domain));
+
+  free (domain);
 }
