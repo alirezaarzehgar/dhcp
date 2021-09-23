@@ -314,11 +314,11 @@ pkt_get_string_test()
 {
   pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufOffer;
 
-  char *domain = pkt_get_string (pkt, (void*)pkt_is_domain_name_option_valid);
+  char *domain = pkt_get_string (pkt, (void *)pkt_is_domain_name_option_valid);
 
   CU_ASSERT_FATAL (domain != NULL);
 
-  char *host = pkt_get_string (pkt, (void*)pkt_is_host_name_option_valid);
+  char *host = pkt_get_string (pkt, (void *)pkt_is_host_name_option_valid);
 
   CU_ASSERT_FATAL (host != NULL);
 
