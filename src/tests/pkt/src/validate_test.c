@@ -137,7 +137,7 @@ pkt_is_valid_server_identifier_test()
 
   si->option = OPTION_SERVER_IDENTIFIER & 0xff;
 
-  si->len =PKT_DEFAULT_ADDRESS_LEN;
+  si->len = PKT_DEFAULT_ADDRESS_LEN;
 
   si->ip[0] = 192;
   si->ip[1] = 168;
@@ -167,7 +167,7 @@ pkt_is_valid_subnet_mask_test()
 
   mask->option = OPTION_SUBNET_MASK;
 
-  mask->len =PKT_DEFAULT_ADDRESS_LEN;
+  mask->len = PKT_DEFAULT_ADDRESS_LEN;
 
   mask->subnet[0] = 225;
   mask->subnet[1] = 225;
@@ -187,7 +187,7 @@ pkt_is_address_valid_test()
 
   mask->option = OPTION_SUBNET_MASK;
 
-  mask->len =PKT_DEFAULT_ADDRESS_LEN;
+  mask->len = PKT_DEFAULT_ADDRESS_LEN;
 
   mask->subnet[0] = 225;
   mask->subnet[1] = 225;
@@ -196,7 +196,7 @@ pkt_is_address_valid_test()
 
   si->option = OPTION_SERVER_IDENTIFIER & 0xff;
 
-  si->len =PKT_DEFAULT_ADDRESS_LEN;
+  si->len = PKT_DEFAULT_ADDRESS_LEN;
 
   si->ip[0] = 192;
   si->ip[1] = 168;
@@ -218,7 +218,7 @@ pkt_is_valid_router_test()
 
   router->option = OPTION_ROUTER;
 
-  router->len =PKT_DEFAULT_ADDRESS_LEN;
+  router->len = PKT_DEFAULT_ADDRESS_LEN;
 
   router->router[0] = 192;
   router->router[1] = 168;
@@ -232,6 +232,6 @@ pkt_is_valid_router_test()
   CU_ASSERT_FALSE (pkt_is_valid_router (router));
 
   router->len = 12;
-  
+
   CU_ASSERT_FALSE (pkt_is_valid_router (router));
 }

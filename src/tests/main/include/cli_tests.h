@@ -8,7 +8,7 @@
 CU_TestInfo cli_tests[] =
 {
   {"cli module test", test_cli},
-	CU_TEST_INFO_NULL,
+  CU_TEST_INFO_NULL,
 };
 
 #endif // CLI_TEST_ARRAY_H
