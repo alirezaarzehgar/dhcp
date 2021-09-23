@@ -253,6 +253,8 @@ pkt_get_server_identifier_test()
 void
 pkt_ip_hex2str_test()
 {
+  char *subnet = "255.255.255.255";
+
   char ip[4];
 
   for (size_t i = 0; i < 4; i++)
@@ -263,11 +265,11 @@ pkt_ip_hex2str_test()
   for (size_t i = 0; i < 4; i++)
     ip[i] = 255;
 
-  CU_ASSERT_STRING_EQUAL (pkt_ip_hex2str (ip), "255.255.255.255");
+  CU_ASSERT_STRING_EQUAL (pkt_ip_hex2str (ip), subnet);
 
   bzero (ip, 4);
 
-  CU_ASSERT_STRING_NOT_EQUAL (pkt_ip_hex2str (ip), "255.255.255.255");
+  CU_ASSERT_STRING_NOT_EQUAL (pkt_ip_hex2str (ip), subnet);
 }
 
 void
@@ -362,9 +364,13 @@ pkt_get_address_test()
 }
 
 void
-pkt_get_router_test()
+get_router (pktDhcpPacket_t *pkt, int index)
 {
-  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufOffer;
+  if (index % 2 == 0 || pkt_get_dhcp_message_type (pkt) == DHCPNAK)
+    {
+      /* DISCOVERY, REQUEST, NAK haven't Router Address option */
+      return;
+    }
 
   struct in_addr *addr = pkt_get_router (pkt);
 
@@ -377,9 +383,19 @@ pkt_get_router_test()
 }
 
 void
-pkt_get_domain_name_test()
+pkt_get_router_test()
 {
-  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufOffer;
+  pkt_test_function_on_all_packets (get_router);
+}
+
+void
+domain_name (pktDhcpPacket_t *pkt, int index)
+{
+  if (index % 2 == 0 || pkt_get_dhcp_message_type (pkt) == DHCPNAK)
+    {
+      /* DISCOVERY, REQUEST, NAK haven't Router Address option */
+      return;
+    }
 
   char *domain = pkt_get_domain_name (pkt);
 
@@ -391,9 +407,19 @@ pkt_get_domain_name_test()
 }
 
 void
-pkt_get_string_test()
+pkt_get_domain_name_test()
 {
-  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufOffer;
+  pkt_test_function_on_all_packets (domain_name);
+}
+
+void
+get_string (pktDhcpPacket_t *pkt, int index)
+{
+  if (index % 2 == 0 || pkt_get_dhcp_message_type (pkt) == DHCPNAK)
+    {
+      /* DISCOVERY, REQUEST, NAK haven't Router Address option */
+      return;
+    }
 
   char *domain = pkt_get_string (pkt, (void *)pkt_is_domain_name_option_valid);
 
@@ -413,9 +439,19 @@ pkt_get_string_test()
 }
 
 void
-pkt_get_message_test()
+pkt_get_string_test()
 {
-  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufNak;
+  pkt_test_function_on_all_packets (get_string);
+}
+
+void
+get_message (pktDhcpPacket_t *pkt, int index)
+{
+  if (pkt_get_dhcp_message_type (pkt) != DHCPNAK)
+    {
+      /* This test is just for NAK packet */
+      return;
+    }
 
   char *msg = pkt_get_message (pkt);
 
@@ -424,4 +460,10 @@ pkt_get_message_test()
   CU_ASSERT_STRING_EQUAL (msg, "wrong server-ID");
 
   free (msg);
+}
+
+void
+pkt_get_message_test()
+{
+  pkt_test_function_on_all_packets (get_message);
 }
