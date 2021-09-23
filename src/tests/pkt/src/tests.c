@@ -131,7 +131,7 @@ pkt_get_host_name_test()
 
   for (size_t i = 0; i < size; i++)
     {
-      if (pkt_is_host_name_option_valid ((pktHostName_t *)&bufAll[i]))
+      if (pkt_is_host_name_option_valid ((pktString_t *)&bufAll[i]))
         {
           int len;
 
@@ -293,4 +293,16 @@ pkt_get_router_test()
 
   if (addr)
     free (addr);
+}
+
+void
+pkt_get_domain_name_test()
+{
+  /* TODO */
+}
+
+void
+pkt_get_string_test()
+{
+  /* TODO */
 }

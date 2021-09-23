@@ -235,3 +235,15 @@ pkt_is_valid_router_test()
 
   CU_ASSERT_FALSE (pkt_is_valid_router (router));
 }
+
+void
+pkt_is_valid_string_test()
+{
+  /* TODO */
+}
+
+void
+pkt_is_domain_name_option_valid_test()
+{
+  /* TODO */
+}

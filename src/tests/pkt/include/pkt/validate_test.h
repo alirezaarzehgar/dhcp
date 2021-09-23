@@ -30,4 +30,8 @@ void pkt_is_address_valid_test();
 
 void pkt_is_valid_router_test();
 
+void pkt_is_valid_string_test();
+
+void pkt_is_domain_name_option_valid_test();
+
 #endif // TEST_VALIDATE_H

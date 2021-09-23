@@ -37,9 +37,9 @@ pkt_is_requested_ip_addr_option_valid (pktRequestedIpAddress_t *opt)
 }
 
 bool
-pkt_is_host_name_option_valid (pktHostName_t *opt)
+pkt_is_valid_string (pktString_t *opt, int option)
 {
-  if (opt->option == OPTION_HOST_NAME & 0xff && opt->len > 0)
+  if (opt->option == option & 0xff && opt->len > 0)
     {
       for (size_t i = 0; i < opt->len; i++)
         {
@@ -50,6 +50,12 @@ pkt_is_host_name_option_valid (pktHostName_t *opt)
     }
 
   return false;
+}
+
+bool
+pkt_is_host_name_option_valid (pktString_t *opt)
+{
+  return pkt_is_valid_string (opt, OPTION_HOST_NAME);
 }
 
 bool
@@ -104,4 +110,10 @@ pkt_is_valid_router (pktRouter_t *opt)
 {
   return pkt_is_address_valid ((pktAddress_t *)opt, OPTION_ROUTER,
                                PKT_MAX_IP_SEGMENT_LEN);
+}
+
+bool
+pkt_is_domain_name_option_valid (pktString_t *opt)
+{
+  return pkt_is_valid_string (opt, OPTION_DOMAIN_NAME);
 }

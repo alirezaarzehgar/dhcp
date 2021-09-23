@@ -90,35 +90,41 @@ pkt_get_requested_ip_address (pktDhcpPacket_t *pkt)
 }
 
 char *
-pkt_get_host_name (pktDhcpPacket_t *pkt)
+pkt_get_string (pktDhcpPacket_t *pkt, pktValidator_t validator)
 {
   pktDhcpOptions_t *opt = (pktDhcpOptions_t *)pkt->options;
 
-  pktHostName_t *hostNameOpt = NULL;
+  pktString_t *stringOpt = NULL;
 
-  char *hostname;
+  char *string;
 
   for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
     {
-      if (pkt_is_host_name_option_valid ((pktHostName_t *)&opt->opts[i]))
+      if (validator ((pktString_t *)&opt->opts[i]))
         {
-          hostNameOpt = (pktHostName_t *)&opt->opts[i];
+          stringOpt = (pktString_t *)&opt->opts[i];
           break;
         }
     }
 
-  if (!hostNameOpt)
+  if (!stringOpt)
     return NULL;
 
   /* +1 for nul */
-  hostname = (char *)malloc (hostNameOpt->len + 1);
+  string = (char *)malloc (stringOpt->len + 1);
 
-  if (!hostname && hostNameOpt->len > 0)
+  if (!string && stringOpt->len > 0)
     return NULL;
 
-  memcpy (hostname, hostNameOpt->name, hostNameOpt->len);
+  memcpy (string, stringOpt->name, stringOpt->len);
 
-  return hostname;
+  return string;
+}
+
+char *
+pkt_get_host_name (pktDhcpPacket_t *pkt)
+{
+  return pkt_get_string (pkt, (void *)pkt_is_host_name_option_valid);
 }
 
 pktParameterRequestList_t *
@@ -339,4 +345,10 @@ struct in_addr *
 pkt_get_router (pktDhcpPacket_t *pkt)
 {
   return pkt_get_address (pkt, (pktValidator_t)pkt_is_valid_router);
+}
+
+char *
+pkt_get_domain_name (pktDhcpPacket_t *pkt)
+{
+  return pkt_get_string (pkt, (void *)pkt_is_domain_name_option_valid);
 }

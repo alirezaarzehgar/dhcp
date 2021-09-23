@@ -68,6 +68,12 @@ struct pktRequestedIpAddress
   PKT_IP_STRUCT_MEMBER;         /* RFC 2132 Requested IP Address */
 };
 
+struct pktString
+{
+  PKT_BASE_MEMBERS;
+  char name[];
+};
+
 struct pktHostName
 {
   PKT_BASE_MEMBERS;     /* Option (12) */
@@ -142,6 +148,8 @@ typedef struct dhcp_options pktDhcpOptions_t;
 typedef struct pktMessageType pktMessageType_t;
 
 typedef struct pktRequestedIpAddress pktRequestedIpAddress_t;
+
+typedef struct pktString pktString_t;
 
 typedef struct pktHostName pktHostName_t;
 

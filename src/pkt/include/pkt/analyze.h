@@ -116,7 +116,7 @@ enum pktErr
   PKT_ERR_SUCCESS
 };
 
-typedef bool (*pktValidator_t) (pktAddress_t *);
+typedef bool (*pktValidator_t) (void *);
 
 char *pkt_get_magic_cookie (pktDhcpPacket_t *pkt);
 
