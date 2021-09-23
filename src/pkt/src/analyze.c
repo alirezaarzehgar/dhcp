@@ -20,7 +20,7 @@ pkt_get_magic_cookie (pktDhcpPacket_t *pkt)
   char *cookie = (char *)malloc (sizeof (char) *
                                           DHCP_MAGIC_COOKIE_SIZE + 1);
 
-  if (!cookie && DHCP_MAGIC_COOKIE_SIZE > 0)
+  if (!cookie)
     return NULL;
 
   for (size_t i = 0; i < DHCP_MIN_OPTION_LEN; i++)
