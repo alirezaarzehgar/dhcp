@@ -132,7 +132,7 @@ requested_ip_address (pktDhcpPacket_t *pkt, int index)
 
   if (index % 2 == 1)
     {
-      /* check for OFFER & NAK */
+      /* only for OFFER & NAK */
       CU_ASSERT (addr == NULL);
     }
   else
@@ -140,7 +140,7 @@ requested_ip_address (pktDhcpPacket_t *pkt, int index)
 
   if (index % 2 == 0)
     {
-      /* check for DISCOVERY & REQUEST */
+      /* only for DISCOVERY & REQUEST */
       CU_ASSERT_STRING_EQUAL (inet_ntoa (*addr), ips[index / 2]);
     }
 }
@@ -178,7 +178,7 @@ host_name (pktDhcpPacket_t *pkt, int index)
 
   if (index % 2 == 0)
     {
-      /* check for DISCOVERY & REQUEST */
+      /* only for DISCOVERY & REQUEST */
       CU_ASSERT_STRING_EQUAL (host, "dhcp-client1");
     }
 
@@ -196,23 +196,31 @@ pkt_get_host_name_test()
 }
 
 void
-pkt_get_parameter_list_test()
+parameter_list (pktDhcpPacket_t *pkt, int index)
 {
-  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufDiscovery;
-
   pktParameterRequestList_t *list = pkt_get_parameter_list (pkt);
 
   if (!list)
     return;
 
-  CU_ASSERT_EQUAL (list->len, 13);
+  if (index % 2 == 0)
+    {
+      /* only for DISCOVERY & REQUEST */
+      CU_ASSERT_EQUAL (list->len, 13);
 
-  CU_ASSERT_EQUAL (list->len, strlen (list->list));
+      CU_ASSERT_EQUAL (list->len, strlen (list->list));
 
-  CU_ASSERT_EQUAL (list->option, OPTION_PARAMETER_REQUERSTED);
+      CU_ASSERT_EQUAL (list->option, OPTION_PARAMETER_REQUERSTED);
+    }
 
   if (list)
     free (list);
+}
+
+void
+pkt_get_parameter_list_test()
+{
+  pkt_test_function_on_all_packets (parameter_list);
 }
 
 void
