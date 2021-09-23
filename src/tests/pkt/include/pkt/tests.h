@@ -12,6 +12,12 @@
 #if !defined(TESTS_PKT_TESTS_H)
 #define TESTS_PKT_TESTS_H
 
+#define PKT_FAILED_OPEN_FILE(fd, path)   if (fd == -1)     \
+    {   \
+      fprintf (stdout, "error %s : %s", path, strerror (errno));    \
+      return CUE_TEST_INACTIVE; \
+    }   \
+
 int init_suite_pkt();
 
 int cleanup_suite_pkt();

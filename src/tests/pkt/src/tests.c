@@ -34,14 +34,15 @@ init_suite_pkt()
 {
   int fdDiscovery = open (pathDiscovry, O_RDONLY);
 
+  PKT_FAILED_OPEN_FILE (fdDiscovery, pathDiscovry);
+
   int fdAll = open (pathAll, O_RDONLY);
+
+  PKT_FAILED_OPEN_FILE (fdAll, pathAll);
 
   int fdOffer = open (pathOffer, O_RDONLY);
 
-  int readed;
-
-  if (fdDiscovery == -1)
-    CU_ASSERT_FATAL (CU_TRUE);
+  PKT_FAILED_OPEN_FILE (fdOffer, pathOffer);
 
   read (fdDiscovery, bufDiscovery, DHCP_PACKET_MAX_LEN);
 
