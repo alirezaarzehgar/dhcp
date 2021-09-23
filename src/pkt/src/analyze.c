@@ -241,7 +241,6 @@ pkt_get_address (pktDhcpPacket_t *pkt, pktValidator_t validator)
 
 failed:
 
-  printf ("NULL returned!\n");
   return NULL;
 }
 

@@ -18,6 +18,8 @@
       return CUE_TEST_INACTIVE; \
     }   \
 
+typedef void (*pktCustomTest_t) (pktDhcpPacket_t *pkt, int index);
+
 int init_suite_pkt();
 
 int cleanup_suite_pkt();

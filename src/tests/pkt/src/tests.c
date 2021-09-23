@@ -84,7 +84,7 @@ cleanup_suite_pkt()
 }
 
 void
-pkt_get_magic_cookie_test()
+pkt_test_function_on_all_packets (pktCustomTest_t func)
 {
   pktDhcpPacket_t *pkts[] =
   {
@@ -94,52 +94,105 @@ pkt_get_magic_cookie_test()
     (pktDhcpPacket_t *)bufNak,
   };
 
+  for (size_t i = 0; i < sizeof (pkts) / sizeof (pktDhcpPacket_t *); i++)
+    func (pkts[i], i);
+}
+
+void
+magic_cookie (pktDhcpPacket_t *pkt, int index)
+{
   char validCookie[] = {0x63, 0x82, 0x53, 0x63, '\0'};
 
   char *cookie = NULL;
 
-  for (size_t i = 0; i < sizeof (pkts) / sizeof (pktDhcpPacket_t *); i++)
-    {
-      cookie = pkt_get_magic_cookie (pkts[i]);
+  cookie = pkt_get_magic_cookie (pkt);
 
-      CU_ASSERT_STRING_EQUAL (cookie, validCookie);
-    }
+  CU_ASSERT_STRING_EQUAL (cookie, validCookie);
 
   if (cookie)
     free (cookie);
 }
 
 void
-pkt_get_requested_ip_address_test()
+pkt_get_magic_cookie_test()
 {
-  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufDiscovery;
+  pkt_test_function_on_all_packets (magic_cookie);
+}
 
+void
+requested_ip_address (pktDhcpPacket_t *pkt, int index)
+{
   struct in_addr *addr = pkt_get_requested_ip_address (pkt);
 
-  CU_ASSERT_FATAL (addr != NULL);
+  char *ips[] =
+  {
+    "10.0.2.15",
+    "192.168.133.114"
+  };
 
-  CU_ASSERT_STRING_EQUAL (inet_ntoa (*addr), "10.0.2.15");
+  if (index % 2 == 1)
+    {
+      /* check for OFFER & NAK */
+      CU_ASSERT (addr == NULL);
+    }
+  else
+    CU_ASSERT_FATAL (addr != NULL);
+
+  if (index % 2 == 0)
+    {
+      /* check for DISCOVERY & REQUEST */
+      CU_ASSERT_STRING_EQUAL (inet_ntoa (*addr), ips[index / 2]);
+    }
+}
+
+void
+pkt_get_requested_ip_address_test()
+{
+  pkt_test_function_on_all_packets (requested_ip_address);
+}
+
+void
+message_type (pktDhcpPacket_t *pkt, int index)
+{
+  int types[] =
+  {
+    DHCPDISCOVER,
+    DHCPOFFER,
+    DHCPREQUEST,
+    DHCPNAK
+  };
+
+  CU_ASSERT_EQUAL (pkt_get_dhcp_message_type (pkt), types[index]);
 }
 
 void
 pkt_get_dhcp_message_type_test()
 {
-  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufDiscovery;
+  pkt_test_function_on_all_packets (message_type);
+}
 
-  CU_ASSERT_EQUAL (pkt_get_dhcp_message_type (pkt), DHCPDISCOVER);
+void
+host_name (pktDhcpPacket_t *pkt, int index)
+{
+  char *host = pkt_get_host_name (pkt);
+
+  if (index % 2 == 0)
+    {
+      /* check for DISCOVERY & REQUEST */
+      CU_ASSERT_STRING_EQUAL (host, "dhcp-client1");
+    }
+
+  else
+    CU_ASSERT (host == NULL);
+
+  if (host)
+    free (host);
 }
 
 void
 pkt_get_host_name_test()
 {
-  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufDiscovery;
-
-  char *host = pkt_get_host_name (pkt);
-
-  CU_ASSERT_STRING_EQUAL (host, "dhcp-client1");
-
-  if (host)
-    free (host);
+  pkt_test_function_on_all_packets (host_name);
 }
 
 void
