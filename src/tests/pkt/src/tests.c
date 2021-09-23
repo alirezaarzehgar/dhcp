@@ -17,66 +17,62 @@ const char *pathOffer = "src/tests/fake_data/offer";
 
 const char *pathNak = "src/tests/fake_data/nak";
 
-const char *pathAll = "src/tests/fake_data/all";
+const char *pathRequest = "src/tests/fake_data/request";
 
-char bufDiscovery[DHCP_PACKET_MAX_LEN];
+const char *pathAll = "src/tests/fake_data/all";
 
 char bufAll[DHCP_PACKET_MAX_LEN];
 
+char bufDiscovery[DHCP_PACKET_MAX_LEN];
+
 char bufOffer[DHCP_PACKET_MAX_LEN];
 
+char bufRequest[DHCP_PACKET_MAX_LEN];
+
 char bufNak[DHCP_PACKET_MAX_LEN];
-
-int sizeAll;
-
-int sizeDiscovery;
-
-int sizeOffer;
 
 int
 init_suite_pkt()
 {
-  int fdDiscovery = open (pathDiscovry, O_RDONLY);
-
-  PKT_FAILED_OPEN_FILE (fdDiscovery, pathDiscovry);
-
   int fdAll = open (pathAll, O_RDONLY);
 
   PKT_FAILED_OPEN_FILE (fdAll, pathAll);
+
+  int fdDiscovery = open (pathDiscovry, O_RDONLY);
+
+  PKT_FAILED_OPEN_FILE (fdDiscovery, pathDiscovry);
 
   int fdOffer = open (pathOffer, O_RDONLY);
 
   PKT_FAILED_OPEN_FILE (fdOffer, pathOffer);
 
+  int fdRequest = open (pathRequest, O_RDONLY);
+
+  PKT_FAILED_OPEN_FILE (fdRequest, pathRequest);
+
   int fdNak = open (pathNak, O_RDONLY);
 
   PKT_FAILED_OPEN_FILE (fdNak, pathNak);
 
-  sizeAll = read (fdAll, bufAll, BUFSIZ);
+  read (fdAll, bufAll, BUFSIZ);
 
-  if (sizeAll == -1)
-    {
-      CU_ASSERT_FATAL (CU_TRUE);
-      return -1;
-    }
+  read (fdDiscovery, bufDiscovery, BUFSIZ);
+
+  read (fdOffer, bufOffer, BUFSIZ);
+
+  read (fdRequest, bufRequest, BUFSIZ);
 
   read (fdNak, bufNak, BUFSIZ);
 
-  sizeOffer = read (fdOffer, bufOffer, BUFSIZ);
-
-  if (sizeOffer == -1)
-    {
-      CU_ASSERT_FATAL (CU_TRUE);
-      return -1;
-    }
-
-  sizeDiscovery = read (fdDiscovery, bufDiscovery, BUFSIZ);
+  close (fdAll);
 
   close (fdDiscovery);
 
   close (fdOffer);
 
-  close (fdAll);
+  close (fdRequest);
+
+  close (fdNak);
 
   return 0;
 }
@@ -92,15 +88,13 @@ pkt_get_magic_cookie_test()
 {
   pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufDiscovery;
 
-  pktDhcpOptions_t *opt = (pktDhcpOptions_t *)pkt->options;
-
   char validCookie[] = {0x63, 0x82, 0x53, 0x63, '\0'};
 
   char *cookie = pkt_get_magic_cookie (pkt);
 
   CU_ASSERT_STRING_EQUAL (cookie, validCookie);
 
-  if (!cookie)
+  if (cookie)
     free (cookie);
 }
 

@@ -26,10 +26,12 @@ pkt_get_magic_cookie (pktDhcpPacket_t *pkt)
   /* +1 for nul */
   char cookie[DHCP_MAGIC_COOKIE_SIZE + 1];
 
-  for (size_t i = 0; i < DHCP_MAX_OPTION_LEN; i++)
+  for (size_t i = 0; i < DHCP_MIN_OPTION_LEN; i++)
     {
-      if (opt->cookie[i] != 0x0)
-        memcpy (cookie, &opt->cookie[i - 1], DHCP_MAGIC_COOKIE_SIZE);
+      if (opt->cookie[i] != 0) {
+        memcpy (cookie, &opt->cookie[i], DHCP_MAGIC_COOKIE_SIZE);
+        break;
+      }
     }
 
   cookie[DHCP_MAGIC_COOKIE_SIZE] = '\0';
@@ -47,7 +49,7 @@ pkt_print_magic_cookie (pktDhcpPacket_t *pkt)
   char *cookie = pkt_get_magic_cookie (pkt);
 
   for (size_t i = 0; i < DHCP_MAGIC_COOKIE_SIZE; i++)
-    printf ("%x", cookie[i] & 0xff);
+    printf ("%02x ", cookie[i] & 0xff);
 }
 
 enum dhcpMessageTypes
@@ -57,7 +59,7 @@ pkt_get_dhcp_message_type (pktDhcpPacket_t *pkt)
 
   pktMessageType_t *msgType = NULL;
 
-  for (size_t i = 0; i < DHCP_MAX_OPTION_LEN; i++)
+  for (size_t i = 0; i < DHCP_MIN_OPTION_LEN; i++)
     {
       if (pkt_is_msg_type_option_valid ((pktMessageType_t *)&opt->opts[i]))
         {
@@ -85,7 +87,7 @@ pkt_get_string (pktDhcpPacket_t *pkt, pktValidator_t validator)
 
   char *string;
 
-  for (size_t i = 0; i < DHCP_MAX_OPTION_LEN; i++)
+  for (size_t i = 0; i < DHCP_MIN_OPTION_LEN; i++)
     {
       if (validator ((pktString_t *)&opt->opts[i]))
         {
@@ -127,7 +129,7 @@ pkt_get_parameter_list (pktDhcpPacket_t *pkt)
   if (!list)
     return NULL;
 
-  for (size_t i = 0; i < DHCP_MAX_OPTION_LEN; i++)
+  for (size_t i = 0; i < DHCP_MIN_OPTION_LEN; i++)
     {
       if (pkt_is_parameter_list_valid ((pktParameterRequestList_t *)&opt->opts[i]))
         {
@@ -223,7 +225,7 @@ pkt_get_address (pktDhcpPacket_t *pkt, pktValidator_t validator)
 
   char *ip;
 
-  for (size_t i = 0; i < DHCP_MAX_OPTION_LEN; i++)
+  for (size_t i = 0; i < DHCP_MIN_OPTION_LEN; i++)
     {
       if (validator ((pktAddress_t *)&opt->opts[i]))
         {
@@ -268,7 +270,7 @@ pkt_get_ip_address_lease_time (pktDhcpPacket_t *pkt)
   if (!time)
     return NULL;
 
-  for (size_t i = 0; i < DHCP_MAX_OPTION_LEN; i++)
+  for (size_t i = 0; i < DHCP_MIN_OPTION_LEN; i++)
     {
       if (pkt_is_ip_address_lease_time_option_valid ((pktIpAddressLeaseTime_t *)
           &opt->opts[i]))
