@@ -298,11 +298,35 @@ pkt_get_router_test()
 void
 pkt_get_domain_name_test()
 {
-  /* TODO */
+  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufOffer;
+
+  char *domain = pkt_get_domain_name (pkt);
+
+  CU_ASSERT_FATAL (domain != NULL);
+
+  CU_ASSERT_STRING_EQUAL (domain, "example.org");
+
+  free (domain);
 }
 
 void
 pkt_get_string_test()
 {
-  /* TODO */
+  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufOffer;
+
+  char *domain = pkt_get_string (pkt, (void*)pkt_is_domain_name_option_valid);
+
+  CU_ASSERT_FATAL (domain != NULL);
+
+  char *host = pkt_get_string (pkt, (void*)pkt_is_host_name_option_valid);
+
+  CU_ASSERT_FATAL (host != NULL);
+
+  CU_ASSERT_STRING_EQUAL (domain, "example.org");
+
+  CU_ASSERT_STRING_EQUAL (host, "dhcp-server");
+
+  free (domain);
+
+  free (host);
 }

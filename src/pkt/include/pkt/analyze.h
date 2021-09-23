@@ -149,4 +149,8 @@ struct in_addr *pkt_get_address (pktDhcpPacket_t *pkt,
 
 struct in_addr *pkt_get_router (pktDhcpPacket_t *pkt);
 
+char *pkt_get_domain_name (pktDhcpPacket_t *pkt);
+
+char *pkt_get_string (pktDhcpPacket_t *pkt, pktValidator_t validator);
+
 #endif // PKT_ANALYZE_H
