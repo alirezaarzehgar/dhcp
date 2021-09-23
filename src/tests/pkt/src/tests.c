@@ -54,15 +54,15 @@ init_suite_pkt()
 
   PKT_FAILED_OPEN_FILE (fdNak, pathNak);
 
-  read (fdAll, bufAll, BUFSIZ);
+  read (fdAll, bufAll, DHCP_PACKET_MAX_LEN);
 
-  read (fdDiscovery, bufDiscovery, BUFSIZ);
+  read (fdDiscovery, bufDiscovery, DHCP_PACKET_MAX_LEN);
 
-  read (fdOffer, bufOffer, BUFSIZ);
+  read (fdOffer, bufOffer, DHCP_PACKET_MAX_LEN);
 
-  read (fdRequest, bufRequest, BUFSIZ);
+  read (fdRequest, bufRequest, DHCP_PACKET_MAX_LEN);
 
-  read (fdNak, bufNak, BUFSIZ);
+  read (fdNak, bufNak, DHCP_PACKET_MAX_LEN);
 
   close (fdAll);
 
