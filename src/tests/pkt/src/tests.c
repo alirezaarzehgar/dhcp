@@ -284,18 +284,25 @@ pkt_ip_str2hex_test()
 }
 
 void
-pkt_get_ip_address_lease_time_test()
+ip_address_lease_time (pktDhcpPacket_t *pkt, int index)
 {
-  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufOffer;
-
   char *n = pkt_get_ip_address_lease_time (pkt);
 
-  CU_ASSERT_FATAL (n != NULL);
+  if (index % 2 == 1 && pkt_get_dhcp_message_type (pkt) != DHCPNAK)
+    {
+      CU_ASSERT_FATAL (n != NULL);
 
-  CU_ASSERT_EQUAL (pkt_lease_time_hex2long (n), 600);
+      CU_ASSERT_EQUAL (pkt_lease_time_hex2long (n), 600);
+    }
 
   if (n)
     free (n);
+}
+
+void
+pkt_get_ip_address_lease_time_test()
+{
+  pkt_test_function_on_all_packets (ip_address_lease_time);
 }
 
 void
