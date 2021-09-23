@@ -26,7 +26,11 @@ pkt_get_magic_cookie (pktDhcpPacket_t *pkt)
   /* +1 for nul */
   char cookie[DHCP_MAGIC_COOKIE_SIZE + 1];
 
-  memcpy (cookie, opt->cookie, DHCP_MAGIC_COOKIE_SIZE);
+  for (size_t i = 0; i < DHCP_MAX_OPTION_LEN; i++)
+    {
+      if (opt->cookie[i] != 0x0)
+        memcpy (cookie, &opt->cookie[i - 1], DHCP_MAGIC_COOKIE_SIZE);
+    }
 
   cookie[DHCP_MAGIC_COOKIE_SIZE] = '\0';
 
@@ -53,7 +57,7 @@ pkt_get_dhcp_message_type (pktDhcpPacket_t *pkt)
 
   pktMessageType_t *msgType = NULL;
 
-  for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
+  for (size_t i = 0; i < DHCP_MAX_OPTION_LEN; i++)
     {
       if (pkt_is_msg_type_option_valid ((pktMessageType_t *)&opt->opts[i]))
         {
@@ -65,26 +69,11 @@ pkt_get_dhcp_message_type (pktDhcpPacket_t *pkt)
   return msgType ? msgType->type : DHCPUNKNOW;
 }
 
-struct in_addr
+struct in_addr *
 pkt_get_requested_ip_address (pktDhcpPacket_t *pkt)
 {
-  struct in_addr addr = {0};
-
-  pktDhcpOptions_t *opt = (pktDhcpOptions_t *)pkt->options;
-
-  pktRequestedIpAddress_t *reqIpAddrOpt = NULL;
-
-  for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
-    {
-      if (pkt_is_requested_ip_addr_option_valid ((pktRequestedIpAddress_t *)
-          &opt->opts[i]))
-        {
-          reqIpAddrOpt = (pktRequestedIpAddress_t *)&opt->opts[i];
-          break;
-        }
-    }
-
-  inet_aton (reqIpAddrOpt->ip, &addr);
+  struct in_addr *addr = pkt_get_address (pkt,
+                                          (pktValidator_t)pkt_is_requested_ip_addr_option_valid);
 
   return addr;
 }
@@ -98,7 +87,7 @@ pkt_get_string (pktDhcpPacket_t *pkt, pktValidator_t validator)
 
   char *string;
 
-  for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
+  for (size_t i = 0; i < DHCP_MAX_OPTION_LEN; i++)
     {
       if (validator ((pktString_t *)&opt->opts[i]))
         {
@@ -140,7 +129,7 @@ pkt_get_parameter_list (pktDhcpPacket_t *pkt)
   if (!list)
     return NULL;
 
-  for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
+  for (size_t i = 0; i < DHCP_MAX_OPTION_LEN; i++)
     {
       if (pkt_is_parameter_list_valid ((pktParameterRequestList_t *)&opt->opts[i]))
         {
@@ -232,11 +221,11 @@ pkt_get_address (pktDhcpPacket_t *pkt, pktValidator_t validator)
   struct in_addr *addr = (struct in_addr *)malloc (sizeof (struct in_addr));
 
   if (!addr)
-    return 0;
+    goto failed;
 
   char *ip;
 
-  for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
+  for (size_t i = 0; i < DHCP_MAX_OPTION_LEN; i++)
     {
       if (validator ((pktAddress_t *)&opt->opts[i]))
         {
@@ -246,13 +235,21 @@ pkt_get_address (pktDhcpPacket_t *pkt, pktValidator_t validator)
     }
 
   if (!address)
-    return NULL;
+    goto failed;
 
   ip = pkt_ip_hex2str (address->addr);
+
+  if (!ip)
+    goto failed;
 
   addr->s_addr = inet_addr (ip);
 
   return addr;
+
+failed:
+
+  printf ("NULL returned!\n");
+  return NULL;
 }
 
 struct in_addr *
@@ -273,7 +270,7 @@ pkt_get_ip_address_lease_time (pktDhcpPacket_t *pkt)
   if (!time)
     return NULL;
 
-  for (size_t i = 0; i < DHCP_PACKET_MAX_LEN; i++)
+  for (size_t i = 0; i < DHCP_MAX_OPTION_LEN; i++)
     {
       if (pkt_is_ip_address_lease_time_option_valid ((pktIpAddressLeaseTime_t *)
           &opt->opts[i]))

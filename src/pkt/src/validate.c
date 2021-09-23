@@ -30,6 +30,7 @@ bool
 pkt_is_requested_ip_addr_option_valid (pktRequestedIpAddress_t *opt)
 {
   struct in_addr *ip;
+
   inet_aton (opt->ip, ip);
 
   return opt->option == OPTION_REQUESTED_IP_ADDR &&

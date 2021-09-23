@@ -23,9 +23,9 @@ char bufAll[DHCP_PACKET_MAX_LEN];
 
 char bufOffer[DHCP_PACKET_MAX_LEN];
 
-pktDhcpPacket_t *pkt;
-
 int size;
+
+int sizeDiscovery;
 
 int sizeOffer;
 
@@ -44,8 +44,6 @@ init_suite_pkt()
 
   PKT_FAILED_OPEN_FILE (fdOffer, pathOffer);
 
-  read (fdDiscovery, bufDiscovery, DHCP_PACKET_MAX_LEN);
-
   size = read (fdAll, bufAll, BUFSIZ);
 
   if (size == -1)
@@ -62,9 +60,11 @@ init_suite_pkt()
       return -1;
     }
 
-  pkt = (pktDhcpPacket_t *)bufDiscovery;
+  sizeDiscovery = read (fdDiscovery, bufDiscovery, BUFSIZ);
 
   close (fdDiscovery);
+
+  close (fdOffer);
 
   close (fdAll);
 
@@ -74,19 +74,17 @@ init_suite_pkt()
 int
 cleanup_suite_pkt()
 {
-  bzero (bufDiscovery, sizeof (bufDiscovery) / sizeof (char));
-
-  bzero (bufAll, sizeof (bufAll) / sizeof (char));
-
-  bzero (bufOffer, sizeof (bufOffer) / sizeof (char));
-
   return 0;
 }
 
 void
 pkt_get_magic_cookie_test()
 {
-  char validCookie[] = {0x63, -126, 0x53, 0x63, '\0'};
+  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufDiscovery;
+
+  pktDhcpOptions_t *opt = (pktDhcpOptions_t *)pkt->options;
+
+  char validCookie[] = {0x63, 0x82, 0x53, 0x63, '\0'};
 
   char *cookie = pkt_get_magic_cookie (pkt);
 
@@ -99,56 +97,31 @@ pkt_get_magic_cookie_test()
 void
 pkt_get_requested_ip_address_test()
 {
-  pktRequestedIpAddress_t *opts[5];
+  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufDiscovery;
 
-  int optCounter = 0;
+  struct in_addr* addr = pkt_get_requested_ip_address (pkt);
 
-  for (size_t i = 0; i < size; i++)
-    {
-      if (pkt_is_requested_ip_addr_option_valid ((pktRequestedIpAddress_t *)
-          &bufAll[i]))
-        opts[optCounter++] = (pktRequestedIpAddress_t *)&bufAll[i];
-    }
+  CU_ASSERT_FATAL(addr != NULL);
 
-  CU_ASSERT_TRUE (optCounter > 0);
+  CU_ASSERT_STRING_EQUAL(inet_ntoa (*addr), "10.0.2.15");
 }
 
 void
 pkt_get_dhcp_message_type_test()
 {
+  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufDiscovery;
+
   CU_ASSERT_EQUAL (pkt_get_dhcp_message_type (pkt), DHCPDISCOVER);
 }
 
 void
 pkt_get_host_name_test()
 {
+  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufDiscovery;
+
   char *host = pkt_get_host_name (pkt);
 
-  pktHostName_t *opts[5];
-
-  int optCounter = 0;
-
-  CU_ASSERT_STRING_EQUAL (host, "dhcp-server");
-
-  for (size_t i = 0; i < size; i++)
-    {
-      if (pkt_is_host_name_option_valid ((pktString_t *)&bufAll[i]))
-        {
-          int len;
-
-          opts[optCounter++] = (pktHostName_t *)&bufAll[i];
-
-          len = opts[optCounter - 1]->len;
-
-          opts[optCounter - 1]->name[len] = 0;
-        }
-    }
-
-  CU_ASSERT_TRUE (optCounter > 0);
-
-  CU_ASSERT_STRING_EQUAL (opts[0]->name, "dhcp-client1");
-
-  CU_ASSERT_STRING_EQUAL (opts[1]->name, "dhcp-client1");
+  CU_ASSERT_STRING_EQUAL (host, "dhcp-client1");
 
   if (host)
     free (host);
@@ -157,6 +130,8 @@ pkt_get_host_name_test()
 void
 pkt_get_parameter_list_test()
 {
+  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufDiscovery;
+
   pktParameterRequestList_t *list = pkt_get_parameter_list (pkt);
 
   if (!list)
