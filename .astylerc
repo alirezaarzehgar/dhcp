@@ -1,0 +1,2 @@
+# GNU Style
+--style=gnu --mode=c --indent=spaces=2 --max-code-length=79 --break-one-line-headers --break-return-type --pad-oper --pad-first-paren-out --pad-comma --unpad-paren --remove-brackets --align-pointer=name --convert-tabs
