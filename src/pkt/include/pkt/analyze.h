@@ -124,7 +124,7 @@ void pkt_print_magic_cookie (pktDhcpPacket_t *pkt);
 
 enum dhcpMessageTypes pkt_get_dhcp_message_type (pktDhcpPacket_t *pkt);
 
-struct in_addr* pkt_get_requested_ip_address (pktDhcpPacket_t *pkt);
+struct in_addr *pkt_get_requested_ip_address (pktDhcpPacket_t *pkt);
 
 char *pkt_get_host_name (pktDhcpPacket_t *pkt);
 
@@ -152,5 +152,7 @@ struct in_addr *pkt_get_router (pktDhcpPacket_t *pkt);
 char *pkt_get_domain_name (pktDhcpPacket_t *pkt);
 
 char *pkt_get_string (pktDhcpPacket_t *pkt, pktValidator_t validator);
+
+char *pkt_get_message (pktDhcpPacket_t *pkt);
 
 #endif // PKT_ANALYZE_H

@@ -118,3 +118,9 @@ pkt_is_domain_name_option_valid (pktString_t *opt)
 {
   return pkt_is_valid_string (opt, OPTION_DOMAIN_NAME);
 }
+
+bool
+pkt_is_message_valid (pktString_t *opt)
+{
+  return pkt_is_valid_string (opt, OPTION_MSG);
+}

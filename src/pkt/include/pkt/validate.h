@@ -36,4 +36,6 @@ bool pkt_is_valid_string (pktString_t *opt, int option);
 
 bool pkt_is_domain_name_option_valid (pktString_t *opt);
 
+bool pkt_is_message_valid (pktString_t *opt);
+
 #endif // VALIDATE_H

@@ -15,6 +15,8 @@ const char *pathDiscovry = "src/tests/fake_data/discovery";
 
 const char *pathOffer = "src/tests/fake_data/offer";
 
+const char *pathNak = "src/tests/fake_data/nak";
+
 const char *pathAll = "src/tests/fake_data/all";
 
 char bufDiscovery[DHCP_PACKET_MAX_LEN];
@@ -22,6 +24,8 @@ char bufDiscovery[DHCP_PACKET_MAX_LEN];
 char bufAll[DHCP_PACKET_MAX_LEN];
 
 char bufOffer[DHCP_PACKET_MAX_LEN];
+
+char bufNak[DHCP_PACKET_MAX_LEN];
 
 int size;
 
@@ -44,6 +48,10 @@ init_suite_pkt()
 
   PKT_FAILED_OPEN_FILE (fdOffer, pathOffer);
 
+  int fdNak = open (pathNak, O_RDONLY);
+
+  PKT_FAILED_OPEN_FILE (fdNak, pathNak);
+
   size = read (fdAll, bufAll, BUFSIZ);
 
   if (size == -1)
@@ -51,6 +59,8 @@ init_suite_pkt()
       CU_ASSERT_FATAL (CU_TRUE);
       return -1;
     }
+
+  read (fdNak, bufNak, BUFSIZ);
 
   sizeOffer = read (fdOffer, bufOffer, BUFSIZ);
 
@@ -99,11 +109,11 @@ pkt_get_requested_ip_address_test()
 {
   pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufDiscovery;
 
-  struct in_addr* addr = pkt_get_requested_ip_address (pkt);
+  struct in_addr *addr = pkt_get_requested_ip_address (pkt);
 
-  CU_ASSERT_FATAL(addr != NULL);
+  CU_ASSERT_FATAL (addr != NULL);
 
-  CU_ASSERT_STRING_EQUAL(inet_ntoa (*addr), "10.0.2.15");
+  CU_ASSERT_STRING_EQUAL (inet_ntoa (*addr), "10.0.2.15");
 }
 
 void
@@ -305,4 +315,18 @@ pkt_get_string_test()
   free (domain);
 
   free (host);
+}
+
+void
+pkt_get_message_test()
+{
+  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufNak;
+
+  char *msg = pkt_get_message (pkt);
+
+  CU_ASSERT_FATAL (msg != NULL);
+
+  CU_ASSERT_STRING_EQUAL (msg, "wrong server-ID");
+
+  free (msg);
 }

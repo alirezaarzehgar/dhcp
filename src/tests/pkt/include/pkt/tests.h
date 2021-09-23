@@ -56,4 +56,6 @@ void pkt_get_domain_name_test();
 
 void pkt_get_string_test();
 
+void pkt_get_message_test();
+
 #endif // TESTS_PKT_TESTS_H

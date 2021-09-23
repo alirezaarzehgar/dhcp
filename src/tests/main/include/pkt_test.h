@@ -23,6 +23,7 @@ CU_TestInfo pkt_tests[] =
   {"validation function pkt_is_valid_router_test", pkt_is_valid_router_test},
   {"validation function pkt_is_valid_string_test", pkt_is_valid_string_test},
   {"validation function pkt_is_domain_name_option_valid_test", pkt_is_domain_name_option_valid_test},
+  {"validation function pkt_is_message_valid_test", pkt_is_message_valid_test},
   {"get magic cookie", pkt_get_magic_cookie_test},
   {"get message type", pkt_get_dhcp_message_type_test},
   {"get requested ip address", pkt_get_requested_ip_address_test},
@@ -37,6 +38,7 @@ CU_TestInfo pkt_tests[] =
   {"pkt get address", pkt_get_address_test},
   {"pkt get router", pkt_get_router_test},
   {"pkt get domain name", pkt_get_domain_name_test},
+  {"pkt get error message", pkt_get_message_test},
   CU_TEST_INFO_NULL,
 };
 

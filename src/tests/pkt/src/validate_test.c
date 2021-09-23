@@ -265,17 +265,33 @@ pkt_is_domain_name_option_valid_test()
 
   CU_ASSERT_FATAL (domain != NULL);
 
-  CU_ASSERT_TRUE (pkt_is_domain_name_option_valid ((pktString_t*)domain));
+  CU_ASSERT_TRUE (pkt_is_domain_name_option_valid ((pktString_t *)domain));
 
   domain->len = 12;
-  
-  CU_ASSERT_FALSE (pkt_is_domain_name_option_valid ((pktString_t*)domain));
+
+  CU_ASSERT_FALSE (pkt_is_domain_name_option_valid ((pktString_t *)domain));
 
   domain->len = 10;
 
   domain->option = OPTION_ARP_CACHE_TIMEOUT;
 
-  CU_ASSERT_FALSE (pkt_is_domain_name_option_valid ((pktString_t*)domain));
+  CU_ASSERT_FALSE (pkt_is_domain_name_option_valid ((pktString_t *)domain));
 
   free (domain);
+}
+
+void
+pkt_is_message_valid_test()
+{
+  pktMessage_t *msg = (pktMessage_t *)malloc (sizeof (pktMessage_t));
+
+  msg->option = OPTION_MSG;
+
+  msg->len = 15;
+
+  memcpy (msg->msg, "wrong server-ID", msg->len);
+
+  CU_ASSERT_TRUE (pkt_is_message_valid ((pktString_t *)msg));
+
+  free (msg);
 }
