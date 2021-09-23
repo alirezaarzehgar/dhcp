@@ -27,7 +27,7 @@ char bufOffer[DHCP_PACKET_MAX_LEN];
 
 char bufNak[DHCP_PACKET_MAX_LEN];
 
-int size;
+int sizeAll;
 
 int sizeDiscovery;
 
@@ -52,9 +52,9 @@ init_suite_pkt()
 
   PKT_FAILED_OPEN_FILE (fdNak, pathNak);
 
-  size = read (fdAll, bufAll, BUFSIZ);
+  sizeAll = read (fdAll, bufAll, BUFSIZ);
 
-  if (size == -1)
+  if (sizeAll == -1)
     {
       CU_ASSERT_FATAL (CU_TRUE);
       return -1;
