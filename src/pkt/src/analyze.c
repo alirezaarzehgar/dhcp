@@ -18,17 +18,18 @@ pkt_get_magic_cookie (pktDhcpPacket_t *pkt)
 
   /* +1 for nul */
   char *cookie = (char *)malloc (sizeof (char) *
-                                          DHCP_MAGIC_COOKIE_SIZE + 1);
+                                 DHCP_MAGIC_COOKIE_SIZE + 1);
 
   if (!cookie)
     return NULL;
 
   for (size_t i = 0; i < DHCP_MIN_OPTION_LEN; i++)
     {
-      if (opt->cookie[i] != 0) {
-        memcpy (cookie, &opt->cookie[i], DHCP_MAGIC_COOKIE_SIZE);
-        break;
-      }
+      if (opt->cookie[i] != 0)
+        {
+          memcpy (cookie, &opt->cookie[i], DHCP_MAGIC_COOKIE_SIZE);
+          break;
+        }
     }
 
   cookie[DHCP_MAGIC_COOKIE_SIZE] = '\0';
@@ -165,41 +166,30 @@ pkt_ip_str2hex (char *ip)
 
   struct in_addr testAddr = { inet_addr (ip) };
 
-  char *retIp = (char *)malloc (4);
-
-  if (!retIp)
-    return NULL;
+  char *retIp = (char *)malloc (PKT_MAX_IP_SEGMENT_LEN);
 
   char *tmp;
 
   int index = 0;
 
+  if (!retIp)
+    return NULL;
+
   memcpy (tmpIp, ip, PKT_IP_MAX_LEN);
 
   if (testAddr.s_addr == 0)
     {
-fail:
-
-      retIp[0] = 0;
-
-      retIp[1] = 0;
-
-      retIp[2] = 0;
-
-      retIp[3] = 0;
+      bzero (retIp, PKT_MAX_IP_SEGMENT_LEN);
+      return retIp;
     }
-  else
+
+  tmp = strtok (tmpIp, ".");
+
+  do
     {
-      tmp = strtok (tmpIp, ".");
-      if (tmp == NULL)
-        goto fail;
-
-      do
-        {
-          retIp[index++] = atoi (tmp);
-        }
-      while ((tmp = strtok (NULL, ".")) != NULL);
+      retIp[index++] = atoi (tmp);
     }
+  while ((tmp = strtok (NULL, ".")) != NULL);
 
   return retIp;
 }
