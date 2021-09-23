@@ -72,10 +72,8 @@ pkt_get_dhcp_message_type (pktDhcpPacket_t *pkt)
 struct in_addr *
 pkt_get_requested_ip_address (pktDhcpPacket_t *pkt)
 {
-  struct in_addr *addr = pkt_get_address (pkt,
-                                          (pktValidator_t)pkt_is_requested_ip_addr_option_valid);
-
-  return addr;
+  return pkt_get_address (pkt,
+                          (pktValidator_t)pkt_is_requested_ip_addr_option_valid);
 }
 
 char *
@@ -322,7 +320,7 @@ pkt_lease_time_long2hex (long long time)
     {
       strncpy (tmp, &hexFormat[i * 2], 2);
 
-      tmp[i * 2 + 2] = '\0';
+      tmp[ (i * 2) + 2] = '\0';
 
       timeHex[i] = strtol (tmp, NULL, HEX);
     }
