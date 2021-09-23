@@ -239,17 +239,17 @@ pkt_is_valid_router_test()
 void
 pkt_is_valid_string_test()
 {
-  // pktString_t *str = (pktString_t *)malloc (sizeof (pktString_t));
+  pktString_t *str = (pktString_t *)malloc (sizeof (pktString_t));
 
-  // str->option = OPTION_DOMAIN_NAME;
+  str->option = OPTION_DOMAIN_NAME;
 
-  // str->len = 4;
+  str->len = 3;
 
-  // memcpy (str->name, "ali", str->len);
+  memcpy (str->name, "ali", str->len);
 
-  // CU_ASSERT_TRUE (pkt_is_valid_string (str, str->option));
+  CU_ASSERT_TRUE (pkt_is_valid_string (str, str->option));
 
-  // free (str);
+  free (str);
 }
 
 void
