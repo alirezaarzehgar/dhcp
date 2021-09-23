@@ -224,15 +224,30 @@ pkt_get_parameter_list_test()
 }
 
 void
-pkt_get_server_identifier_test()
+server_identifier (pktDhcpPacket_t *pkt, int index)
 {
-  pktDhcpPacket_t *pkt = (pktDhcpPacket_t *)bufOffer;
+  char *ips[] =
+  {
+    "192.168.133.30",
+    "192.168.133.30",
+    "192.168.100.1",
+  };
 
   struct in_addr *addr = pkt_get_server_identifier (pkt);
 
-  CU_ASSERT_FATAL (addr != NULL);
+  if (index > 0)
+    {
+      CU_ASSERT_FATAL (addr != NULL);
 
-  CU_ASSERT_STRING_EQUAL (inet_ntoa (*addr), "192.168.133.30");
+      /* only for DISCOVERY & REQUEST */
+      CU_ASSERT_STRING_EQUAL (inet_ntoa (*addr), ips[index - 1]);
+    }
+}
+
+void
+pkt_get_server_identifier_test()
+{
+  pkt_test_function_on_all_packets (server_identifier);
 }
 
 void
