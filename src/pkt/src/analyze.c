@@ -17,14 +17,11 @@ pkt_get_magic_cookie (pktDhcpPacket_t *pkt)
   pktDhcpOptions_t *opt = (pktDhcpOptions_t *)pkt->options;
 
   /* +1 for nul */
-  char *cookieForReturn = (char *)malloc (sizeof (char) *
+  char *cookie = (char *)malloc (sizeof (char) *
                                           DHCP_MAGIC_COOKIE_SIZE + 1);
 
-  if (!cookieForReturn && DHCP_MAGIC_COOKIE_SIZE > 0)
+  if (!cookie && DHCP_MAGIC_COOKIE_SIZE > 0)
     return NULL;
-
-  /* +1 for nul */
-  char cookie[DHCP_MAGIC_COOKIE_SIZE + 1];
 
   for (size_t i = 0; i < DHCP_MIN_OPTION_LEN; i++)
     {
@@ -36,11 +33,7 @@ pkt_get_magic_cookie (pktDhcpPacket_t *pkt)
 
   cookie[DHCP_MAGIC_COOKIE_SIZE] = '\0';
 
-  memcpy (cookieForReturn, cookie, DHCP_MAGIC_COOKIE_SIZE);
-
-  bzero (cookie, DHCP_MAGIC_COOKIE_SIZE);
-
-  return cookieForReturn;
+  return cookie;
 }
 
 void
