@@ -307,3 +307,8 @@ pktIsPktTypeBootRepTest()
 {
   /* TODO pktIsPktTypeBootRepTest */
 }
+
+void pktHaveTransactionIdTest()
+{
+  /* TODO pktHaveTransactionIdTest */
+}
