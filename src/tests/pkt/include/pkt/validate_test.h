@@ -36,4 +36,8 @@ void pktIsDomainNameOptionValidTest();
 
 void pktIsMessageValidTest();
 
+void pktIsDiscoveryPktValidForOfferTest();
+
+void pktIsRequestPktValidForAckTest();
+
 #endif // TEST_VALIDATE_H

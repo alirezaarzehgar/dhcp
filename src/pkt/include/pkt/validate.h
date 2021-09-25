@@ -38,4 +38,8 @@ bool pktIsDomainNameOptionValid (pktString_t *opt);
 
 bool pktIsMessageValid (pktString_t *opt);
 
-#endif // VALIDATE_H
+bool pktIsDiscoveryPktValidForOffer (pktDhcpPacket_t *pkt);
+
+bool pktIsRequestPktValidForAck (pktDhcpPacket_t *pkt);
+
+#endif

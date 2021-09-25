@@ -204,11 +204,11 @@ pktIsAddressValidTest()
   si->ip[3] = 30;
 
   CU_ASSERT_TRUE (pktIsAddressValid ((pktAddress_t *)mask, OPTION_SUBNET_MASK,
-                                        256));
+                                     256));
 
   CU_ASSERT_TRUE (pktIsAddressValid ((pktAddress_t *)si,
-                                        OPTION_SERVER_IDENTIFIER,
-                                        255));
+                                     OPTION_SERVER_IDENTIFIER,
+                                     255));
 }
 
 void

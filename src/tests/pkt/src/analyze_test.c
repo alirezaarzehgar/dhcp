@@ -466,3 +466,15 @@ pktGetMessageTest()
 {
   pkt_test_function_on_all_packets (get_message);
 }
+
+void
+pktIsDiscoveryPktValidForOfferTest()
+{
+  /* TODO */
+}
+
+void
+pktIsRequestPktValidForAckTest()
+{
+  /* TODO */
+}

@@ -89,7 +89,7 @@ bool
 pktIsValidServerIdentifier (pktServerIdentifier_t *opt)
 {
   return pktIsAddressValid ((pktAddress_t *)opt, OPTION_SERVER_IDENTIFIER,
-                               PKT_MAX_IP_SEGMENT_LEN);
+                            PKT_MAX_IP_SEGMENT_LEN);
 }
 
 bool
@@ -103,14 +103,14 @@ bool
 pktIsValidSubnetMask (pktSubnetMask_t *opt)
 {
   return pktIsAddressValid ((pktAddress_t *)opt, OPTION_SUBNET_MASK,
-                               PKT_MAX_IP_SEGMENT_LEN + 1);
+                            PKT_MAX_IP_SEGMENT_LEN + 1);
 }
 
 bool
 pktIsValidRouter (pktRouter_t *opt)
 {
   return pktIsAddressValid ((pktAddress_t *)opt, OPTION_ROUTER,
-                               PKT_MAX_IP_SEGMENT_LEN);
+                            PKT_MAX_IP_SEGMENT_LEN);
 }
 
 bool
@@ -123,4 +123,18 @@ bool
 pktIsMessageValid (pktString_t *opt)
 {
   return pktIsValidString (opt, OPTION_MSG);
+}
+
+bool
+pktIsDiscoveryPktValidForOffer (pktDhcpPacket_t *pkt)
+{
+  /* TODO */
+  return true;
+}
+
+bool
+pktIsRequestPktValidForAck (pktDhcpPacket_t *pkt)
+{
+  /* TODO */
+  return true;
 }

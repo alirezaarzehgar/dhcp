@@ -251,7 +251,7 @@ pktGetIpAddressLeaseTime (pktDhcpPacket_t *pkt)
   for (size_t i = 0; i < DHCP_MIN_OPTION_LEN; i++)
     {
       if (pktIsIpAddressLeaseTimeOptionValid ((pktIpAddressLeaseTime_t *)
-          &opt->opts[i]))
+                                              &opt->opts[i]))
         {
           leaseTime = (pktIpAddressLeaseTime_t *)&opt->opts[i];
           break;
