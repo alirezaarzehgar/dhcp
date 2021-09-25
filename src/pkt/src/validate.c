@@ -156,11 +156,23 @@ pktHaveTransactionId (pktDhcpPacket_t *pkt)
 bool
 pktIsDiscoveryPktValidForOffer (pktDhcpPacket_t *pkt)
 {
-  /* msg type should be OK */
+  /* msg type should be - OK */
 
-  /* htype should be OK */
+  /* htype should be - OK */
 
-  /*  */
+  /* have transaction id - OK */
+
+  /* valid mac address */
+
+  /* have magic cookie */
+
+  /* have DHCP Message Type */
+
+  /* Have requested IP address */
+
+  /* Have hostname */
+
+  /* Have Parameter Request List */
 
   return true;
 }
