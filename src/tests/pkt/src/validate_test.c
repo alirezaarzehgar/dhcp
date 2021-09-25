@@ -67,7 +67,7 @@ pktIsRequestedIpAddrOptionValidTest()
 void
 pktIsHostNameOptionValidTest()
 {
-#define SAME_TEST(VALUE) CU_ASSERT_##VALUE (pkt_is_host_name_option_valid ((pktString_t *)hname))
+#define SAME_TEST(VALUE) CU_ASSERT_##VALUE (pktIsHostNameOptionValid ((pktString_t *)hname))
 
   char buf[200];
 
