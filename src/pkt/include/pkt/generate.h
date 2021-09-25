@@ -31,5 +31,4 @@ void pktGenMessage (/* TODO Parameters */);
 
 void pktGenEnd (/* TODO Parameters */);
 
-
 #endif // PKT_GENERATE_H
