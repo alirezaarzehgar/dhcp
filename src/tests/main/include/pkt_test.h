@@ -29,6 +29,7 @@ CU_TestInfo pkt_tests[] =
   {"validation function pktIsRequestPktValidForAckTest", pktIsRequestPktValidForAckTest},
   {"validation function pktIsPktTypeBootReqTest", pktIsPktTypeBootReqTest},
   {"validation function pktIsPktTypeBootRepTest", pktIsPktTypeBootRepTest},
+  {"validation function pktHaveTransactionIdTest", pktHaveTransactionIdTest},
   /* Analyze Tests */
   {"get magic cookie", pktGetMagicCookieTest},
   {"get message type", pktGetDhcpMessageTypeTest},
