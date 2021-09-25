@@ -135,6 +135,6 @@ pktIsDiscoveryPktValidForOffer (pktDhcpPacket_t *pkt)
 bool
 pktIsRequestPktValidForAck (pktDhcpPacket_t *pkt)
 {
-  /* TODO */
+  /* TODO pktIsRequestPktValidForAck */
   return true;
 }
