@@ -1,7 +1,7 @@
 #include <CUnit/TestDB.h>
 
-#include "pkt/analyze_tests.h"
-
+#include "pkt/analyze_test.h"
+#include "pkt/generation_test.h"
 #include "pkt/validate_test.h"
 
 #if !defined(TEST_PKT_ARRAY_H)
@@ -9,6 +9,7 @@
 
 CU_TestInfo pkt_tests[] =
 {
+  /* Validation tests */
   {"validation function pktIsMsgTypeValidTest", pktIsMsgTypeValidTest},
   {"validation function pktIsMsgTypeOptionValidTest", pktIsMsgTypeOptionValidTest},
   {"validation function pktIsRequestedIpAddrOptionValidTest", pktIsRequestedIpAddrOptionValidTest},
@@ -24,6 +25,7 @@ CU_TestInfo pkt_tests[] =
   {"validation function pktIsValidStringTest", pktIsValidStringTest},
   {"validation function pktIsDomainNameOptionValidTest", pktIsDomainNameOptionValidTest},
   {"validation function pktIsMessageValidTest", pktIsMessageValidTest},
+  /* Analyze Tests */
   {"get magic cookie", pktGetMagicCookieTest},
   {"get message type", pktGetDhcpMessageTypeTest},
   {"get requested ip address", pktGetRequestedIpAddressTest},
@@ -39,6 +41,7 @@ CU_TestInfo pkt_tests[] =
   {"pkt get router", pktgetRouterTest},
   {"pkt get domain name", pktGetDomainNameTest},
   {"pkt get error message", pktGetMessageTest},
+  /* Generation Tests */
   CU_TEST_INFO_NULL,
 };
 
