@@ -14,11 +14,35 @@
 int
 pktGenOffer (pktDhcpPacket_t *discovery, pktDhcpPacket_t *offer)
 {
-    /* TODO */
+    /* Check discovery packet validation */
+
+    /* TODO Check discovery packet validation */
+
+    /* Fill common BOOTP and DHCP fileds */
+
+    /* TODO Fill common BOOTP and DHCP fileds */
+
+    /* Add all parameter requested list's options to offer */
+
+    /* TODO Add all parameter requested list's options to offer */
+
+    return 0;
 }
 
 int
 pktGenAck (pktDhcpPacket_t *request, pktDhcpPacket_t *ack)
 {
-    /* TODO */
+    /* Check discovery packet validation */
+
+    /* TODO Check discovery packet validation */
+
+    /* Fill common BOOTP and DHCP fileds */
+
+    /* TODO Fill common BOOTP and DHCP fileds */
+
+    /* Add all parameter requested list's options to offer */
+
+    /* TODO Add all parameter requested list's options to offer */
+
+    return 0;
 }

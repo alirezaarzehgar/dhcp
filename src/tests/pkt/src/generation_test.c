@@ -31,10 +31,10 @@ packetGenMainTest()
 
 void pktGenOfferTest ()
 {
-  /* TODO */
+  /* TODO pktGenOfferTest */
 }
 
 void pktGenAckTest ()
 {
-  /* TODO */
+  /* TODO pktGenAckTest */
 }
