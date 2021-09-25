@@ -155,4 +155,4 @@ char *pktGetString (pktDhcpPacket_t *pkt, pktValidator_t validator);
 
 char *pktGetMessage (pktDhcpPacket_t *pkt);
 
-#endif // PKT_ANALYZE_H
+#endif

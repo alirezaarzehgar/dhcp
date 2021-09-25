@@ -46,4 +46,4 @@ CU_SuiteInfo suites[] =
   CU_SUITE_INFO_NULL,
 };
 
-#endif // TESTS_MAIN_H
+#endif

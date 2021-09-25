@@ -11,5 +11,4 @@ CU_TestInfo cli_tests[] =
   CU_TEST_INFO_NULL,
 };
 
-#endif // CLI_TEST_ARRAY_H
-
+#endif

@@ -40,4 +40,4 @@ void pktIsDiscoveryPktValidForOfferTest();
 
 void pktIsRequestPktValidForAckTest();
 
-#endif // TEST_VALIDATE_H
+#endif

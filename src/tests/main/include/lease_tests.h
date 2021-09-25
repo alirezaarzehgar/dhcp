@@ -11,4 +11,4 @@ CU_TestInfo lease_tests[] =
   CU_TEST_INFO_NULL,
 };
 
-#endif // LEASE_TEST_ARRAY_H
+#endif

@@ -50,4 +50,4 @@ CU_TestInfo pkt_tests[] =
   CU_TEST_INFO_NULL,
 };
 
-#endif // TEST_PKT_ARRAY_H
+#endif

@@ -11,4 +11,4 @@ CU_TestInfo network_tests[] =
   CU_TEST_INFO_NULL,
 };
 
-#endif // NETWORK_TEST_ARRAY_H
+#endif
