@@ -9,6 +9,8 @@
 
 #define PKT_MAX_IP_SEGMENT_LEN                  255
 #define PKT_DEFAULT_ADDRESS_LEN                 4
+#define PKT_TRANSACTION_ID_LEN                  4
+#define PKT_HEX_NULL                            0x0
 
 bool pktIsMsgTypeValid (enum dhcpMessageTypes type);
 
@@ -45,5 +47,7 @@ bool pktIsPktTypeBootRep (pktDhcpPacket_t *pkt);
 bool pktIsDiscoveryPktValidForOffer (pktDhcpPacket_t *pkt);
 
 bool pktIsRequestPktValidForAck (pktDhcpPacket_t *pkt);
+
+bool pktHaveTransactionId (pktDhcpPacket_t *pkt);
 
 #endif

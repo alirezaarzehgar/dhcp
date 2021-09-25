@@ -138,9 +138,30 @@ pktIsPktTypeBootRep (pktDhcpPacket_t *pkt)
 }
 
 bool
+pktIsHardwareTypeEthernet (pktDhcpPacket_t *pkt)
+{
+  return pkt->htype = PKT_HTYPE_ETHERNET;
+}
+
+bool
+pktHaveTransactionId (pktDhcpPacket_t *pkt)
+{
+  for (size_t i = 0; i < PKT_TRANSACTION_ID_LEN; i++)
+    if (pkt->xid == PKT_HEX_NULL)
+      return false;
+
+  return true;
+}
+
+bool
 pktIsDiscoveryPktValidForOffer (pktDhcpPacket_t *pkt)
 {
-  /* TODO */
+  /* msg type should be OK */
+
+  /* htype should be OK */
+
+  /*  */
+
   return true;
 }
 
