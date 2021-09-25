@@ -54,6 +54,12 @@ struct pktDhcpPacket
   (actual length dependent on MTU). */
 };
 
+enum pktBootPMessageType
+{
+  PKT_MESSAGE_TYPE_BOOT_REQUEST = 1,
+  PKT_MESSAGE_TYPE_BOOT_REPLY,
+};
+
 /* DHCP options */
 
 struct pktMessageType
