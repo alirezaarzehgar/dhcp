@@ -69,7 +69,7 @@ struct in_addr *
 pktGetRequestedIpAddress (pktDhcpPacket_t *pkt)
 {
   return pktGetAddress (pkt,
-                          (pktValidator_t)pkt_is_requested_ip_addr_option_valid);
+                        (pktValidator_t)pkt_is_requested_ip_addr_option_valid);
 }
 
 char *

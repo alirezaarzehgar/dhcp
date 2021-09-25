@@ -145,7 +145,7 @@ char *pktLeaseTimeLong2hex (long long time);
 struct in_addr *pktGetSubnetMask (pktDhcpPacket_t *pkt);
 
 struct in_addr *pktGetAddress (pktDhcpPacket_t *pkt,
-                                 pktValidator_t validator);
+                               pktValidator_t validator);
 
 struct in_addr *pktGetRouter (pktDhcpPacket_t *pkt);
 
