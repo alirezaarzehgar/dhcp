@@ -42,8 +42,10 @@ CU_TestInfo pkt_tests[] =
   {"pkt get domain name", pktGetDomainNameTest},
   {"pkt get error message", pktGetMessageTest},
   /* Generation Tests */
+  {"endpoint for packet generation", packetGenMainTest},
+  {"generate Offer packet", pktGenOfferTest},
+  {"generate Ack packet", pktGenAckTest},
   CU_TEST_INFO_NULL,
 };
-
 
 #endif // TEST_PKT_ARRAY_H

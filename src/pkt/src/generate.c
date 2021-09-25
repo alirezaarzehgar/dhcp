@@ -10,3 +10,15 @@
  */
 
 #include "pkt/generate.h"
+
+int
+pktGenOffer (pktDhcpPacket_t *discovery, pktDhcpPacket_t *offer)
+{
+    /* TODO */
+}
+
+int
+pktGenAck (pktDhcpPacket_t *request, pktDhcpPacket_t *ack)
+{
+    /* TODO */
+}
