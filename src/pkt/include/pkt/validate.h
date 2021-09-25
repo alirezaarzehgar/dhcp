@@ -38,6 +38,10 @@ bool pktIsDomainNameOptionValid (pktString_t *opt);
 
 bool pktIsMessageValid (pktString_t *opt);
 
+bool pktIsPktTypeBootReq (pktDhcpPacket_t *pkt);
+
+bool pktIsPktTypeBootRep (pktDhcpPacket_t *pkt);
+
 bool pktIsDiscoveryPktValidForOffer (pktDhcpPacket_t *pkt);
 
 bool pktIsRequestPktValidForAck (pktDhcpPacket_t *pkt);

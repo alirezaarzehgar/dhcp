@@ -126,6 +126,18 @@ pktIsMessageValid (pktString_t *opt)
 }
 
 bool
+pktIsPktTypeBootReq (pktDhcpPacket_t *pkt)
+{
+  return pkt->op == PKT_MESSAGE_TYPE_BOOT_REQUEST;
+}
+
+bool
+pktIsPktTypeBootRep (pktDhcpPacket_t *pkt)
+{
+  return pkt->op == PKT_MESSAGE_TYPE_BOOT_REPLY;
+}
+
+bool
 pktIsDiscoveryPktValidForOffer (pktDhcpPacket_t *pkt)
 {
   /* TODO */
