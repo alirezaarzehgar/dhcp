@@ -297,6 +297,18 @@ pktIsMessageValidTest()
 }
 
 void
+pktIsDiscoveryPktValidForOfferTest()
+{
+  /* TODO pktIsDiscoveryPktValidForOfferTest */
+}
+
+void
+pktIsRequestPktValidForAckTest()
+{
+  /* TODO pktIsRequestPktValidForAckTest */
+}
+
+void
 pktIsPktTypeBootReqTest()
 {
   /* TODO pktIsPktTypeBootReqTest */
