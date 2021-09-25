@@ -44,4 +44,6 @@ void pktIsPktTypeBootReqTest();
 
 void pktIsPktTypeBootRepTest();
 
+void pktHaveTransactionIdTest();
+
 #endif
