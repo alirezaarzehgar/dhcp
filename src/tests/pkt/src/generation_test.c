@@ -29,12 +29,20 @@ packetGenMainTest()
   /* Test endpoint for many test regardless specific function */
 }
 
-void pktGenOfferTest ()
+void
+pktGenOfferTest()
 {
   /* TODO pktGenOfferTest */
 }
 
-void pktGenAckTest ()
+void
+pktGenAckTest()
 {
   /* TODO pktGenAckTest */
+}
+
+void
+pktGenNakTest()
+{
+  /* TODO pktGenNakTest */
 }

@@ -5,8 +5,10 @@
 
 void packetGenMainTest();
 
-void pktGenOfferTest ();
+void pktGenOfferTest();
 
-void pktGenAckTest ();
+void pktGenAckTest();
+
+void pktGenNakTest();
 
 #endif

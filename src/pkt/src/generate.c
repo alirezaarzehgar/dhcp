@@ -14,35 +14,50 @@
 int
 pktGenOffer (pktDhcpPacket_t *discovery, pktDhcpPacket_t *offer)
 {
-    /* Check discovery packet validation */
+  /* Check discovery packet validation */
 
-    /* TODO Check discovery packet validation */
+  /* TODO Check discovery packet validation */
 
-    /* Fill common BOOTP and DHCP fileds */
+  /* Fill common BOOTP and DHCP fileds */
 
-    /* TODO Fill common BOOTP and DHCP fileds */
+  /* TODO Fill common BOOTP and DHCP fileds */
 
-    /* Add all parameter requested list's options to offer */
+  /* Add all parameter requested list's options to offer */
 
-    /* TODO Add all parameter requested list's options to offer */
+  /* TODO Add all parameter requested list's options to offer */
 
-    return 0;
+  return 0;
 }
 
 int
 pktGenAck (pktDhcpPacket_t *request, pktDhcpPacket_t *ack)
 {
-    /* Check discovery packet validation */
+  /* Check discovery packet validation */
 
-    /* TODO Check discovery packet validation */
+  /* TODO Check discovery packet validation */
 
-    /* Fill common BOOTP and DHCP fileds */
+  /* Fill common BOOTP and DHCP fileds */
 
-    /* TODO Fill common BOOTP and DHCP fileds */
+  /* TODO Fill common BOOTP and DHCP fileds */
 
-    /* Add all parameter requested list's options to offer */
+  /* Add all parameter requested list's options to offer */
 
-    /* TODO Add all parameter requested list's options to offer */
+  /* TODO Add all parameter requested list's options to offer */
 
-    return 0;
+  return 0;
+}
+
+int
+pktGenNak (void *unused /* TODO any parameter sets on future */,
+           pktDhcpPacket_t *nak)
+{
+  /* get error message */
+
+  /* TODO get error message */
+
+  /* get extra option */
+
+  /* TODO get extra option */
+
+  return 0;
 }
