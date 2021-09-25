@@ -84,7 +84,7 @@ cleanupSuitePkt()
 }
 
 void
-pkt_test_function_on_all_packets (pktCustomTest_t func)
+pktTestFunctionOnAllPackets (pktCustomTest_t func)
 {
   pktDhcpPacket_t *pkts[] =
   {
@@ -116,7 +116,7 @@ magic_cookie (pktDhcpPacket_t *pkt, int index)
 void
 pktGetMagicCookieTest()
 {
-  pkt_test_function_on_all_packets (magic_cookie);
+  pktTestFunctionOnAllPackets (magic_cookie);
 }
 
 void
@@ -148,7 +148,7 @@ requested_ip_address (pktDhcpPacket_t *pkt, int index)
 void
 pktGetRequestedIpAddressTest()
 {
-  pkt_test_function_on_all_packets (requested_ip_address);
+  pktTestFunctionOnAllPackets (requested_ip_address);
 }
 
 void
@@ -168,7 +168,7 @@ message_type (pktDhcpPacket_t *pkt, int index)
 void
 pktGetDhcpMessageTypeTest()
 {
-  pkt_test_function_on_all_packets (message_type);
+  pktTestFunctionOnAllPackets (message_type);
 }
 
 void
@@ -192,7 +192,7 @@ host_name (pktDhcpPacket_t *pkt, int index)
 void
 pktGetHostNameTest()
 {
-  pkt_test_function_on_all_packets (host_name);
+  pktTestFunctionOnAllPackets (host_name);
 }
 
 void
@@ -220,7 +220,7 @@ parameter_list (pktDhcpPacket_t *pkt, int index)
 void
 pktGetParameterListTest()
 {
-  pkt_test_function_on_all_packets (parameter_list);
+  pktTestFunctionOnAllPackets (parameter_list);
 }
 
 void
@@ -247,7 +247,7 @@ server_identifier (pktDhcpPacket_t *pkt, int index)
 void
 pktGetServerIdentifierTest()
 {
-  pkt_test_function_on_all_packets (server_identifier);
+  pktTestFunctionOnAllPackets (server_identifier);
 }
 
 void
@@ -304,7 +304,7 @@ ip_address_lease_time (pktDhcpPacket_t *pkt, int index)
 void
 pktGetIpAddressLeaseTimeTest()
 {
-  pkt_test_function_on_all_packets (ip_address_lease_time);
+  pktTestFunctionOnAllPackets (ip_address_lease_time);
 }
 
 void
@@ -349,7 +349,7 @@ subnet_mask (pktDhcpPacket_t *pkt, int index)
 void
 pktGetSubnetMaskTest()
 {
-  pkt_test_function_on_all_packets (subnet_mask);
+  pktTestFunctionOnAllPackets (subnet_mask);
 }
 
 void
@@ -384,7 +384,7 @@ get_router (pktDhcpPacket_t *pkt, int index)
 void
 pktgetRouterTest()
 {
-  pkt_test_function_on_all_packets (get_router);
+  pktTestFunctionOnAllPackets (get_router);
 }
 
 void
@@ -408,7 +408,7 @@ domain_name (pktDhcpPacket_t *pkt, int index)
 void
 pktGetDomainNameTest()
 {
-  pkt_test_function_on_all_packets (domain_name);
+  pktTestFunctionOnAllPackets (domain_name);
 }
 
 void
@@ -440,7 +440,7 @@ get_string (pktDhcpPacket_t *pkt, int index)
 void
 pktGetStringTest()
 {
-  pkt_test_function_on_all_packets (get_string);
+  pktTestFunctionOnAllPackets (get_string);
 }
 
 void
@@ -464,5 +464,5 @@ get_message (pktDhcpPacket_t *pkt, int index)
 void
 pktGetMessageTest()
 {
-  pkt_test_function_on_all_packets (get_message);
+  pktTestFunctionOnAllPackets (get_message);
 }

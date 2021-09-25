@@ -20,6 +20,8 @@
 
 typedef void (*pktCustomTest_t) (pktDhcpPacket_t *pkt, int index);
 
+void pktTestFunctionOnAllPackets (pktCustomTest_t func);
+
 int initSuitePkt();
 
 int cleanupSuitePkt();

@@ -11,6 +11,17 @@
 
 #include "pkt/validate_test.h"
 #include "pkt/validate.h"
+#include "pkt/analyze_test.h"
+
+extern char bufAll[DHCP_PACKET_MAX_LEN];
+
+extern char bufDiscovery[DHCP_PACKET_MAX_LEN];
+
+extern char bufOffer[DHCP_PACKET_MAX_LEN];
+
+extern char bufRequest[DHCP_PACKET_MAX_LEN];
+
+extern char bufNak[DHCP_PACKET_MAX_LEN];
 
 void
 pktIsMsgTypeValidTest()
@@ -309,15 +320,29 @@ pktIsRequestPktValidForAckTest()
 }
 
 void
+typeBootReq (pktDhcpPacket_t *pkt, int index)
+{
+  if (index % 2 == 0) 
+    CU_ASSERT (pktIsPktTypeBootReq (pkt));
+}
+
+void
 pktIsPktTypeBootReqTest()
 {
-  /* TODO pktIsPktTypeBootReqTest */
+  pktTestFunctionOnAllPackets (typeBootReq);
+}
+
+void
+typeBootRep (pktDhcpPacket_t *pkt, int index)
+{
+  if (index % 2 == 1) 
+    CU_ASSERT (pktIsPktTypeBootRep (pkt));
 }
 
 void
 pktIsPktTypeBootRepTest()
 {
-  /* TODO pktIsPktTypeBootRepTest */
+  pktTestFunctionOnAllPackets (typeBootRep);
 }
 
 void
