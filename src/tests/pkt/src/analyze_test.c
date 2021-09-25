@@ -470,11 +470,11 @@ pktGetMessageTest()
 void
 pktIsDiscoveryPktValidForOfferTest()
 {
-  /* TODO */
+  /* TODO pktIsDiscoveryPktValidForOfferTest */
 }
 
 void
 pktIsRequestPktValidForAckTest()
 {
-  /* TODO */
+  /* TODO pktIsRequestPktValidForAckTest */
 }
