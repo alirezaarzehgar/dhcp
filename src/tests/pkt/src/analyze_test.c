@@ -420,11 +420,11 @@ get_string (pktDhcpPacket_t *pkt, int index)
       return;
     }
 
-  char *domain = pktGetString (pkt, (void *)pkt_is_domain_name_option_valid);
+  char *domain = pktGetString (pkt, (void *)pktIsDomainNameOptionValid);
 
   CU_ASSERT_FATAL (domain != NULL);
 
-  char *host = pktGetString (pkt, (void *)pkt_is_host_name_option_valid);
+  char *host = pktGetString (pkt, (void *)pktIsHostNameOptionValid);
 
   CU_ASSERT_FATAL (host != NULL);
 

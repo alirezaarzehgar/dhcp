@@ -15,21 +15,21 @@
 void
 pktIsMsgTypeValidTest()
 {
-  CU_ASSERT_TRUE (pkt_is_msg_type_valid (DHCPDISCOVER));
+  CU_ASSERT_TRUE (pktIsMsgTypeValid (DHCPDISCOVER));
 
-  CU_ASSERT_TRUE (pkt_is_msg_type_valid (DHCPACK));
+  CU_ASSERT_TRUE (pktIsMsgTypeValid (DHCPACK));
 
-  CU_ASSERT_TRUE (pkt_is_msg_type_valid (DHCPNAK));
+  CU_ASSERT_TRUE (pktIsMsgTypeValid (DHCPNAK));
 
-  CU_ASSERT_TRUE (pkt_is_msg_type_valid (DHCPOFFER));
+  CU_ASSERT_TRUE (pktIsMsgTypeValid (DHCPOFFER));
 
-  CU_ASSERT_TRUE (pkt_is_msg_type_valid (DHCPRELEASE));
+  CU_ASSERT_TRUE (pktIsMsgTypeValid (DHCPRELEASE));
 
-  CU_ASSERT_TRUE (pkt_is_msg_type_valid (DHCPREQUEST));
+  CU_ASSERT_TRUE (pktIsMsgTypeValid (DHCPREQUEST));
 
-  CU_ASSERT_FALSE (pkt_is_msg_type_valid (DHCPUNKNOW));
+  CU_ASSERT_FALSE (pktIsMsgTypeValid (DHCPUNKNOW));
 
-  CU_ASSERT_FALSE (pkt_is_msg_type_valid (423));
+  CU_ASSERT_FALSE (pktIsMsgTypeValid (423));
 }
 
 void
@@ -37,23 +37,23 @@ pktIsMsgTypeOptionValidTest()
 {
   pktMessageType_t opt = {.len = 1, .type = DHCPDISCOVER, .option = OPTION_DHCP_MSG_TYPE};
 
-  CU_ASSERT_TRUE (pkt_is_msg_type_option_valid (&opt));
+  CU_ASSERT_TRUE (pktIsMsgTypeOptionValid (&opt));
 
   opt.len = 12;
 
-  CU_ASSERT_FALSE (pkt_is_msg_type_option_valid (&opt));
+  CU_ASSERT_FALSE (pktIsMsgTypeOptionValid (&opt));
 
   opt.len = 1;
 
   opt.type = DHCPUNKNOW;
 
-  CU_ASSERT_FALSE (pkt_is_msg_type_option_valid (&opt));
+  CU_ASSERT_FALSE (pktIsMsgTypeOptionValid (&opt));
 
   opt.type = DHCPDISCOVER;
 
   opt.option = OPTION_COOKIE_SERVER;
 
-  CU_ASSERT_FALSE (pkt_is_msg_type_option_valid (&opt));
+  CU_ASSERT_FALSE (pktIsMsgTypeOptionValid (&opt));
 }
 
 void
@@ -61,7 +61,7 @@ pktIsRequestedIpAddrOptionValidTest()
 {
   pktRequestedIpAddress_t opt = {.len = 0, .option = OPTION_REQUESTED_IP_ADDR};
 
-  CU_ASSERT_TRUE (pkt_is_requested_ip_addr_option_valid (&opt));
+  CU_ASSERT_TRUE (pktIsRequestedIpAddrOptionValid (&opt));
 }
 
 void
@@ -116,17 +116,17 @@ pktIsParameterListValidTest()
 
   list->len = index;
 
-  CU_ASSERT_TRUE (pkt_is_parameter_list_valid (list));
+  CU_ASSERT_TRUE (pktIsParameterListValid (list));
 
   list->len = index - 1;
 
-  CU_ASSERT_TRUE (pkt_is_parameter_list_valid (list));
+  CU_ASSERT_TRUE (pktIsParameterListValid (list));
 
   list->list[index++] = (char)500;
 
   list->len = index;
 
-  CU_ASSERT_FALSE (pkt_is_parameter_list_valid (list));
+  CU_ASSERT_FALSE (pktIsParameterListValid (list));
 }
 
 void
@@ -144,7 +144,7 @@ pktIsValidServerIdentifierTest()
   si->ip[2] = 133;
   si->ip[3] = 30;
 
-  CU_ASSERT_TRUE (pkt_is_valid_server_identifier (si));
+  CU_ASSERT_TRUE (pktIsValidServerIdentifier (si));
 }
 
 void
@@ -156,7 +156,7 @@ pktIsIpAddressLeaseTimeOptionValidTest()
 
       strncpy (lt.time, pktLeaseTimeLong2hex (i * rand() % 14), lt.len);
 
-      CU_ASSERT_TRUE (pkt_is_ip_address_lease_time_option_valid (&lt));
+      CU_ASSERT_TRUE (pktIsIpAddressLeaseTimeOptionValid (&lt));
     }
 }
 
@@ -174,7 +174,7 @@ pktIsValidSubnetMaskTest()
   mask->subnet[2] = 225;
   mask->subnet[3] = 0;
 
-  CU_ASSERT_TRUE (pkt_is_valid_subnet_mask (mask));
+  CU_ASSERT_TRUE (pktIsValidSubnetMask (mask));
 }
 
 void
@@ -203,10 +203,10 @@ pktIsAddressValidTest()
   si->ip[2] = 133;
   si->ip[3] = 30;
 
-  CU_ASSERT_TRUE (pkt_is_address_valid ((pktAddress_t *)mask, OPTION_SUBNET_MASK,
+  CU_ASSERT_TRUE (pktIsAddressValid ((pktAddress_t *)mask, OPTION_SUBNET_MASK,
                                         256));
 
-  CU_ASSERT_TRUE (pkt_is_address_valid ((pktAddress_t *)si,
+  CU_ASSERT_TRUE (pktIsAddressValid ((pktAddress_t *)si,
                                         OPTION_SERVER_IDENTIFIER,
                                         255));
 }
@@ -225,15 +225,15 @@ pktIsValidRouterTest()
   router->router[2] = 1;
   router->router[3] = 1;
 
-  CU_ASSERT_TRUE (pkt_is_valid_router (router));
+  CU_ASSERT_TRUE (pktIsValidRouter (router));
 
   router->option = OPTION_ARP_CACHE_TIMEOUT;
 
-  CU_ASSERT_FALSE (pkt_is_valid_router (router));
+  CU_ASSERT_FALSE (pktIsValidRouter (router));
 
   router->len = 12;
 
-  CU_ASSERT_FALSE (pkt_is_valid_router (router));
+  CU_ASSERT_FALSE (pktIsValidRouter (router));
 }
 
 void
@@ -247,7 +247,7 @@ pktIsValidStringTest()
 
   memcpy (str->name, "ali", str->len);
 
-  CU_ASSERT_TRUE (pkt_is_valid_string (str, str->option));
+  CU_ASSERT_TRUE (pktIsValidString (str, str->option));
 
   free (str);
 }
@@ -265,17 +265,17 @@ pktIsDomainNameOptionValidTest()
 
   CU_ASSERT_FATAL (domain != NULL);
 
-  CU_ASSERT_TRUE (pkt_is_domain_name_option_valid ((pktString_t *)domain));
+  CU_ASSERT_TRUE (pktIsDomainNameOptionValid ((pktString_t *)domain));
 
   domain->len = 12;
 
-  CU_ASSERT_FALSE (pkt_is_domain_name_option_valid ((pktString_t *)domain));
+  CU_ASSERT_FALSE (pktIsDomainNameOptionValid ((pktString_t *)domain));
 
   domain->len = 10;
 
   domain->option = OPTION_ARP_CACHE_TIMEOUT;
 
-  CU_ASSERT_FALSE (pkt_is_domain_name_option_valid ((pktString_t *)domain));
+  CU_ASSERT_FALSE (pktIsDomainNameOptionValid ((pktString_t *)domain));
 
   free (domain);
 }
@@ -291,7 +291,7 @@ pktIsMessageValidTest()
 
   memcpy (msg->msg, "wrong server-ID", msg->len);
 
-  CU_ASSERT_TRUE (pkt_is_message_valid ((pktString_t *)msg));
+  CU_ASSERT_TRUE (pktIsMessageValid ((pktString_t *)msg));
 
   free (msg);
 }

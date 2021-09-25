@@ -55,7 +55,7 @@ pktGetDhcpMessageType (pktDhcpPacket_t *pkt)
 
   for (size_t i = 0; i < DHCP_MIN_OPTION_LEN; i++)
     {
-      if (pkt_is_msg_type_option_valid ((pktMessageType_t *)&opt->opts[i]))
+      if (pktIsMsgTypeOptionValid ((pktMessageType_t *)&opt->opts[i]))
         {
           msgType = (pktMessageType_t *)&opt->opts[i];
           break;
@@ -69,7 +69,7 @@ struct in_addr *
 pktGetRequestedIpAddress (pktDhcpPacket_t *pkt)
 {
   return pktGetAddress (pkt,
-                        (pktValidator_t)pkt_is_requested_ip_addr_option_valid);
+                        (pktValidator_t)pktIsRequestedIpAddrOptionValid);
 }
 
 char *
@@ -107,7 +107,7 @@ pktGetString (pktDhcpPacket_t *pkt, pktValidator_t validator)
 char *
 pktGetHostName (pktDhcpPacket_t *pkt)
 {
-  return pktGetString (pkt, (void *)pkt_is_host_name_option_valid);
+  return pktGetString (pkt, (void *)pktIsHostNameOptionValid);
 }
 
 pktParameterRequestList_t *
@@ -125,7 +125,7 @@ pktGetParameterList (pktDhcpPacket_t *pkt)
 
   for (size_t i = 0; i < DHCP_MIN_OPTION_LEN; i++)
     {
-      if (pkt_is_parameter_list_valid ((pktParameterRequestList_t *)&opt->opts[i]))
+      if (pktIsParameterListValid ((pktParameterRequestList_t *)&opt->opts[i]))
         {
           listOpt = (pktParameterRequestList_t *)&opt->opts[i];
           break;
@@ -233,7 +233,7 @@ pktGetAddress (pktDhcpPacket_t *pkt, pktValidator_t validator)
 struct in_addr *
 pktGetServerIdentifier (pktDhcpPacket_t *pkt)
 {
-  return pktGetAddress (pkt, (pktValidator_t)pkt_is_valid_server_identifier);
+  return pktGetAddress (pkt, (pktValidator_t)pktIsValidServerIdentifier);
 }
 
 char *
@@ -250,7 +250,7 @@ pktGetIpAddressLeaseTime (pktDhcpPacket_t *pkt)
 
   for (size_t i = 0; i < DHCP_MIN_OPTION_LEN; i++)
     {
-      if (pkt_is_ip_address_lease_time_option_valid ((pktIpAddressLeaseTime_t *)
+      if (pktIsIpAddressLeaseTimeOptionValid ((pktIpAddressLeaseTime_t *)
           &opt->opts[i]))
         {
           leaseTime = (pktIpAddressLeaseTime_t *)&opt->opts[i];
@@ -313,23 +313,23 @@ pktLeaseTimeLong2hex (long long time)
 struct in_addr *
 pktGetSubnetMask (pktDhcpPacket_t *pkt)
 {
-  return pktGetAddress (pkt, (pktValidator_t)pkt_is_valid_subnet_mask);
+  return pktGetAddress (pkt, (pktValidator_t)pktIsValidSubnetMask);
 }
 
 struct in_addr *
 pktGetRouter (pktDhcpPacket_t *pkt)
 {
-  return pktGetAddress (pkt, (pktValidator_t)pkt_is_valid_router);
+  return pktGetAddress (pkt, (pktValidator_t)pktIsValidRouter);
 }
 
 char *
 pktGetDomainName (pktDhcpPacket_t *pkt)
 {
-  return pktGetString (pkt, (void *)pkt_is_domain_name_option_valid);
+  return pktGetString (pkt, (void *)pktIsDomainNameOptionValid);
 }
 
 char *
 pktGetMessage (pktDhcpPacket_t *pkt)
 {
-  return pktGetString (pkt, (void *)pkt_is_message_valid);
+  return pktGetString (pkt, (void *)pktIsMessageValid);
 }
