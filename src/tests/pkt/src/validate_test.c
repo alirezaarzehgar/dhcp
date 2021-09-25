@@ -295,3 +295,15 @@ pktIsMessageValidTest()
 
   free (msg);
 }
+
+void
+pktIsPktTypeBootReqTest()
+{
+  /* TODO pktIsPktTypeBootReqTest */
+}
+
+void
+pktIsPktTypeBootRepTest()
+{
+  /* TODO pktIsPktTypeBootRepTest */
+}

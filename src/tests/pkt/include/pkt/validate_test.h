@@ -40,4 +40,8 @@ void pktIsDiscoveryPktValidForOfferTest();
 
 void pktIsRequestPktValidForAckTest();
 
+void pktIsPktTypeBootReqTest();
+
+void pktIsPktTypeBootRepTest();
+
 #endif
