@@ -1,34 +1,34 @@
 #if !defined(PKT_GENERATE_H)
 #define PKT_GENERATE_H
 
-void pktGenDhcpPacket (/* TODO Parameters */);
+void DhcpPacket (/* TODO Param DhcpPacket */);
 
-void pktGenDhcpOptions (/* TODO Parameters */);
+void DhcpOptions (/* TODO Param DhcpOptions */);
 
-void pktGenMessageType (/* TODO Parameters */);
+void MessageType (/* TODO Param MessageType */);
 
-void pktGenRequestedIpAddress (/* TODO Parameters */);
+void RequestedIpAddress (/* TODO Param RequestedIpAddress */);
 
-void pktGenString (/* TODO Parameters */);
+void String (/* TODO Param String */);
 
-void pktGenHostName (/* TODO Parameters */);
+void HostName (/* TODO Param HostName */);
 
-void pktGenParameterRequestList (/* TODO Parameters */);
+void ParameterRequestList (/* TODO Param ParameterRequestList */);
 
-void pktGenAddress (/* TODO Parameters */);
+void Address (/* TODO Param Address */);
 
-void pktGenServerIdentifier (/* TODO Parameters */);
+void ServerIdentifier (/* TODO Param ServerIdentifier */);
 
-void pktGenIpAddressLeaseTime (/* TODO Parameters */);
+void IpAddressLeaseTime (/* TODO Param IpAddressLeaseTime */);
 
-void pktGenSubnetMask (/* TODO Parameters */);
+void SubnetMask (/* TODO Param SubnetMask */);
 
-void pktGenRouter (/* TODO Parameters */);
+void Router (/* TODO Param Router */);
 
-void pktGenDomainName (/* TODO Parameters */);
+void DomainName (/* TODO Param DomainName */);
 
-void pktGenMessage (/* TODO Parameters */);
+void Message (/* TODO Param Message */);
 
-void pktGenEnd (/* TODO Parameters */);
+void End (/* TODO Param End */);
 
-#endif // PKT_GENERATE_H
+#endif

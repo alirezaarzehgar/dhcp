@@ -12,92 +12,91 @@
 #include "pkt/generate.h"
 
 void
-pktGenDhcpPacket (/* TODO Parameters */)
+pktGenDhcpPacket (/* TODO Param DhcpPacket */)
 {
-  /* TODO */
+  /* TODO pktGenDhcpPacket */
 }
 
 void
-pktGenDhcpOptions (/* TODO Parameters */)
+pktGenDhcpOptions (/* TODO Param DhcpOptions */)
 {
-  /* TODO */
+  /* TODO pktGenDhcpOptions */
 }
 
 void
-pktGenMessageType (/* TODO Parameters */)
+pktGenMessageType (/* TODO Param MessageType */)
 {
-  /* TODO */
+  /* TODO pktGenMessageType */
 }
 
 void
-pktGenRequestedIpAddress (/* TODO Parameters */)
+pktGenRequestedIpAddress (/* TODO Param RequestedIpAddress */)
 {
-  /* TODO */
+  /* TODO pktGenRequestedIpAddress */
 }
 
 void
-pktGenString (/* TODO Parameters */)
+pktGenString (/* TODO Param String */)
 {
-  /* TODO */
+  /* TODO pktGenString */
 }
 
 void
-pktGenHostName (/* TODO Parameters */)
+pktGenHostName (/* TODO Param HostName */)
 {
-  /* TODO */
+  /* TODO pktGenHostName */
 }
 
 void
-pktGenParameterRequestList (/* TODO Parameters */)
+pktGenParameterRequestList (/* TODO Param ParameterRequestList */)
 {
-  /* TODO */
+  /* TODO pktGenParameterRequestList */
 }
 
 void
-pktGenAddress (/* TODO Parameters */)
+pktGenAddress (/* TODO Param Address */)
 {
-  /* TODO */
+  /* TODO pktGenAddress */
 }
 
 void
-pktGenServerIdentifier (/* TODO Parameters */)
+pktGenServerIdentifier (/* TODO Param ServerIdentifier */)
 {
-  /* TODO */
+  /* TODO pktGenServerIdentifier */
 }
 
 void
-pktGenIpAddressLeaseTime (/* TODO Parameters */)
+pktGenIpAddressLeaseTime (/* TODO Param IpAddressLeaseTime */)
 {
-  /* TODO */
+  /* TODO pktGenIpAddressLeaseTime */
 }
 
 void
-pktGenSubnetMask (/* TODO Parameters */)
+pktGenSubnetMask (/* TODO Param SubnetMask */)
 {
-  /* TODO */
+  /* TODO pktGenSubnetMask */
 }
 
 void
-pktGenRouter (/* TODO Parameters */)
+pktGenRouter (/* TODO Param Router */)
 {
-  /* TODO */
+  /* TODO pktGenRouter */
 }
 
 void
-pktGenDomainName (/* TODO Parameters */)
+pktGenDomainName (/* TODO Param DomainName */)
 {
-  /* TODO */
+  /* TODO pktGenDomainName */
 }
 
 void
-pktGenMessage (/* TODO Parameters */)
+pktGenMessage (/* TODO Param Message */)
 {
-  /* TODO */
+  /* TODO pktGenMessage */
 }
 
 void
-pktGenEnd (/* TODO Parameters */)
+pktGenEnd (/* TODO Param End */)
 {
-  /* TODO */
+  /* TODO pktGenEnd */
 }
-
