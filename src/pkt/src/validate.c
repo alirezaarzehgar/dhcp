@@ -154,32 +154,119 @@ pktHaveTransactionId (pktDhcpPacket_t *pkt)
 }
 
 bool
+pktIsValidMacAddress (pktDhcpPacket_t *pkt)
+{
+  for (size_t i = 0; i < pkt->hlen; i++)
+    if (pkt->chaddr[i] < 0x0 || pkt->chaddr[i] > PKT_MAX_IP_SEGMENT_LEN)
+      return false;
+
+  return pkt->hlen > 0;
+}
+
+bool
+pktHaveMagicCookie (pktDhcpPacket_t *pkt)
+{
+  char *cookie = pktGetMagicCookie (pkt);
+
+  if (cookie)
+    {
+      free (cookie);
+      return true;
+    }
+
+  return false;
+}
+
+bool
+pktIsMsgTypeDiscovery (pktDhcpPacket_t *pkt)
+{
+  return pktGetDhcpMessageType (pkt) == DHCPDISCOVER;
+}
+
+bool
+pktIsMsgTypeRequest (pktDhcpPacket_t *pkt)
+{
+  return pktGetDhcpMessageType (pkt) == DHCPREQUEST;
+}
+
+bool
+pktHaveHostNameOption (pktDhcpPacket_t *pkt)
+{
+  char *host = pktGetHostName (pkt);
+
+  if (host)
+    {
+      free (host);
+      return true;
+    }
+
+  return false;
+}
+
+bool
+pktHaveParameterRequestListOption (pktDhcpPacket_t *pkt)
+{
+  pktParameterRequestList_t *list = pktGetParameterList (pkt);
+
+  if (list)
+    {
+      free (list);
+      return true;
+    }
+
+  return false;
+}
+
+bool
+pktValidateWithListOfConditions (pktOptValidator_t *conditions,
+                                 pktDhcpPacket_t *pkt, size_t len)
+{
+  int flag = true;
+
+  for (size_t i = 0; i < len; i++)
+    if ((conditions[i]) (pkt))
+      {
+        flag = false;
+        break;
+      }
+
+  return flag;
+}
+
+bool
 pktIsDiscoveryPktValidForOffer (pktDhcpPacket_t *pkt)
 {
-  /* msg type should be - OK */
+  pktOptValidator_t validators[] =
+  {
+    pktIsPktTypeBootReq,
+    pktIsHardwareTypeEthernet,
+    pktIsValidMacAddress,
+    pktHaveTransactionId,
+    pktHaveMagicCookie,
+    pktIsMsgTypeDiscovery,
+    pktHaveHostNameOption,
+    pktHaveParameterRequestListOption,
+  };
 
-  /* htype should be - OK */
-
-  /* have transaction id - OK */
-
-  /* valid mac address */
-
-  /* have magic cookie */
-
-  /* have DHCP Message Type */
-
-  /* Have requested IP address */
-
-  /* Have hostname */
-
-  /* Have Parameter Request List */
-
-  return true;
+  return pktValidateWithListOfConditions (validators, pkt,
+                                          sizeof (validators) / sizeof (pktValidator_t));
 }
 
 bool
 pktIsRequestPktValidForAck (pktDhcpPacket_t *pkt)
 {
-  /* TODO pktIsRequestPktValidForAck */
-  return true;
+  pktOptValidator_t validators[] =
+  {
+    pktIsPktTypeBootRep,
+    pktIsHardwareTypeEthernet,
+    pktIsValidMacAddress,
+    pktHaveTransactionId,
+    pktHaveMagicCookie,
+    pktIsMsgTypeDiscovery,
+    pktHaveHostNameOption,
+    pktHaveParameterRequestListOption,
+  };
+
+  return pktValidateWithListOfConditions (validators, pkt,
+                                          sizeof (validators) / sizeof (pktValidator_t));
 }

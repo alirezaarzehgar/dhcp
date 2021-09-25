@@ -12,6 +12,8 @@
 #define PKT_TRANSACTION_ID_LEN                  4
 #define PKT_HEX_NULL                            0x0
 
+typedef bool (*pktOptValidator_t) (pktDhcpPacket_t *);
+
 bool pktIsMsgTypeValid (enum dhcpMessageTypes type);
 
 bool pktIsMsgTypeOptionValid (pktMessageType_t *opt);
@@ -49,5 +51,20 @@ bool pktIsDiscoveryPktValidForOffer (pktDhcpPacket_t *pkt);
 bool pktIsRequestPktValidForAck (pktDhcpPacket_t *pkt);
 
 bool pktHaveTransactionId (pktDhcpPacket_t *pkt);
+
+bool pktIsValidMacAddress (pktDhcpPacket_t *pkt);
+
+bool pktHaveMagicCookie (pktDhcpPacket_t *pkt);
+
+bool pktIsMsgTypeDiscovery (pktDhcpPacket_t *pkt);
+
+bool pktIsMsgTypeRequest (pktDhcpPacket_t *pkt);
+
+bool pktHaveHostNameOption (pktDhcpPacket_t *pkt);
+
+bool pktValidateWithListOfConditions (pktOptValidator_t *conditions,
+                                      pktDhcpPacket_t *pkt, size_t len);
+
+bool pktHaveParameterRequestListOption (pktDhcpPacket_t *pkt);
 
 #endif

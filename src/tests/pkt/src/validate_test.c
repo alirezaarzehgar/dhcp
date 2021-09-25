@@ -308,7 +308,50 @@ pktIsPktTypeBootRepTest()
   /* TODO pktIsPktTypeBootRepTest */
 }
 
-void pktHaveTransactionIdTest()
+void
+pktHaveTransactionIdTest()
 {
   /* TODO pktHaveTransactionIdTest */
+}
+
+void
+pktIsValidMacAddressTest()
+{
+  /* TODO pktIsValidMacAddressTest */
+}
+
+void
+pktHaveMagicCookieTest()
+{
+  /* TODO pktHaveMagicCookieTest */
+}
+
+void
+pktIsMsgTypeDiscoveryTest()
+{
+  /* TODO pktIsMsgTypeDiscoveryTest */
+}
+
+void
+pktIsMsgTypeRequestTest()
+{
+  /* TODO pktIsMsgTypeRequestTest */
+}
+
+void
+pktHaveHostNameTest()
+{
+  /* TODO pktHaveHostNameTest */
+}
+
+void
+pktValidateWithListOfConditionsTest()
+{
+  /* TODO pktValidateWithListOfConditionsTest */
+}
+
+void
+pktHaveParameterRequestListOptionTest()
+{
+  /* TODO pktHaveParameterRequestListOptionTest */
 }

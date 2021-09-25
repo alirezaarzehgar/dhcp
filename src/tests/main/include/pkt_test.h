@@ -30,6 +30,11 @@ CU_TestInfo pkt_tests[] =
   {"validation function pktIsPktTypeBootReqTest", pktIsPktTypeBootReqTest},
   {"validation function pktIsPktTypeBootRepTest", pktIsPktTypeBootRepTest},
   {"validation function pktHaveTransactionIdTest", pktHaveTransactionIdTest},
+  {"validation function pktIsValidMacAddressTest", pktIsValidMacAddressTest},
+  {"validation function pktHaveMagicCookieTest", pktHaveMagicCookieTest},
+  {"validation function pktHaveHostNameTest", pktHaveHostNameTest},
+  {"validation function pktValidateWithListOfConditionsTest", pktValidateWithListOfConditionsTest},
+  {"validation function pktHaveParameterRequestListOptionTest", pktHaveParameterRequestListOptionTest},
   /* Analyze Tests */
   {"get magic cookie", pktGetMagicCookieTest},
   {"get message type", pktGetDhcpMessageTypeTest},
