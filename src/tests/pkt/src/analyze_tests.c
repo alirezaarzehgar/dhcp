@@ -9,7 +9,7 @@
  *
  */
 
-#include "pkt/tests.h"
+#include "pkt/analyze_tests.h"
 
 const char *pathDiscovry = "src/tests/fake_data/discovery";
 

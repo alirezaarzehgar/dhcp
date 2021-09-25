@@ -9,8 +9,8 @@
 
 #include <CUnit/Basic.h>
 
-#if !defined(TESTS_PKT_TESTS_H)
-#define TESTS_PKT_TESTS_H
+#if !defined(TESTS_PKT_ANALYZE_TESTS_H)
+#define TESTS_PKT_ANALYZE_TESTS_H
 
 #define PKT_FAILED_OPEN_FILE(fd, path)   if (fd == -1)     \
     {   \
@@ -60,4 +60,4 @@ void pktGetStringTest();
 
 void pktGetMessageTest();
 
-#endif // TESTS_PKT_TESTS_H
+#endif

@@ -1,6 +1,6 @@
 #include <CUnit/TestDB.h>
 
-#include "pkt/tests.h"
+#include "pkt/analyze_tests.h"
 
 #include "pkt/validate_test.h"
 
