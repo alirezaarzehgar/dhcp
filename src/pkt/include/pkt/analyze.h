@@ -118,41 +118,41 @@ enum pktErr
 
 typedef bool (*pktValidator_t) (void *);
 
-char *pkt_get_magic_cookie (pktDhcpPacket_t *pkt);
+char *pktGetMagicCookie (pktDhcpPacket_t *pkt);
 
-void pkt_print_magic_cookie (pktDhcpPacket_t *pkt);
+void pktPrintMagicCookie (pktDhcpPacket_t *pkt);
 
-enum dhcpMessageTypes pkt_get_dhcp_message_type (pktDhcpPacket_t *pkt);
+enum dhcpMessageTypes pktGetDhcpMessageType (pktDhcpPacket_t *pkt);
 
-struct in_addr *pkt_get_requested_ip_address (pktDhcpPacket_t *pkt);
+struct in_addr *pktGetRequestedIpAddress (pktDhcpPacket_t *pkt);
 
-char *pkt_get_host_name (pktDhcpPacket_t *pkt);
+char *pktGetHostName (pktDhcpPacket_t *pkt);
 
-pktParameterRequestList_t *pkt_get_parameter_list (pktDhcpPacket_t *pkt);
+pktParameterRequestList_t *pktGetParameterList (pktDhcpPacket_t *pkt);
 
-struct in_addr *pkt_get_server_identifier (pktDhcpPacket_t *pkt);
+struct in_addr *pktGetServerIdentifier (pktDhcpPacket_t *pkt);
 
-char *pkt_ip_hex2str (char *ip);
+char *pktIpHex2str (char *ip);
 
-char *pkt_ip_str2hex (char *ip);
+char *pktIpStr2hex (char *ip);
 
-char *pkt_get_ip_address_lease_time (pktDhcpPacket_t *pkt);
+char *pktGetIpAddressLeaseTime (pktDhcpPacket_t *pkt);
 
-long long pkt_lease_time_hex2long (char *time);
+long long pktLeaseTimeHex2long (char *time);
 
-char *pkt_lease_time_long2hex (long long time);
+char *pktLeaseTimeLong2hex (long long time);
 
-struct in_addr *pkt_get_subnet_mask (pktDhcpPacket_t *pkt);
+struct in_addr *pktGetSubnetMask (pktDhcpPacket_t *pkt);
 
-struct in_addr *pkt_get_address (pktDhcpPacket_t *pkt,
+struct in_addr *pktGetAddress (pktDhcpPacket_t *pkt,
                                  pktValidator_t validator);
 
-struct in_addr *pkt_get_router (pktDhcpPacket_t *pkt);
+struct in_addr *pktGetRouter (pktDhcpPacket_t *pkt);
 
-char *pkt_get_domain_name (pktDhcpPacket_t *pkt);
+char *pktGetDomainName (pktDhcpPacket_t *pkt);
 
-char *pkt_get_string (pktDhcpPacket_t *pkt, pktValidator_t validator);
+char *pktGetString (pktDhcpPacket_t *pkt, pktValidator_t validator);
 
-char *pkt_get_message (pktDhcpPacket_t *pkt);
+char *pktGetMessage (pktDhcpPacket_t *pkt);
 
 #endif // PKT_ANALYZE_H

@@ -20,44 +20,44 @@
 
 typedef void (*pktCustomTest_t) (pktDhcpPacket_t *pkt, int index);
 
-int init_suite_pkt();
+int initSuitePkt();
 
-int cleanup_suite_pkt();
+int cleanupSuitePkt();
 
-void pkt_get_magic_cookie_test();
+void pktGetMagicCookieTest();
 
-void pkt_get_requested_ip_address_test();
+void pktGetRequestedIpAddressTest();
 
-void pkt_get_dhcp_message_type_test();
+void pktGetDhcpMessageTypeTest();
 
-void pkt_get_host_name_test();
+void pktGetHostNameTest();
 
-void pkt_get_parameter_list_test();
+void pktGetParameterListTest();
 
-void pkt_get_server_identifier_test();
+void pktGetServerIdentifierTest();
 
-void pkt_ip_hex2str_test();
+void pktIpHex2strTest();
 
-void pkt_ip_str2hex_test();
+void pktIpStr2hexTest();
 
-void pkt_get_ip_address_lease_time_test();
+void pktGetIpAddressLeaseTimeTest();
 
-void pkt_offer_file_test();
+void pktOfferFileTest();
 
-void pkt_lease_time_hex2long_test();
+void pktLeaseTimeHex2longTest();
 
-void pkt_lease_time_long2hex_test();
+void pktLeaseTimeLong2hexTest();
 
-void pkt_get_subnet_mask_test();
+void pktGetSubnetMaskTest();
 
-void pkt_get_address_test();
+void pktGetAddressTest();
 
-void pkt_get_router_test();
+void pktgetRouterTest();
 
-void pkt_get_domain_name_test();
+void pktGetDomainNameTest();
 
-void pkt_get_string_test();
+void pktGetStringTest();
 
-void pkt_get_message_test();
+void pktGetMessageTest();
 
 #endif // TESTS_PKT_TESTS_H

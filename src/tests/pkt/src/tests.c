@@ -32,7 +32,7 @@ char bufRequest[DHCP_PACKET_MAX_LEN];
 char bufNak[DHCP_PACKET_MAX_LEN];
 
 int
-init_suite_pkt()
+initSuitePkt()
 {
   int fdAll = open (pathAll, O_RDONLY);
 
@@ -78,7 +78,7 @@ init_suite_pkt()
 }
 
 int
-cleanup_suite_pkt()
+cleanupSuitePkt()
 {
   return 0;
 }
@@ -105,7 +105,7 @@ magic_cookie (pktDhcpPacket_t *pkt, int index)
 
   char *cookie = NULL;
 
-  cookie = pkt_get_magic_cookie (pkt);
+  cookie = pktGetMagicCookie (pkt);
 
   CU_ASSERT_STRING_EQUAL (cookie, validCookie);
 
@@ -114,7 +114,7 @@ magic_cookie (pktDhcpPacket_t *pkt, int index)
 }
 
 void
-pkt_get_magic_cookie_test()
+pktGetMagicCookieTest()
 {
   pkt_test_function_on_all_packets (magic_cookie);
 }
@@ -122,7 +122,7 @@ pkt_get_magic_cookie_test()
 void
 requested_ip_address (pktDhcpPacket_t *pkt, int index)
 {
-  struct in_addr *addr = pkt_get_requested_ip_address (pkt);
+  struct in_addr *addr = pktGetRequestedIpAddress (pkt);
 
   char *ips[] =
   {
@@ -146,7 +146,7 @@ requested_ip_address (pktDhcpPacket_t *pkt, int index)
 }
 
 void
-pkt_get_requested_ip_address_test()
+pktGetRequestedIpAddressTest()
 {
   pkt_test_function_on_all_packets (requested_ip_address);
 }
@@ -162,11 +162,11 @@ message_type (pktDhcpPacket_t *pkt, int index)
     DHCPNAK
   };
 
-  CU_ASSERT_EQUAL (pkt_get_dhcp_message_type (pkt), types[index]);
+  CU_ASSERT_EQUAL (pktGetDhcpMessageType (pkt), types[index]);
 }
 
 void
-pkt_get_dhcp_message_type_test()
+pktGetDhcpMessageTypeTest()
 {
   pkt_test_function_on_all_packets (message_type);
 }
@@ -174,7 +174,7 @@ pkt_get_dhcp_message_type_test()
 void
 host_name (pktDhcpPacket_t *pkt, int index)
 {
-  char *host = pkt_get_host_name (pkt);
+  char *host = pktGetHostName (pkt);
 
   if (index % 2 == 0)
     {
@@ -190,7 +190,7 @@ host_name (pktDhcpPacket_t *pkt, int index)
 }
 
 void
-pkt_get_host_name_test()
+pktGetHostNameTest()
 {
   pkt_test_function_on_all_packets (host_name);
 }
@@ -198,7 +198,7 @@ pkt_get_host_name_test()
 void
 parameter_list (pktDhcpPacket_t *pkt, int index)
 {
-  pktParameterRequestList_t *list = pkt_get_parameter_list (pkt);
+  pktParameterRequestList_t *list = pktGetParameterList (pkt);
 
   if (!list)
     return;
@@ -218,7 +218,7 @@ parameter_list (pktDhcpPacket_t *pkt, int index)
 }
 
 void
-pkt_get_parameter_list_test()
+pktGetParameterListTest()
 {
   pkt_test_function_on_all_packets (parameter_list);
 }
@@ -233,7 +233,7 @@ server_identifier (pktDhcpPacket_t *pkt, int index)
     "192.168.100.1",
   };
 
-  struct in_addr *addr = pkt_get_server_identifier (pkt);
+  struct in_addr *addr = pktGetServerIdentifier (pkt);
 
   if (index > 0)
     {
@@ -245,13 +245,13 @@ server_identifier (pktDhcpPacket_t *pkt, int index)
 }
 
 void
-pkt_get_server_identifier_test()
+pktGetServerIdentifierTest()
 {
   pkt_test_function_on_all_packets (server_identifier);
 }
 
 void
-pkt_ip_hex2str_test()
+pktIpHex2strTest()
 {
   char *subnet = "255.255.255.255";
 
@@ -260,41 +260,41 @@ pkt_ip_hex2str_test()
   for (size_t i = 0; i < 4; i++)
     ip[i] = 1;
 
-  CU_ASSERT_STRING_EQUAL (pkt_ip_hex2str (ip), "1.1.1.1");
+  CU_ASSERT_STRING_EQUAL (pktIpHex2str (ip), "1.1.1.1");
 
   for (size_t i = 0; i < 4; i++)
     ip[i] = 255;
 
-  CU_ASSERT_STRING_EQUAL (pkt_ip_hex2str (ip), subnet);
+  CU_ASSERT_STRING_EQUAL (pktIpHex2str (ip), subnet);
 
   bzero (ip, 4);
 
-  CU_ASSERT_STRING_NOT_EQUAL (pkt_ip_hex2str (ip), subnet);
+  CU_ASSERT_STRING_NOT_EQUAL (pktIpHex2str (ip), subnet);
 }
 
 void
-pkt_ip_str2hex_test()
+pktIpStr2hexTest()
 {
-  CU_ASSERT_STRING_EQUAL (pkt_ip_hex2str (pkt_ip_str2hex ("1.1.1.1")),
+  CU_ASSERT_STRING_EQUAL (pktIpHex2str (pktIpStr2hex ("1.1.1.1")),
                           "1.1.1.1");
 
-  CU_ASSERT_STRING_EQUAL (pkt_ip_hex2str (pkt_ip_str2hex ("1.1.23.1")),
+  CU_ASSERT_STRING_EQUAL (pktIpHex2str (pktIpStr2hex ("1.1.23.1")),
                           "1.1.23.1");
 
-  CU_ASSERT_STRING_NOT_EQUAL (pkt_ip_hex2str (pkt_ip_str2hex ("192.168.1.13")),
+  CU_ASSERT_STRING_NOT_EQUAL (pktIpHex2str (pktIpStr2hex ("192.168.1.13")),
                               "1.1.1.1");
 }
 
 void
 ip_address_lease_time (pktDhcpPacket_t *pkt, int index)
 {
-  char *n = pkt_get_ip_address_lease_time (pkt);
+  char *n = pktGetIpAddressLeaseTime (pkt);
 
-  if (index % 2 == 1 && pkt_get_dhcp_message_type (pkt) != DHCPNAK)
+  if (index % 2 == 1 && pktGetDhcpMessageType (pkt) != DHCPNAK)
     {
       CU_ASSERT_FATAL (n != NULL);
 
-      CU_ASSERT_EQUAL (pkt_lease_time_hex2long (n), 600);
+      CU_ASSERT_EQUAL (pktLeaseTimeHex2long (n), 600);
     }
 
   if (n)
@@ -302,13 +302,13 @@ ip_address_lease_time (pktDhcpPacket_t *pkt, int index)
 }
 
 void
-pkt_get_ip_address_lease_time_test()
+pktGetIpAddressLeaseTimeTest()
 {
   pkt_test_function_on_all_packets (ip_address_lease_time);
 }
 
 void
-pkt_offer_file_test()
+pktOfferFileTest()
 {
   /* endpoint for checking offer file health */
   CU_ASSERT (CU_TRUE);
@@ -316,27 +316,27 @@ pkt_offer_file_test()
 
 
 void
-pkt_lease_time_hex2long_test()
+pktLeaseTimeHex2longTest()
 {
   /* 0x0258 -> 600 */
   char time[] = {0x0, 0x0, 0x02, 0x58};
 
-  CU_ASSERT_EQUAL (pkt_lease_time_hex2long (time), 600);
+  CU_ASSERT_EQUAL (pktLeaseTimeHex2long (time), 600);
 }
 
 void
-pkt_lease_time_long2hex_test()
+pktLeaseTimeLong2hexTest()
 {
   for (size_t i = 1000000; i < 1006000; i += 50)
-    CU_ASSERT_EQUAL (pkt_lease_time_hex2long (pkt_lease_time_long2hex (i)), i);
+    CU_ASSERT_EQUAL (pktLeaseTimeHex2long (pktLeaseTimeLong2hex (i)), i);
 }
 
 void
 subnet_mask (pktDhcpPacket_t *pkt, int index)
 {
-  struct in_addr *addr = pkt_get_subnet_mask (pkt);
+  struct in_addr *addr = pktGetSubnetMask (pkt);
 
-  if (index % 2 == 1 && pkt_get_dhcp_message_type (pkt) != DHCPNAK)
+  if (index % 2 == 1 && pktGetDhcpMessageType (pkt) != DHCPNAK)
     {
       CU_ASSERT_FATAL (addr != NULL);
 
@@ -348,13 +348,13 @@ subnet_mask (pktDhcpPacket_t *pkt, int index)
 }
 
 void
-pkt_get_subnet_mask_test()
+pktGetSubnetMaskTest()
 {
   pkt_test_function_on_all_packets (subnet_mask);
 }
 
 void
-pkt_get_address_test()
+pktGetAddressTest()
 {
   /**
    * get_address function didn't need to test
@@ -366,13 +366,13 @@ pkt_get_address_test()
 void
 get_router (pktDhcpPacket_t *pkt, int index)
 {
-  if (index % 2 == 0 || pkt_get_dhcp_message_type (pkt) == DHCPNAK)
+  if (index % 2 == 0 || pktGetDhcpMessageType (pkt) == DHCPNAK)
     {
       /* DISCOVERY, REQUEST, NAK haven't Router Address option */
       return;
     }
 
-  struct in_addr *addr = pkt_get_router (pkt);
+  struct in_addr *addr = pktGetRouter (pkt);
 
   CU_ASSERT_FATAL (addr != NULL);
 
@@ -383,7 +383,7 @@ get_router (pktDhcpPacket_t *pkt, int index)
 }
 
 void
-pkt_get_router_test()
+pktgetRouterTest()
 {
   pkt_test_function_on_all_packets (get_router);
 }
@@ -391,13 +391,13 @@ pkt_get_router_test()
 void
 domain_name (pktDhcpPacket_t *pkt, int index)
 {
-  if (index % 2 == 0 || pkt_get_dhcp_message_type (pkt) == DHCPNAK)
+  if (index % 2 == 0 || pktGetDhcpMessageType (pkt) == DHCPNAK)
     {
       /* DISCOVERY, REQUEST, NAK haven't Router Address option */
       return;
     }
 
-  char *domain = pkt_get_domain_name (pkt);
+  char *domain = pktGetDomainName (pkt);
 
   CU_ASSERT_FATAL (domain != NULL);
 
@@ -407,7 +407,7 @@ domain_name (pktDhcpPacket_t *pkt, int index)
 }
 
 void
-pkt_get_domain_name_test()
+pktGetDomainNameTest()
 {
   pkt_test_function_on_all_packets (domain_name);
 }
@@ -415,17 +415,17 @@ pkt_get_domain_name_test()
 void
 get_string (pktDhcpPacket_t *pkt, int index)
 {
-  if (index % 2 == 0 || pkt_get_dhcp_message_type (pkt) == DHCPNAK)
+  if (index % 2 == 0 || pktGetDhcpMessageType (pkt) == DHCPNAK)
     {
       /* DISCOVERY, REQUEST, NAK haven't Router Address option */
       return;
     }
 
-  char *domain = pkt_get_string (pkt, (void *)pkt_is_domain_name_option_valid);
+  char *domain = pktGetString (pkt, (void *)pkt_is_domain_name_option_valid);
 
   CU_ASSERT_FATAL (domain != NULL);
 
-  char *host = pkt_get_string (pkt, (void *)pkt_is_host_name_option_valid);
+  char *host = pktGetString (pkt, (void *)pkt_is_host_name_option_valid);
 
   CU_ASSERT_FATAL (host != NULL);
 
@@ -439,7 +439,7 @@ get_string (pktDhcpPacket_t *pkt, int index)
 }
 
 void
-pkt_get_string_test()
+pktGetStringTest()
 {
   pkt_test_function_on_all_packets (get_string);
 }
@@ -447,13 +447,13 @@ pkt_get_string_test()
 void
 get_message (pktDhcpPacket_t *pkt, int index)
 {
-  if (pkt_get_dhcp_message_type (pkt) != DHCPNAK)
+  if (pktGetDhcpMessageType (pkt) != DHCPNAK)
     {
       /* This test is just for NAK packet */
       return;
     }
 
-  char *msg = pkt_get_message (pkt);
+  char *msg = pktGetMessage (pkt);
 
   CU_ASSERT_FATAL (msg != NULL);
 
@@ -463,7 +463,7 @@ get_message (pktDhcpPacket_t *pkt, int index)
 }
 
 void
-pkt_get_message_test()
+pktGetMessageTest()
 {
   pkt_test_function_on_all_packets (get_message);
 }

@@ -21,8 +21,8 @@ CU_SuiteInfo suites[] =
 {
   {
     .pName = "pkt suite",
-    .pInitFunc = init_suite_pkt,
-    .pCleanupFunc = cleanup_suite_pkt,
+    .pInitFunc = initSuitePkt,
+    .pCleanupFunc = cleanupSuitePkt,
     .pTests = pkt_tests
   },
   {

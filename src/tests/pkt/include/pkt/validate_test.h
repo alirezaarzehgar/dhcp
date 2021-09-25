@@ -10,30 +10,30 @@
 
 #include <CUnit/Basic.h>
 
-void pkt_is_msg_type_valid_test();
+void pktIsMsgTypeValidTest();
 
-void pkt_is_msg_type_option_valid_test();
+void pktIsMsgTypeOptionValidTest();
 
-void pkt_is_requested_ip_addr_option_valid_test();
+void pktIsRequestedIpAddrOptionValidTest();
 
-void pkt_is_host_name_option_valid_test();
+void pktIsHostNameOptionValidTest();
 
-void pkt_is_parameter_list_valid_test();
+void pktIsParameterListValidTest();
 
-void pkt_is_valid_server_identifier_test();
+void pktIsValidServerIdentifierTest();
 
-void pkt_is_ip_address_lease_time_option_valid_test();
+void pktIsIpAddressLeaseTimeOptionValidTest();
 
-void pkt_is_valid_subnet_mask_test();
+void pktIsValidSubnetMaskTest();
 
-void pkt_is_address_valid_test();
+void pktIsAddressValidTest();
 
-void pkt_is_valid_router_test();
+void pktIsValidRouterTest();
 
-void pkt_is_valid_string_test();
+void pktIsValidStringTest();
 
-void pkt_is_domain_name_option_valid_test();
+void pktIsDomainNameOptionValidTest();
 
-void pkt_is_message_valid_test();
+void pktIsMessageValidTest();
 
 #endif // TEST_VALIDATE_H

@@ -12,7 +12,7 @@
 #include "pkt/analyze.h"
 
 char *
-pkt_get_magic_cookie (pktDhcpPacket_t *pkt)
+pktGetMagicCookie (pktDhcpPacket_t *pkt)
 {
   pktDhcpOptions_t *opt = (pktDhcpOptions_t *)pkt->options;
 
@@ -38,16 +38,16 @@ pkt_get_magic_cookie (pktDhcpPacket_t *pkt)
 }
 
 void
-pkt_print_magic_cookie (pktDhcpPacket_t *pkt)
+pktPrintMagicCookie (pktDhcpPacket_t *pkt)
 {
-  char *cookie = pkt_get_magic_cookie (pkt);
+  char *cookie = pktGetMagicCookie (pkt);
 
   for (size_t i = 0; i < DHCP_MAGIC_COOKIE_SIZE; i++)
     printf ("%02x ", cookie[i] & 0xff);
 }
 
 enum dhcpMessageTypes
-pkt_get_dhcp_message_type (pktDhcpPacket_t *pkt)
+pktGetDhcpMessageType (pktDhcpPacket_t *pkt)
 {
   pktDhcpOptions_t *opt = (pktDhcpOptions_t *)pkt->options;
 
@@ -66,14 +66,14 @@ pkt_get_dhcp_message_type (pktDhcpPacket_t *pkt)
 }
 
 struct in_addr *
-pkt_get_requested_ip_address (pktDhcpPacket_t *pkt)
+pktGetRequestedIpAddress (pktDhcpPacket_t *pkt)
 {
-  return pkt_get_address (pkt,
+  return pktGetAddress (pkt,
                           (pktValidator_t)pkt_is_requested_ip_addr_option_valid);
 }
 
 char *
-pkt_get_string (pktDhcpPacket_t *pkt, pktValidator_t validator)
+pktGetString (pktDhcpPacket_t *pkt, pktValidator_t validator)
 {
   pktDhcpOptions_t *opt = (pktDhcpOptions_t *)pkt->options;
 
@@ -105,13 +105,13 @@ pkt_get_string (pktDhcpPacket_t *pkt, pktValidator_t validator)
 }
 
 char *
-pkt_get_host_name (pktDhcpPacket_t *pkt)
+pktGetHostName (pktDhcpPacket_t *pkt)
 {
-  return pkt_get_string (pkt, (void *)pkt_is_host_name_option_valid);
+  return pktGetString (pkt, (void *)pkt_is_host_name_option_valid);
 }
 
 pktParameterRequestList_t *
-pkt_get_parameter_list (pktDhcpPacket_t *pkt)
+pktGetParameterList (pktDhcpPacket_t *pkt)
 {
   pktDhcpOptions_t *opt = (pktDhcpOptions_t *)pkt->options;
 
@@ -143,7 +143,7 @@ pkt_get_parameter_list (pktDhcpPacket_t *pkt)
 }
 
 char *
-pkt_ip_hex2str (char *ip)
+pktIpHex2str (char *ip)
 {
   char *tmpStr = (char *) calloc (sizeof (char) * PKT_IP_MAX_LEN, sizeof (char));
 
@@ -160,7 +160,7 @@ pkt_ip_hex2str (char *ip)
 }
 
 char *
-pkt_ip_str2hex (char *ip)
+pktIpStr2hex (char *ip)
 {
   char tmpIp[PKT_IP_MAX_LEN];
 
@@ -195,7 +195,7 @@ pkt_ip_str2hex (char *ip)
 }
 
 struct in_addr *
-pkt_get_address (pktDhcpPacket_t *pkt, pktValidator_t validator)
+pktGetAddress (pktDhcpPacket_t *pkt, pktValidator_t validator)
 {
   pktDhcpOptions_t *opt = (pktDhcpOptions_t *)pkt->options;
 
@@ -220,7 +220,7 @@ pkt_get_address (pktDhcpPacket_t *pkt, pktValidator_t validator)
   if (!address)
     return NULL;
 
-  ip = pkt_ip_hex2str (address->addr);
+  ip = pktIpHex2str (address->addr);
 
   if (!ip)
     return NULL;
@@ -231,13 +231,13 @@ pkt_get_address (pktDhcpPacket_t *pkt, pktValidator_t validator)
 }
 
 struct in_addr *
-pkt_get_server_identifier (pktDhcpPacket_t *pkt)
+pktGetServerIdentifier (pktDhcpPacket_t *pkt)
 {
-  return pkt_get_address (pkt, (pktValidator_t)pkt_is_valid_server_identifier);
+  return pktGetAddress (pkt, (pktValidator_t)pkt_is_valid_server_identifier);
 }
 
 char *
-pkt_get_ip_address_lease_time (pktDhcpPacket_t *pkt)
+pktGetIpAddressLeaseTime (pktDhcpPacket_t *pkt)
 {
   pktDhcpOptions_t *opt = (pktDhcpOptions_t *)pkt->options;
 
@@ -267,7 +267,7 @@ pkt_get_ip_address_lease_time (pktDhcpPacket_t *pkt)
 }
 
 long long
-pkt_lease_time_hex2long (char *time)
+pktLeaseTimeHex2long (char *time)
 {
   int maxLen = 8;
 
@@ -281,7 +281,7 @@ pkt_lease_time_hex2long (char *time)
 }
 
 char *
-pkt_lease_time_long2hex (long long time)
+pktLeaseTimeLong2hex (long long time)
 {
   char *timeHexForReturn = (char *)malloc (sizeof (char) * 4);
 
@@ -311,25 +311,25 @@ pkt_lease_time_long2hex (long long time)
 }
 
 struct in_addr *
-pkt_get_subnet_mask (pktDhcpPacket_t *pkt)
+pktGetSubnetMask (pktDhcpPacket_t *pkt)
 {
-  return pkt_get_address (pkt, (pktValidator_t)pkt_is_valid_subnet_mask);
+  return pktGetAddress (pkt, (pktValidator_t)pkt_is_valid_subnet_mask);
 }
 
 struct in_addr *
-pkt_get_router (pktDhcpPacket_t *pkt)
+pktGetRouter (pktDhcpPacket_t *pkt)
 {
-  return pkt_get_address (pkt, (pktValidator_t)pkt_is_valid_router);
+  return pktGetAddress (pkt, (pktValidator_t)pkt_is_valid_router);
 }
 
 char *
-pkt_get_domain_name (pktDhcpPacket_t *pkt)
+pktGetDomainName (pktDhcpPacket_t *pkt)
 {
-  return pkt_get_string (pkt, (void *)pkt_is_domain_name_option_valid);
+  return pktGetString (pkt, (void *)pkt_is_domain_name_option_valid);
 }
 
 char *
-pkt_get_message (pktDhcpPacket_t *pkt)
+pktGetMessage (pktDhcpPacket_t *pkt)
 {
-  return pkt_get_string (pkt, (void *)pkt_is_message_valid);
+  return pktGetString (pkt, (void *)pkt_is_message_valid);
 }

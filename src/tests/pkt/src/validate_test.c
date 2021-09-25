@@ -13,7 +13,7 @@
 #include "pkt/validate.h"
 
 void
-pkt_is_msg_type_valid_test()
+pktIsMsgTypeValidTest()
 {
   CU_ASSERT_TRUE (pkt_is_msg_type_valid (DHCPDISCOVER));
 
@@ -33,7 +33,7 @@ pkt_is_msg_type_valid_test()
 }
 
 void
-pkt_is_msg_type_option_valid_test()
+pktIsMsgTypeOptionValidTest()
 {
   pktMessageType_t opt = {.len = 1, .type = DHCPDISCOVER, .option = OPTION_DHCP_MSG_TYPE};
 
@@ -57,7 +57,7 @@ pkt_is_msg_type_option_valid_test()
 }
 
 void
-pkt_is_requested_ip_addr_option_valid_test()
+pktIsRequestedIpAddrOptionValidTest()
 {
   pktRequestedIpAddress_t opt = {.len = 0, .option = OPTION_REQUESTED_IP_ADDR};
 
@@ -65,7 +65,7 @@ pkt_is_requested_ip_addr_option_valid_test()
 }
 
 void
-pkt_is_host_name_option_valid_test()
+pktIsHostNameOptionValidTest()
 {
 #define SAME_TEST(VALUE) CU_ASSERT_##VALUE (pkt_is_host_name_option_valid ((pktString_t *)hname))
 
@@ -97,7 +97,7 @@ pkt_is_host_name_option_valid_test()
 }
 
 void
-pkt_is_parameter_list_valid_test()
+pktIsParameterListValidTest()
 {
   char buf[200];
 
@@ -130,7 +130,7 @@ pkt_is_parameter_list_valid_test()
 }
 
 void
-pkt_is_valid_server_identifier_test()
+pktIsValidServerIdentifierTest()
 {
   pktServerIdentifier_t *si = (pktServerIdentifier_t *)malloc (sizeof (
                                 pktServerIdentifier_t));
@@ -148,20 +148,20 @@ pkt_is_valid_server_identifier_test()
 }
 
 void
-pkt_is_ip_address_lease_time_option_valid_test()
+pktIsIpAddressLeaseTimeOptionValidTest()
 {
   for (size_t i = 0; i < 10; i++)
     {
       pktIpAddressLeaseTime_t lt = {.option = OPTION_IP_ADDR_LEASE_TIME & 0xff, .len = 4};
 
-      strncpy (lt.time, pkt_lease_time_long2hex (i * rand() % 14), lt.len);
+      strncpy (lt.time, pktLeaseTimeLong2hex (i * rand() % 14), lt.len);
 
       CU_ASSERT_TRUE (pkt_is_ip_address_lease_time_option_valid (&lt));
     }
 }
 
 void
-pkt_is_valid_subnet_mask_test()
+pktIsValidSubnetMaskTest()
 {
   pktSubnetMask_t *mask = (pktSubnetMask_t *)malloc (sizeof (pktSubnetMask_t));
 
@@ -178,7 +178,7 @@ pkt_is_valid_subnet_mask_test()
 }
 
 void
-pkt_is_address_valid_test()
+pktIsAddressValidTest()
 {
   pktSubnetMask_t *mask = (pktSubnetMask_t *)malloc (sizeof (pktSubnetMask_t));
 
@@ -212,7 +212,7 @@ pkt_is_address_valid_test()
 }
 
 void
-pkt_is_valid_router_test()
+pktIsValidRouterTest()
 {
   pktRouter_t *router = (pktRouter_t *)malloc (sizeof (pktRouter_t));
 
@@ -237,7 +237,7 @@ pkt_is_valid_router_test()
 }
 
 void
-pkt_is_valid_string_test()
+pktIsValidStringTest()
 {
   pktString_t *str = (pktString_t *)malloc (sizeof (pktString_t));
 
@@ -253,7 +253,7 @@ pkt_is_valid_string_test()
 }
 
 void
-pkt_is_domain_name_option_valid_test()
+pktIsDomainNameOptionValidTest()
 {
   pktDomainName_t *domain = (pktDomainName_t *)malloc (sizeof (pktDomainName_t));
 
@@ -281,7 +281,7 @@ pkt_is_domain_name_option_valid_test()
 }
 
 void
-pkt_is_message_valid_test()
+pktIsMessageValidTest()
 {
   pktMessage_t *msg = (pktMessage_t *)malloc (sizeof (pktMessage_t));
 
