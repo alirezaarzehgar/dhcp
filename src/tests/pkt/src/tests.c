@@ -314,7 +314,6 @@ pktOfferFileTest()
   CU_ASSERT (CU_TRUE);
 }
 
-
 void
 pktLeaseTimeHex2longTest()
 {
