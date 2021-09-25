@@ -12,22 +12,22 @@
 #include "pkt/validate.h"
 
 bool
-pkt_is_msg_type_valid (enum dhcpMessageTypes type)
+pktIsMsgTypeValid (enum dhcpMessageTypes type)
 {
   int t = type & 0xff;
   return t <= DHCPTLS && t >= DHCPDISCOVER;
 }
 
 bool
-pkt_is_msg_type_option_valid (pktMessageType_t *opt)
+pktIsMsgTypeOptionValid (pktMessageType_t *opt)
 {
-  return pkt_is_msg_type_valid (opt->type) &&
+  return pktIsMsgTypeValid (opt->type) &&
          opt->option == OPTION_DHCP_MSG_TYPE &&
          opt->len == 1;
 }
 
 bool
-pkt_is_requested_ip_addr_option_valid (pktRequestedIpAddress_t *opt)
+pktIsRequestedIpAddrOptionValid (pktRequestedIpAddress_t *opt)
 {
   struct in_addr *ip;
 
@@ -38,7 +38,7 @@ pkt_is_requested_ip_addr_option_valid (pktRequestedIpAddress_t *opt)
 }
 
 bool
-pkt_is_valid_string (pktString_t *opt, int option)
+pktIsValidString (pktString_t *opt, int option)
 {
   if (opt->option == option & 0xff && opt->len > 0)
     {
@@ -54,13 +54,13 @@ pkt_is_valid_string (pktString_t *opt, int option)
 }
 
 bool
-pkt_is_host_name_option_valid (pktString_t *opt)
+pktIsHostNameOptionValid (pktString_t *opt)
 {
-  return pkt_is_valid_string (opt, OPTION_HOST_NAME);
+  return pktIsValidString (opt, OPTION_HOST_NAME);
 }
 
 bool
-pkt_is_parameter_list_valid (pktParameterRequestList_t *opt)
+pktIsParameterListValid (pktParameterRequestList_t *opt)
 {
   for (size_t i = 0; i < opt->len; i++)
     if (opt->list[i] < OPTION_SUBNET_MASK || opt->list[i] > OPTION_END)
@@ -76,7 +76,7 @@ pkt_is_parameter_list_valid (pktParameterRequestList_t *opt)
 }
 
 bool
-pkt_is_address_valid (pktAddress_t *opt, int option,  int max)
+pktIsAddressValid (pktAddress_t *opt, int option,  int max)
 {
   for (size_t i = 0; i < opt->len; i++)
     if (opt->addr[i] & 0xff < 0 || opt->addr[i] & 0xff > max)
@@ -86,41 +86,41 @@ pkt_is_address_valid (pktAddress_t *opt, int option,  int max)
 }
 
 bool
-pkt_is_valid_server_identifier (pktServerIdentifier_t *opt)
+pktIsValidServerIdentifier (pktServerIdentifier_t *opt)
 {
-  return pkt_is_address_valid ((pktAddress_t *)opt, OPTION_SERVER_IDENTIFIER,
+  return pktIsAddressValid ((pktAddress_t *)opt, OPTION_SERVER_IDENTIFIER,
                                PKT_MAX_IP_SEGMENT_LEN);
 }
 
 bool
-pkt_is_ip_address_lease_time_option_valid (pktIpAddressLeaseTime_t *opt)
+pktIsIpAddressLeaseTimeOptionValid (pktIpAddressLeaseTime_t *opt)
 {
   return opt->option == OPTION_IP_ADDR_LEASE_TIME & 0xff
          && opt->len == PKT_DEFAULT_ADDRESS_LEN;
 }
 
 bool
-pkt_is_valid_subnet_mask (pktSubnetMask_t *opt)
+pktIsValidSubnetMask (pktSubnetMask_t *opt)
 {
-  return pkt_is_address_valid ((pktAddress_t *)opt, OPTION_SUBNET_MASK,
+  return pktIsAddressValid ((pktAddress_t *)opt, OPTION_SUBNET_MASK,
                                PKT_MAX_IP_SEGMENT_LEN + 1);
 }
 
 bool
-pkt_is_valid_router (pktRouter_t *opt)
+pktIsValidRouter (pktRouter_t *opt)
 {
-  return pkt_is_address_valid ((pktAddress_t *)opt, OPTION_ROUTER,
+  return pktIsAddressValid ((pktAddress_t *)opt, OPTION_ROUTER,
                                PKT_MAX_IP_SEGMENT_LEN);
 }
 
 bool
-pkt_is_domain_name_option_valid (pktString_t *opt)
+pktIsDomainNameOptionValid (pktString_t *opt)
 {
-  return pkt_is_valid_string (opt, OPTION_DOMAIN_NAME);
+  return pktIsValidString (opt, OPTION_DOMAIN_NAME);
 }
 
 bool
-pkt_is_message_valid (pktString_t *opt)
+pktIsMessageValid (pktString_t *opt)
 {
-  return pkt_is_valid_string (opt, OPTION_MSG);
+  return pktIsValidString (opt, OPTION_MSG);
 }
