@@ -42,21 +42,6 @@ CU_TestInfo pkt_tests[] =
   {"pkt get domain name", pktGetDomainNameTest},
   {"pkt get error message", pktGetMessageTest},
   /* Generation Tests */
-  {"pktGenDhcpPacketTest", pktGenDhcpPacketTest},
-  {"pktGenDhcpOptionsTest", pktGenDhcpOptionsTest},
-  {"pktGenMessageTypeTest", pktGenMessageTypeTest},
-  {"pktGenRequestedIpAddressTest", pktGenRequestedIpAddressTest},
-  {"pktGenStringTest", pktGenStringTest},
-  {"pktGenHostNameTest", pktGenHostNameTest},
-  {"pktGenParameterRequestListTest", pktGenParameterRequestListTest},
-  {"pktGenAddressTest", pktGenAddressTest},
-  {"pktGenServerIdentifierTest", pktGenServerIdentifierTest},
-  {"pktGenIpAddressLeaseTimeTest", pktGenIpAddressLeaseTimeTest},
-  {"pktGenSubnetMaskTest", pktGenSubnetMaskTest},
-  {"pktGenRouterTest", pktGenRouterTest},
-  {"pktGenDomainNameTest", pktGenDomainNameTest},
-  {"pktGenMessageTest", pktGenMessageTest},
-  {"pktGenEndTest", pktGenEndTest},
   CU_TEST_INFO_NULL,
 };
 
