@@ -24,7 +24,7 @@ int
 pktGenOffer (pktDhcpPacket_t *discovery, pktDhcpPacket_t *offer)
 {
   if (!pktIsDiscoveryPktValidForOffer (discovery))
-    return PKT_ERR_FAILURE;
+    return PKT_RET_FAILURE;
 
   /* Fill common BOOTP and DHCP fileds */
 
@@ -34,7 +34,7 @@ pktGenOffer (pktDhcpPacket_t *discovery, pktDhcpPacket_t *offer)
 
   /* TODO - Add all parameter requested list's options to offer */
 
-  return 0;
+  return PKT_RET_SUCCESS;
 }
 
 int
@@ -52,7 +52,7 @@ pktGenAck (pktDhcpPacket_t *request, pktDhcpPacket_t *ack)
 
   /* TODO - Add all parameter requested list's options to offer */
 
-  return 0;
+  return PKT_RET_SUCCESS;
 }
 
 int
@@ -67,7 +67,7 @@ pktGenNak (void *unused /* TODO any parameter sets on future */,
 
   /* TODO - get extra option */
 
-  return 0;
+  return PKT_RET_SUCCESS;
 }
 
 void

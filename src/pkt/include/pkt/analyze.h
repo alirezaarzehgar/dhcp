@@ -112,10 +112,10 @@ enum dhcpOptions
 
 enum pktErr
 {
-  PKT_ERR_OPT_NOTFOUNT,
-  PKT_ERR_INVALID_LEN,
-  PKT_ERR_FAILURE = -1,
-  PKT_ERR_SUCCESS = 0
+  PKT_RET_OPT_NOTFOUNT,
+  PKT_RET_INVALID_LEN,
+  PKT_RET_FAILURE = -1,
+  PKT_RET_SUCCESS = 0
 };
 
 typedef bool (*pktValidator_t) (void *);
