@@ -95,20 +95,26 @@ pktGenOptDhcpMsgType (pktDhcpOptions_t *opt, int type)
 }
 
 void
-pktGenOptDhcpServerIdentofier (pktDhcpOptions_t *opt, char *server)
+pktGenOptAddr (pktDhcpOptions_t *opt, char *addr, int option, size_t len)
 {
-  pktServerIdentifier_t serverIdentifier = {.option = OPTION_SERVER_IDENTIFIER & 0xff, .len = 4};
+  pktAddress_t address = {.option = option & 0xff, .len = len};
 
-  size_t size = sizeof (pktServerIdentifier_t) + serverIdentifier.len;
+  size_t size = sizeof (pktAddress_t) + address.len;
 
-  char *hexServ = pktIpStr2hex (server);
+  char *hexAddr = pktIpStr2hex (addr);
 
-  if (hexServ)
-    memcpy (serverIdentifier.ip, hexServ, serverIdentifier.len);
+  if (hexAddr)
+    memcpy (address.addr, hexAddr, address.len);
 
-  memcpy (&opt->opts[currentBlock], &serverIdentifier, size);
+  memcpy (&opt->opts[currentBlock], &address, size);
 
   currentBlock += size;
+}
+
+void
+pktGenOptDhcpServerIdentofier (pktDhcpOptions_t *opt, char *server)
+{
+  pktGenOptAddr (opt, server, OPTION_SERVER_IDENTIFIER, PKT_IP_PKT_LEN);
 }
 
 void
@@ -131,53 +137,36 @@ pktGenOptIpAddrLeaseTime (pktDhcpOptions_t *opt, uint64_t time)
 void
 pktGenOptSubnetMask (pktDhcpOptions_t *opt, char *netmask)
 {
-  pktSubnetMask_t mask = {.option = OPTION_SUBNET_MASK & 0xff, .len = 4};
-
-  size_t size = sizeof (pktSubnetMask_t) + mask.len;
-
-  char *hexMask = pktIpStr2hex (netmask);
-
-  if (hexMask)
-    memcpy (mask.subnet, hexMask, mask.len);
-
-  memcpy (&opt->opts[currentBlock], &mask, size);
-
-  currentBlock += size;
+  pktGenOptAddr (opt, netmask, OPTION_SUBNET_MASK, PKT_IP_PKT_LEN);
 }
 
 void
-pktGenOptRouter (pktDhcpOptions_t *opt, char *routerAddr)
+pktGenOptRouter (pktDhcpOptions_t *opt, char *router)
 {
-  pktRouter_t router = {.option = OPTION_ROUTER & 0xff, .len = 4};
+  pktGenOptAddr (opt, router, OPTION_ROUTER, PKT_IP_PKT_LEN);
+}
 
-  size_t size = sizeof (pktRouter_t) + router.len;
+void
+pktGenOptString (pktDhcpOptions_t *opt, char *string, int option)
+{
+  pktString_t str = {.option = option & 0xff, .len = strlen (string)};
 
-  char *hexRouter = pktIpStr2hex (routerAddr);
+  size_t size = sizeof (pktDomainName_t) + str.len;
 
-  if (hexRouter)
-    memcpy (router.router, hexRouter, router.len);
+  char *name = string;
 
-  memcpy (&opt->opts[currentBlock], &router, sizeof (pktRouter_t) + router.len);
+  if (name)
+    memcpy (str.name, name, str.len);
+
+  memcpy (&opt->opts[currentBlock], &str, sizeof (pktString_t) + str.len);
 
   currentBlock += size;
 }
-
 
 void
 pktGenOptDomainName (pktDhcpOptions_t *opt, char *domainName)
 {
-  pktDomainName_t dm = {.option = OPTION_DOMAIN_NAME & 0xff, .len = strlen (domainName)};
-
-  size_t size = sizeof (pktDomainName_t) + dm.len;
-
-  char *name = domainName;
-
-  if (name)
-    memcpy (dm.domain, name, dm.len);
-
-  memcpy (&opt->opts[currentBlock], &dm, sizeof (pktDomainName_t) + dm.len);
-
-  currentBlock += size;
+  pktGenOptString (opt, domainName, OPTION_DOMAIN_NAME);
 }
 
 void

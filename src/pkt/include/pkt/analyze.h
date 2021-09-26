@@ -7,6 +7,8 @@
 
 #define DHCP_MAGIC_COOKIE_SIZE               4
 
+#define PKT_IP_PKT_LEN                       4
+
 #define PKT_IP_MAX_LEN                      16  /* len (255.255.255.255) == 16 */
 
 #define HEX                                 16
