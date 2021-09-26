@@ -11,4 +11,22 @@ int
 pktGenNak (void *unused /* TODO any parameter sets on future */,
            pktDhcpPacket_t *nak);
 
+void pktGenOptInit();
+
+void pktGenOptEnd (pktDhcpOptions_t *opt);
+
+void pktGenOptMagicCookie (pktDhcpOptions_t *opt, char *cookie);
+
+void pktGenOptIpAddrLeaseTime (pktDhcpOptions_t *opt, uint64_t time);
+
+void pktGenOptDhcpMsgType (pktDhcpOptions_t *opt, int type);
+
+void pktGenOptDhcpServerIdentofier (pktDhcpOptions_t *opt, char *server);
+
+void pktGenOptSubnetMask (pktDhcpOptions_t *opt, char *netmask);
+
+void pktGenOptRouter (pktDhcpOptions_t *opt, char *routerAddr);
+
+void pktGenOptDomainName (pktDhcpOptions_t *opt, char *domainName);
+
 #endif

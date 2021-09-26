@@ -112,8 +112,8 @@ enum pktErr
 {
   PKT_ERR_OPT_NOTFOUNT,
   PKT_ERR_INVALID_LEN,
-  PKT_ERR_FAILURE,
-  PKT_ERR_SUCCESS
+  PKT_ERR_FAILURE = -1,
+  PKT_ERR_SUCCESS = 0
 };
 
 typedef bool (*pktValidator_t) (void *);
