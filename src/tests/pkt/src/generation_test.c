@@ -110,7 +110,46 @@ packetGenMainTest()
 void
 pktGenOfferTest()
 {
-  /* TODO pktGenOfferTest */
+  pktDhcpPacket_t *discovery = (pktDhcpPacket_t *)bufDiscovery;
+
+  pktDhcpPacket_t *offer = (pktDhcpPacket_t *)calloc (sizeof (pktDhcpPacket_t),
+                           sizeof (pktDhcpPacket_t));
+
+  unsigned char *chaddr = pktMacStr2hex ("08:00:27:84:3e:d0");
+
+
+  pktGenCallback_t blocks[] =
+  {
+    {.func = (pktGenCallbackFunc_t)pktGenFieldYourIpAddress, .param = "192.168.133.144"},
+  };
+
+  pktGenCallback_t options[] =
+  {
+
+  };
+
+  size_t blockLen = sizeof (blocks) / sizeof (pktGenCallback_t);
+
+  size_t optionsLen = sizeof (options) / sizeof (pktGenCallback_t);
+
+  pktGenOffer (discovery, offer, blocks, blockLen, options, optionsLen);
+
+  /* Tests Fields */
+
+  CU_ASSERT_EQUAL (offer->op, PKT_MESSAGE_TYPE_BOOT_REPLY);
+
+  CU_ASSERT_EQUAL (offer->htype, PKT_HTYPE_ETHERNET);
+
+  CU_ASSERT_STRING_EQUAL (offer->chaddr, chaddr);
+
+  CU_ASSERT_EQUAL (offer->hlen, 6);
+
+  CU_ASSERT_EQUAL (offer->xid, discovery->xid);
+
+  CU_ASSERT_EQUAL (offer->yiaddr.s_addr, inet_addr ("192.168.133.144"));
+
+  /* Test Options */
+  /* TODO Test Options */
 }
 
 void

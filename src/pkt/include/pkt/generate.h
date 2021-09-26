@@ -3,7 +3,20 @@
 
 #include "pkt/analyze.h"
 
-int pktGenOffer (pktDhcpPacket_t *discovery, pktDhcpPacket_t *offer);
+typedef void (*pktGenCallbackFunc_t) (void *, void *);
+
+struct pktGenCallback
+{
+  pktGenCallbackFunc_t func;
+
+  void *param;
+};
+
+typedef struct pktGenCallback pktGenCallback_t;
+
+int pktGenOffer (pktDhcpPacket_t *discovery, pktDhcpPacket_t *offer,
+                 pktGenCallback_t *blocks, size_t blocksLen, pktGenCallback_t *options,
+                 size_t optionsLen);
 
 int pktGenAck (pktDhcpPacket_t *request, pktDhcpPacket_t *ack);
 
@@ -17,7 +30,7 @@ void pktGenOptEnd (pktDhcpOptions_t *opt);
 
 void pktGenOptMagicCookie (pktDhcpOptions_t *opt, char *cookie);
 
-void pktGenOptIpAddrLeaseTime (pktDhcpOptions_t *opt, uint64_t time);
+void pktGenOptIpAddrLeaseTime (pktDhcpOptions_t *opt, uint32_t time);
 
 void pktGenOptDhcpMsgType (pktDhcpOptions_t *opt, int type);
 

@@ -21,18 +21,48 @@
 static uint16_t currentBlock = -1;
 
 int
-pktGenOffer (pktDhcpPacket_t *discovery, pktDhcpPacket_t *offer)
+pktGenOffer (pktDhcpPacket_t *discovery, pktDhcpPacket_t *offer,
+             pktGenCallback_t *blocks, size_t blocksLen, pktGenCallback_t *options,
+             size_t optionsLen)
 {
   if (!pktIsDiscoveryPktValidForOffer (discovery))
     return PKT_RET_FAILURE;
 
-  /* Fill common BOOTP and DHCP fileds */
+  /**
+   * @brief Apply default offer fields
+   *
+   */
+  pktGenFieldHardwareLen (offer, PKT_HLEN);
 
-  /* TODO - Fill common BOOTP and DHCP fileds */
+  pktGenFieldHardwareType (offer, PKT_HTYPE_ETHERNET);
 
-  /* Add all parameter requested list's options to offer */
+  if (blocks)
+    {
+      for (size_t i = 0; i < blocksLen; i++)
+        blocks[i].func (offer, blocks[i].param);
+    }
 
-  /* TODO - Add all parameter requested list's options to offer */
+  /**
+   * @brief Apply necessary offer fileds
+   *
+   */
+  pktGenFieldOperationCode (offer, PKT_MESSAGE_TYPE_BOOT_REPLY);
+
+  pktGenFieldClientMacAddress (offer, pktMacHex2str (discovery->chaddr));
+
+  pktGenFieldTransactionId (offer, discovery->xid);
+
+  if (options)
+    {
+      pktGenOptInit();
+
+      pktDhcpOptions_t *opt = (pktDhcpOptions_t *)offer->options;
+
+      for (size_t i = 0; i < optionsLen; i++)
+        options[i].func (opt, options[i].param);
+
+      pktGenOptEnd (opt);
+    }
 
   return PKT_RET_SUCCESS;
 }
@@ -118,7 +148,7 @@ pktGenOptDhcpServerIdentofier (pktDhcpOptions_t *opt, char *server)
 }
 
 void
-pktGenOptIpAddrLeaseTime (pktDhcpOptions_t *opt, uint64_t time)
+pktGenOptIpAddrLeaseTime (pktDhcpOptions_t *opt, uint32_t time)
 {
   char *hexTime;
 

@@ -148,12 +148,12 @@ pktAddrHex2str (char *addr, size_t len, char separator, int type)
   char *tmpStr = (char *) calloc (sizeof (char) * PKT_ADDR_MAX_LEN,
                                   sizeof (char));
 
-  char charHolder[5];
+  char *format = type == PKT_ADDR_TYPE_IP ? "%d%c" : "%02x%c";
+
+  char charHolder[len + 1];
 
   for (size_t i = 0; i < len; i++)
     {
-      char *format = type == PKT_ADDR_TYPE_IP ? "%d%c" : "%02x%c";
-
       snprintf (charHolder, len + 1, format, addr[i] & 0xff,
                 i != len - 1 ? separator : '\0');
 
