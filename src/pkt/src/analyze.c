@@ -143,55 +143,76 @@ pktGetParameterList (pktDhcpPacket_t *pkt)
 }
 
 char *
-pktIpHex2str (char *ip)
+pktAddrHex2str (char *addr, size_t len, char separator, int type)
 {
-  char *tmpStr = (char *) calloc (sizeof (char) * PKT_IP_MAX_LEN, sizeof (char));
+  char *tmpStr = (char *) calloc (sizeof (char) * PKT_ADDR_MAX_LEN,
+                                  sizeof (char));
 
   char charHolder[5];
 
-  for (size_t i = 0; i < 4; i++)
+  for (size_t i = 0; i < len; i++)
     {
-      snprintf (charHolder, 5, "%d%c", ip[i] & 0xff, i != 3 ? '.' : '\0');
+      char *format = type == PKT_ADDR_TYPE_IP ? "%d%c" : "%02x%c";
 
-      strncat (tmpStr, charHolder, 5);
+      snprintf (charHolder, len + 1, format, addr[i] & 0xff,
+                i != len - 1 ? separator : '\0');
+
+      strncat (tmpStr, charHolder, len + 1);
     }
 
   return tmpStr;
 }
 
+
 char *
-pktIpStr2hex (char *ip)
+pktAddrStr2hex (char *addr, size_t len, char *separator, int type)
 {
-  char tmpIp[PKT_IP_MAX_LEN];
+  char tmpAddr[PKT_ADDR_MAX_LEN];
 
-  struct in_addr testAddr = { inet_addr (ip) };
-
-  char *retIp = (char *)malloc (PKT_DEFAULT_ADDRESS_LEN);
+  char *retIp = (char *)malloc (len);
 
   char *tmp;
 
   int index = 0;
 
-  if (!retIp)
+  if (!retIp && len > 0)
     return NULL;
 
-  memcpy (tmpIp, ip, PKT_IP_MAX_LEN);
+  memcpy (tmpAddr, addr, PKT_ADDR_MAX_LEN);
 
-  if (testAddr.s_addr == 0)
-    {
-      bzero (retIp, PKT_DEFAULT_ADDRESS_LEN);
-      return retIp;
-    }
-
-  tmp = strtok (tmpIp, ".");
+  tmp = strtok (tmpAddr, separator);
 
   do
     {
-      retIp[index++] = atoi (tmp);
+      retIp[index++] = type == PKT_ADDR_TYPE_MAC ? strtol (tmp, NULL, 16) : atoi (tmp);
     }
-  while ((tmp = strtok (NULL, ".")) != NULL);
+  while ((tmp = strtok (NULL, separator)) != NULL);
 
   return retIp;
+}
+
+char *
+pktMacStr2hex (char *mac)
+{
+  return pktAddrStr2hex (mac, 6, ":", PKT_ADDR_TYPE_MAC);
+}
+
+char *
+pktMacHex2str (char *hexMac)
+{
+  return pktAddrHex2str (hexMac, 6, ':', PKT_ADDR_TYPE_MAC);
+}
+
+char *
+pktIpStr2hex (char *ip)
+{
+  return pktAddrStr2hex (ip, PKT_DEFAULT_ADDRESS_LEN, ".", PKT_ADDR_TYPE_IP);
+}
+
+char *
+pktIpHex2str (char *ip)
+{
+  return pktAddrHex2str (ip, PKT_DEFAULT_ADDRESS_LEN, '.', PKT_ADDR_TYPE_IP);
 }
 
 struct in_addr *

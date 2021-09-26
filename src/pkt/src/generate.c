@@ -178,3 +178,14 @@ pktGenOptEnd (pktDhcpOptions_t *opt)
 
   currentBlock = -1;
 }
+
+void
+pktGenFieldClientMacAddress (pktDhcpPacket_t *pkt, char *chaddr)
+{
+  if (pkt->hlen == 0)
+    pkt->hlen = PKT_HLEN;
+
+  char *hexMac = pktMacStr2hex (chaddr);
+
+  memcpy (pkt->chaddr, hexMac, pkt->hlen);
+}

@@ -40,7 +40,7 @@ packetGenMainTest()
 
   /* commons */
 
-  unsigned char chaddr[] = { 0x08, 0x00, 0x27, 0x84, 0x3e };
+  unsigned char *chaddr = pktMacStr2hex ("08:00:27:84:3e:d0");
 
   char *cookie = pktGetMagicCookie (discovery);
 
@@ -58,7 +58,7 @@ packetGenMainTest()
 
   offer->hlen = 6;
 
-  memcpy (offer->chaddr, chaddr, offer->hlen);
+  pktGenFieldClientMacAddress (offer, "08:00:27:84:3e:d0");
 
   /* opts */
 

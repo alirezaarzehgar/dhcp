@@ -9,6 +9,8 @@
 
 #define PKT_IP_MAX_LEN                      16  /* len (255.255.255.255) == 16 */
 
+#define PKT_ADDR_MAX_LEN                    17  /* len (FF:FF:FF:FF:FF:FF) == 17 */
+
 #define HEX                                 16
 
 #define PKT_IP_ADDR_LEASE_TIME_LEN          4
@@ -118,6 +120,12 @@ enum pktErr
   PKT_RET_SUCCESS = 0
 };
 
+enum pktAddressType
+{
+  PKT_ADDR_TYPE_IP,
+  PKT_ADDR_TYPE_MAC,
+};
+
 typedef bool (*pktValidator_t) (void *);
 
 char *pktGetMagicCookie (pktDhcpPacket_t *pkt);
@@ -133,6 +141,14 @@ char *pktGetHostName (pktDhcpPacket_t *pkt);
 pktParameterRequestList_t *pktGetParameterList (pktDhcpPacket_t *pkt);
 
 struct in_addr *pktGetServerIdentifier (pktDhcpPacket_t *pkt);
+
+char *pktAddrStr2hex (char *addr, size_t len, char *separator, int type);
+
+char *pktAddrHex2str (char *addr, size_t len, char separator, int type);
+
+char *pktMacStr2hex (char *mac);
+
+char *pktMacHex2str (char *hexMac);
 
 char *pktIpHex2str (char *ip);
 

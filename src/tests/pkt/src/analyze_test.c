@@ -477,3 +477,43 @@ pktGetMessageTest()
 {
   pktTestFunctionOnAllPackets (get_message);
 }
+
+void
+pktAddrStr2hexTest()
+{
+  /* TODO pktAddrStr2hexTest */
+}
+
+void
+pktAddrHex2strTest()
+{
+  /* TODO pktAddrHex2strTest */
+}
+
+void
+pktMacStr2hexTest()
+{
+  char *orginMac = "08:00:27:84:3e:d0";
+
+  char *hexMac = pktMacStr2hex ("08:00:27:84:3e:d0");
+
+  char *strMac = pktMacHex2str (hexMac);
+
+  CU_ASSERT_STRING_EQUAL (orginMac, strMac);
+
+  free (hexMac);
+
+  free (strMac);
+}
+
+void
+pktMacHex2strTest()
+{
+  unsigned char mac[] = { 0x08, 0x00, 0x27, 0x84, 0x3e, 0xd0 };
+
+  char *strMac = "08:00:27:84:3e:d0";
+
+  char *convertedMac = pktMacHex2str (mac);
+
+  CU_ASSERT_STRING_EQUAL (convertedMac, strMac);
+}

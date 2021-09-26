@@ -51,6 +51,10 @@ CU_TestInfo pkt_tests[] =
   {"pkt get router", pktgetRouterTest},
   {"pkt get domain name", pktGetDomainNameTest},
   {"pkt get error message", pktGetMessageTest},
+  {"convert address string to hex", pktAddrStr2hexTest},
+  {"convert address hex to string", pktAddrHex2strTest},
+  {"convert mac address string to hex", pktMacStr2hexTest},
+  {"convert mac address hex to string", pktMacHex2strTest},
   /* Generation Tests */
   {"endpoint for packet generation", packetGenMainTest},
   {"generate Offer packet", pktGenOfferTest},

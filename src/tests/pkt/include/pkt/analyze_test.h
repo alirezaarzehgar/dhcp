@@ -64,4 +64,12 @@ void pktGetStringTest();
 
 void pktGetMessageTest();
 
+void pktAddrStr2hexTest();
+
+void pktAddrHex2strTest();
+
+void pktMacStr2hexTest();
+
+void pktMacHex2strTest();
+
 #endif

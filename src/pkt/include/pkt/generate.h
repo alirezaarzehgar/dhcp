@@ -29,4 +29,6 @@ void pktGenOptRouter (pktDhcpOptions_t *opt, char *routerAddr);
 
 void pktGenOptDomainName (pktDhcpOptions_t *opt, char *domainName);
 
+void pktGenFieldClientMacAddress (pktDhcpPacket_t *pkt, char *chaddr);
+
 #endif
