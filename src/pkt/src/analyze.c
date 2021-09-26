@@ -184,7 +184,8 @@ pktAddrStr2hex (char *addr, size_t len, char *separator, int type)
 
   do
     {
-      retIp[index++] = type == PKT_ADDR_TYPE_MAC ? strtol (tmp, NULL, 16) : atoi (tmp);
+      retIp[index++] = type == PKT_ADDR_TYPE_MAC ? strtol (tmp, NULL,
+                       16) : atoi (tmp);
     }
   while ((tmp = strtok (NULL, separator)) != NULL);
 
