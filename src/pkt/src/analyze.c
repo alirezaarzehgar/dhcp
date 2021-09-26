@@ -201,6 +201,7 @@ pktMacStr2hex (char *mac)
 char *
 pktMacHex2str (char *hexMac)
 {
+  /* TODO Bug pktGenOfferTest  */
   return pktAddrHex2str (hexMac, 6, ':', PKT_ADDR_TYPE_MAC);
 }
 
