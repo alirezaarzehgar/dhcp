@@ -114,7 +114,7 @@ pktGenOptAddr (pktDhcpOptions_t *opt, char *addr, int option, size_t len)
 void
 pktGenOptDhcpServerIdentofier (pktDhcpOptions_t *opt, char *server)
 {
-  pktGenOptAddr (opt, server, OPTION_SERVER_IDENTIFIER, PKT_IP_PKT_LEN);
+  pktGenOptAddr (opt, server, OPTION_SERVER_IDENTIFIER, PKT_DEFAULT_ADDRESS_LEN);
 }
 
 void
@@ -122,7 +122,7 @@ pktGenOptIpAddrLeaseTime (pktDhcpOptions_t *opt, uint64_t time)
 {
   char *hexTime;
 
-  pktIpAddressLeaseTime_t ipAddrLT = {.option = OPTION_IP_ADDR_LEASE_TIME & 0xff, .len = 4};
+  pktIpAddressLeaseTime_t ipAddrLT = {.option = OPTION_IP_ADDR_LEASE_TIME & 0xff, .len = PKT_IP_ADDR_LEASE_TIME_LEN};
 
   hexTime = pktLeaseTimeLong2hex (time);
 
@@ -137,13 +137,13 @@ pktGenOptIpAddrLeaseTime (pktDhcpOptions_t *opt, uint64_t time)
 void
 pktGenOptSubnetMask (pktDhcpOptions_t *opt, char *netmask)
 {
-  pktGenOptAddr (opt, netmask, OPTION_SUBNET_MASK, PKT_IP_PKT_LEN);
+  pktGenOptAddr (opt, netmask, OPTION_SUBNET_MASK, PKT_DEFAULT_ADDRESS_LEN);
 }
 
 void
 pktGenOptRouter (pktDhcpOptions_t *opt, char *router)
 {
-  pktGenOptAddr (opt, router, OPTION_ROUTER, PKT_IP_PKT_LEN);
+  pktGenOptAddr (opt, router, OPTION_ROUTER, PKT_DEFAULT_ADDRESS_LEN);
 }
 
 void
@@ -172,7 +172,7 @@ pktGenOptDomainName (pktDhcpOptions_t *opt, char *domainName)
 void
 pktGenOptEnd (pktDhcpOptions_t *opt)
 {
-  pktEnd_t end = {.option = 255};
+  pktEnd_t end = {.option = OPTION_END};
 
   memcpy (&opt->opts[currentBlock], &end, sizeof (pktEnd_t));
 

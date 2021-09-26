@@ -166,7 +166,7 @@ pktIpStr2hex (char *ip)
 
   struct in_addr testAddr = { inet_addr (ip) };
 
-  char *retIp = (char *)malloc (PKT_MAX_IP_SEGMENT_LEN);
+  char *retIp = (char *)malloc (PKT_DEFAULT_ADDRESS_LEN);
 
   char *tmp;
 
@@ -179,7 +179,7 @@ pktIpStr2hex (char *ip)
 
   if (testAddr.s_addr == 0)
     {
-      bzero (retIp, PKT_MAX_IP_SEGMENT_LEN);
+      bzero (retIp, PKT_DEFAULT_ADDRESS_LEN);
       return retIp;
     }
 
