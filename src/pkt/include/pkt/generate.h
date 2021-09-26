@@ -31,4 +31,14 @@ void pktGenOptDomainName (pktDhcpOptions_t *opt, char *domainName);
 
 void pktGenFieldClientMacAddress (pktDhcpPacket_t *pkt, char *chaddr);
 
+void pktGenFieldOperationCode (pktDhcpPacket_t *pkt, int op);
+
+void pktGenFieldHardwareType (pktDhcpPacket_t *pkt, int htype);
+
+void pktGenFieldTransactionId (pktDhcpPacket_t *pkt, int xid);
+
+void pktGenFieldYourIpAddress (pktDhcpPacket_t *pkt, char *yip);
+
+void pktGenFieldHardwareLen (pktDhcpPacket_t *pkt, int len);
+
 #endif

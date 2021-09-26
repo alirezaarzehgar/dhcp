@@ -189,3 +189,33 @@ pktGenFieldClientMacAddress (pktDhcpPacket_t *pkt, char *chaddr)
 
   memcpy (pkt->chaddr, hexMac, pkt->hlen);
 }
+
+void
+pktGenFieldOperationCode (pktDhcpPacket_t *pkt, int op)
+{
+  pkt->op = op;
+}
+
+void
+pktGenFieldHardwareType (pktDhcpPacket_t *pkt, int htype)
+{
+  pkt->htype = htype;
+}
+
+void
+pktGenFieldTransactionId (pktDhcpPacket_t *pkt, int xid)
+{
+  pkt->xid = xid;
+}
+
+void
+pktGenFieldYourIpAddress (pktDhcpPacket_t *pkt, char *yip)
+{
+  pkt->yiaddr.s_addr = inet_addr (yip);
+}
+
+void
+pktGenFieldHardwareLen (pktDhcpPacket_t *pkt, int len)
+{
+  pkt->hlen = len;
+}

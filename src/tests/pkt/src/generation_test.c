@@ -48,15 +48,15 @@ packetGenMainTest()
 
   CU_ASSERT_FATAL (pktIsDiscoveryPktValidForOffer (discovery));
 
-  offer->op = PKT_MESSAGE_TYPE_BOOT_REPLY;
+  pktGenFieldOperationCode (offer, PKT_MESSAGE_TYPE_BOOT_REPLY);
 
-  offer->htype = PKT_HTYPE_ETHERNET;
+  pktGenFieldHardwareType (offer, PKT_HTYPE_ETHERNET);
 
-  offer->xid = discovery->xid;
+  pktGenFieldTransactionId (offer, discovery->xid);
 
-  offer->yiaddr.s_addr = inet_addr ("192.168.133.144");
+  pktGenFieldYourIpAddress (offer, "192.168.133.144");
 
-  offer->hlen = 6;
+  pktGenFieldHardwareLen (offer, 6);
 
   pktGenFieldClientMacAddress (offer, "08:00:27:84:3e:d0");
 
