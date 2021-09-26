@@ -168,7 +168,7 @@ pktHaveMagicCookie (pktDhcpPacket_t *pkt)
 {
   char *cookie = pktGetMagicCookie (pkt);
 
-  if (cookie)
+  if (strlen(cookie) == DHCP_MAGIC_COOKIE_SIZE)
     {
       free (cookie);
       return true;
@@ -224,7 +224,7 @@ pktValidateWithListOfConditions (pktOptValidator_t *conditions,
   int flag = true;
 
   for (size_t i = 0; i < len; i++)
-    if ((conditions[i]) (pkt))
+    if (!(conditions[i]) (pkt))
       {
         flag = false;
         break;
@@ -257,12 +257,12 @@ pktIsRequestPktValidForAck (pktDhcpPacket_t *pkt)
 {
   pktOptValidator_t validators[] =
   {
-    pktIsPktTypeBootRep,
+    pktIsPktTypeBootReq,
     pktIsHardwareTypeEthernet,
     pktIsValidMacAddress,
     pktHaveTransactionId,
     pktHaveMagicCookie,
-    pktIsMsgTypeDiscovery,
+    pktIsMsgTypeRequest,
     pktHaveHostNameOption,
     pktHaveParameterRequestListOption,
   };

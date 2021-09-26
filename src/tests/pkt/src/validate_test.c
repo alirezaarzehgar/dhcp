@@ -308,21 +308,37 @@ pktIsMessageValidTest()
 }
 
 void
+discoveryPktValidForOffer (pktDhcpPacket_t *pkt, int index)
+{
+  if (pktIsMsgTypeDiscovery (pkt))
+    CU_ASSERT (pktIsDiscoveryPktValidForOffer (pkt));
+
+}
+
+void
 pktIsDiscoveryPktValidForOfferTest()
 {
-  /* TODO pktIsDiscoveryPktValidForOfferTest */
+  pktTestFunctionOnAllPackets (discoveryPktValidForOffer);
+}
+
+void
+requestPktValidForAck (pktDhcpPacket_t *pkt, int index)
+{
+  if (pktIsMsgTypeRequest (pkt))
+    CU_ASSERT (pktIsRequestPktValidForAck (pkt));
+
 }
 
 void
 pktIsRequestPktValidForAckTest()
 {
-  /* TODO pktIsRequestPktValidForAckTest */
+  pktTestFunctionOnAllPackets (requestPktValidForAck);
 }
 
 void
 typeBootReq (pktDhcpPacket_t *pkt, int index)
 {
-  if (index % 2 == 0) 
+  if (index % 2 == 0)
     CU_ASSERT (pktIsPktTypeBootReq (pkt));
 }
 
@@ -335,7 +351,7 @@ pktIsPktTypeBootReqTest()
 void
 typeBootRep (pktDhcpPacket_t *pkt, int index)
 {
-  if (index % 2 == 1) 
+  if (index % 2 == 1)
     CU_ASSERT (pktIsPktTypeBootRep (pkt));
 }
 
@@ -346,49 +362,127 @@ pktIsPktTypeBootRepTest()
 }
 
 void
+transactionId (pktDhcpPacket_t *pkt, int index)
+{
+  CU_ASSERT (pktHaveTransactionId (pkt));
+}
+
+void
 pktHaveTransactionIdTest()
 {
-  /* TODO pktHaveTransactionIdTest */
+  pktTestFunctionOnAllPackets (transactionId);
+
+  pktTestFunctionWithEmptyPkt ((pktValidator_t)pktHaveTransactionId);
+}
+
+void
+macAddress (pktDhcpPacket_t *pkt, int index)
+{
+  CU_ASSERT (pktIsValidMacAddress (pkt));
 }
 
 void
 pktIsValidMacAddressTest()
 {
-  /* TODO pktIsValidMacAddressTest */
+  pktTestFunctionOnAllPackets (macAddress);
+
+  pktTestFunctionWithEmptyPkt ((pktValidator_t)pktIsValidMacAddress);
+}
+
+void
+magicCookie (pktDhcpPacket_t *pkt, int index)
+{
+  CU_ASSERT (pktHaveMagicCookie (pkt));
 }
 
 void
 pktHaveMagicCookieTest()
 {
-  /* TODO pktHaveMagicCookieTest */
+  pktTestFunctionOnAllPackets (magicCookie);
+
+  pktTestFunctionWithEmptyPkt ((pktValidator_t)pktHaveMagicCookie);
+}
+
+void
+msgTypeDiscovery (pktDhcpPacket_t *pkt, int index)
+{
+  if (pktGetDhcpMessageType (pkt) == DHCPDISCOVER)
+    {
+      /* We just wanna get dhcpdiscoverr message */
+      CU_ASSERT (pktIsMsgTypeDiscovery (pkt));
+    }
+  else
+    CU_ASSERT_FALSE (pktIsMsgTypeDiscovery (pkt));
 }
 
 void
 pktIsMsgTypeDiscoveryTest()
 {
-  /* TODO pktIsMsgTypeDiscoveryTest */
+  pktTestFunctionOnAllPackets (msgTypeDiscovery);
+
+  pktTestFunctionWithEmptyPkt ((pktValidator_t)pktIsMsgTypeDiscovery);
+}
+
+void
+msgTypeRequest (pktDhcpPacket_t *pkt, int index)
+{
+  if (pktGetDhcpMessageType (pkt) == DHCPREQUEST)
+    CU_ASSERT (pktIsMsgTypeDiscovery (pkt));
 }
 
 void
 pktIsMsgTypeRequestTest()
 {
-  /* TODO pktIsMsgTypeRequestTest */
+  pktTestFunctionOnAllPackets (msgTypeRequest);
+
+  pktTestFunctionWithEmptyPkt ((pktValidator_t)pktIsMsgTypeRequest);
+}
+
+void
+haveHostName (pktDhcpPacket_t *pkt, int index)
+{
+  if (index % 2 == 0)
+    CU_ASSERT (pktHaveHostNameOption (pkt));
 }
 
 void
 pktHaveHostNameTest()
 {
-  /* TODO pktHaveHostNameTest */
+  pktTestFunctionOnAllPackets (haveHostName);
+
+  pktTestFunctionWithEmptyPkt ((pktValidator_t)pktHaveHostNameOption);
 }
 
 void
 pktValidateWithListOfConditionsTest()
 {
-  /* TODO pktValidateWithListOfConditionsTest */
+  pktOptValidator_t conditions[] =
+  {
+    pktHaveHostNameOption,
+    pktHaveMagicCookie,
+  };
+
+  bool res = pktValidateWithListOfConditions (conditions,
+             (pktDhcpPacket_t *)bufDiscovery,
+             sizeof (conditions) / sizeof (pktOptValidator_t));
+
+  CU_ASSERT (res);
+}
+
+void
+haveParameterRequestList (pktDhcpPacket_t *pkt, int index)
+{
+  if (pkt->op == PKT_MESSAGE_TYPE_BOOT_REQUEST)
+    {
+      /* parameter list is just for boot requests */
+      CU_ASSERT (pktHaveParameterRequestListOption (pkt));
+    }
+  else
+    CU_ASSERT_FALSE (pktHaveParameterRequestListOption (pkt));
 }
 
 void
 pktHaveParameterRequestListOptionTest()
 {
-  /* TODO pktHaveParameterRequestListOptionTest */
+  pktTestFunctionOnAllPackets (haveParameterRequestList);
 }

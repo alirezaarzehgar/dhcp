@@ -99,6 +99,17 @@ pktTestFunctionOnAllPackets (pktCustomTest_t func)
 }
 
 void
+ pktTestFunctionWithEmptyPkt (pktValidator_t func)
+{
+  pktDhcpPacket_t *pkt = calloc (sizeof (pktDhcpPacket_t),
+                                 sizeof (pktDhcpPacket_t));
+
+  CU_ASSERT_FALSE (func ((void *)pkt));
+
+  free (pkt);
+}
+
+void
 magic_cookie (pktDhcpPacket_t *pkt, int index)
 {
   char validCookie[] = {0x63, 0x82, 0x53, 0x63, '\0'};

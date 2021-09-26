@@ -22,6 +22,8 @@ typedef void (*pktCustomTest_t) (pktDhcpPacket_t *pkt, int index);
 
 void pktTestFunctionOnAllPackets (pktCustomTest_t func);
 
+void pktTestFunctionWithEmptyPkt (pktValidator_t func);
+
 int initSuitePkt();
 
 int cleanupSuitePkt();
