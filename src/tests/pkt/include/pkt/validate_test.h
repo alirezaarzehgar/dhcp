@@ -46,9 +46,9 @@ void pktIsPktTypeBootRepTest();
 
 void pktHaveTransactionIdTest();
 
-void pktIsValidMacAddressTest ();
+void pktIsValidMacAddressTest();
 
-void pktHaveMagicCookieTest ();
+void pktHaveMagicCookieTest();
 
 void pktIsMsgTypeDiscoveryTest();
 

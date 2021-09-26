@@ -99,7 +99,7 @@ pktTestFunctionOnAllPackets (pktCustomTest_t func)
 }
 
 void
- pktTestFunctionWithEmptyPkt (pktValidator_t func)
+pktTestFunctionWithEmptyPkt (pktValidator_t func)
 {
   pktDhcpPacket_t *pkt = calloc (sizeof (pktDhcpPacket_t),
                                  sizeof (pktDhcpPacket_t));
