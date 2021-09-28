@@ -6,7 +6,7 @@ add_subdirectory(src/dhcp-pkt)
 
 add_subdirectory(src/network)
 
-add_subdirectory(src/lease)
+add_subdirectory(src/dhcp-lease)
 
 add_subdirectory(src/cli)
 

@@ -1,3 +1,6 @@
 [submodule "src/dhcp-pkt"]
 	path = src/dhcp-pkt
 	url = https://github.com/alirezaarzehgar/dhcp-pkt
+[submodule "src/dhcp-lease"]
+	path = src/dhcp-lease
+	url = https://github.com/alirezaarzehgar/dhcp-lease.git
