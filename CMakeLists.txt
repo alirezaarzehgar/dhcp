@@ -4,7 +4,7 @@ project(dhcpd)
 
 add_subdirectory(src/dhcp-pkt)
 
-add_subdirectory(src/network)
+add_subdirectory(src/dhcp-network)
 
 add_subdirectory(src/dhcp-lease)
 
