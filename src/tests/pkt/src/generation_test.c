@@ -125,7 +125,11 @@ pktGenOfferTest()
 
   pktGenCallback_t options[] =
   {
-
+    {.func = (pktGenCallbackFunc_t)pktGenOptDhcpServerIdentofier, .param = "192.168.133.30"},
+    {.func = (pktGenCallbackFunc_t)pktGenOptIpAddrLeaseTime, .param = (void *)600},
+    {.func = (pktGenCallbackFunc_t)pktGenOptSubnetMask, .param = "255.255.255.0"},
+    {.func = (pktGenCallbackFunc_t)pktGenOptRouter, .param = "192.168.1.1"},
+    {.func = (pktGenCallbackFunc_t)pktGenOptDomainName, .param = "example.org"},
   };
 
   size_t blockLen = sizeof (blocks) / sizeof (pktGenCallback_t);
@@ -135,6 +139,15 @@ pktGenOfferTest()
   pktGenOffer (discovery, offer, blocks, blockLen, options, optionsLen);
 
   /* Tests Fields */
+  struct in_addr *serverIdentifier;
+
+  struct in_addr *mask;
+
+  struct in_addr *router;
+
+  char *domain;
+
+  char *cookie;
 
   CU_ASSERT_EQUAL (offer->op, PKT_MESSAGE_TYPE_BOOT_REPLY);
 
@@ -149,7 +162,41 @@ pktGenOfferTest()
   CU_ASSERT_EQUAL (offer->yiaddr.s_addr, inet_addr ("192.168.133.144"));
 
   /* Test Options */
-  /* TODO Test Options */
+  CU_ASSERT_EQUAL (pktGetDhcpMessageType (offer), DHCPOFFER);
+
+  cookie = pktGetMagicCookie (offer);
+
+  CU_ASSERT_TRUE (cookie != NULL);
+
+  CU_ASSERT_STRING_EQUAL (cookie, pktGetMagicCookie (discovery));
+
+  serverIdentifier = pktGetServerIdentifier (offer);
+
+  CU_ASSERT_FATAL (serverIdentifier != NULL);
+
+  CU_ASSERT_STRING_EQUAL (inet_ntoa (*serverIdentifier),
+                          "192.168.133.30");
+
+  CU_ASSERT_EQUAL (pktLeaseTimeHex2long (pktGetIpAddressLeaseTime (offer)), 600);
+
+  mask = pktGetSubnetMask (offer);
+
+  CU_ASSERT_FATAL (mask != NULL);
+
+  CU_ASSERT_STRING_EQUAL (inet_ntoa (*mask),
+                          "255.255.255.0");
+
+  router = pktGetRouter (offer);
+
+  CU_ASSERT_FATAL (router != NULL);
+
+  CU_ASSERT_STRING_EQUAL (inet_ntoa (*router), "192.168.1.1");
+
+  domain = pktGetDomainName (offer);
+
+  CU_ASSERT_FATAL (domain != NULL);
+
+  CU_ASSERT_STRING_EQUAL (domain, "example.org");
 }
 
 void

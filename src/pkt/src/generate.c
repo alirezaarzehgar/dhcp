@@ -25,6 +25,8 @@ pktGenOffer (pktDhcpPacket_t *discovery, pktDhcpPacket_t *offer,
              pktGenCallback_t *blocks, size_t blocksLen, pktGenCallback_t *options,
              size_t optionsLen)
 {
+  char *discoveryCookie;
+
   if (!pktIsDiscoveryPktValidForOffer (discovery))
     return PKT_RET_FAILURE;
 
@@ -52,17 +54,36 @@ pktGenOffer (pktDhcpPacket_t *discovery, pktDhcpPacket_t *offer,
 
   pktGenFieldTransactionId (offer, discovery->xid);
 
+  /**
+  * @brief Apply default offer options
+  *
+  */
+  pktGenOptInit();
+
+  pktDhcpOptions_t *opt = (pktDhcpOptions_t *)&offer->options;
+
+  discoveryCookie = pktGetMagicCookie (discovery);
+
+  pktGenOptMagicCookie (opt, discoveryCookie);
+
+  pktGenOptDhcpMsgType (opt, DHCPOFFER);
+
+  /**
+   * @brief Iterate and run all option functions
+   *
+   */
   if (options)
     {
-      pktGenOptInit();
-
-      pktDhcpOptions_t *opt = (pktDhcpOptions_t *)offer->options;
-
       for (size_t i = 0; i < optionsLen; i++)
         options[i].func (opt, options[i].param);
-
-      pktGenOptEnd (opt);
     }
+
+  /**
+  * @brief Apply necessary offer options
+  *
+  */
+
+  pktGenOptEnd (opt);
 
   return PKT_RET_SUCCESS;
 }

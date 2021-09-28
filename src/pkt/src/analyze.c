@@ -292,6 +292,9 @@ pktGetIpAddressLeaseTime (pktDhcpPacket_t *pkt)
 long long
 pktLeaseTimeHex2long (char *time)
 {
+  if (time == NULL)
+    return -1;
+
   int maxLen = 8;
 
   char tmp[maxLen];
