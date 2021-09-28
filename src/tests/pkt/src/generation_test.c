@@ -117,7 +117,6 @@ pktGenOfferTest()
 
   char *chaddr = pktMacStr2hex ("08:00:27:84:3e:d0");
 
-
   pktGenCallback_t blocks[] =
   {
     {.func = (pktGenCallbackFunc_t)pktGenFieldYourIpAddress, .param = "192.168.133.144"},
