@@ -7,3 +7,6 @@
 [submodule "src/dhcp-cli"]
 	path = src/dhcp-cli
 	url = https://github.com/alirezaarzehgar/dhcp-cli.git
+[submodule "src/dhcp-network"]
+	path = src/dhcp-network
+	url = https://github.com/alirezaarzehgar/dhcp-network.git
