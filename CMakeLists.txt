@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 
 project(dhcpd)
 
-add_subdirectory(src/pkt)
+add_subdirectory(src/dhcp-pkt)
 
 add_subdirectory(src/network)
 
