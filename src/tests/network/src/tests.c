@@ -22,9 +22,3 @@ cleanup_suite_network()
 {
   return 0;
 }
-
-void
-test_network()
-{
-  CU_ASSERT_TRUE (CU_TRUE);
-}

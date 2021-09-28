@@ -7,7 +7,6 @@
 
 CU_TestInfo network_tests[] =
 {
-  {"network module test", test_network},
   CU_TEST_INFO_NULL,
 };
 

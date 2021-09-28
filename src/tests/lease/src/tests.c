@@ -22,9 +22,3 @@ cleanup_suite_lease()
 {
   return 0;
 }
-
-void
-test_lease()
-{
-  CU_ASSERT_TRUE (CU_TRUE);
-}

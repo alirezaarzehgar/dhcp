@@ -7,7 +7,6 @@
 
 CU_TestInfo lease_tests[] =
 {
-  {"lease module test", test_lease},
   CU_TEST_INFO_NULL,
 };
 

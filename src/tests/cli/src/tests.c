@@ -22,9 +22,3 @@ cleanup_suite_cli()
 {
   return 0;
 }
-
-void
-test_cli()
-{
-  CU_ASSERT_TRUE (CU_TRUE);
-}
