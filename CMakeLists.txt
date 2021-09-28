@@ -8,6 +8,6 @@ add_subdirectory(src/network)
 
 add_subdirectory(src/dhcp-lease)
 
-add_subdirectory(src/cli)
+add_subdirectory(src/dhcp-cli)
 
 add_subdirectory(src/main)
