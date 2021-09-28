@@ -10,6 +10,4 @@ add_subdirectory(src/lease)
 
 add_subdirectory(src/cli)
 
-add_subdirectory(src/tests)
-
 add_subdirectory(src/main)

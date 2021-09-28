@@ -11,15 +11,15 @@
 
 #include "pkt/analyze_test.h"
 
-const char *pathDiscovry = "src/tests/fake_data/discovery";
+const char *pathDiscovry = "fake_data/discovery";
 
-const char *pathOffer = "src/tests/fake_data/offer";
+const char *pathOffer = "fake_data/offer";
 
-const char *pathNak = "src/tests/fake_data/nak";
+const char *pathNak = "fake_data/nak";
 
-const char *pathRequest = "src/tests/fake_data/request";
+const char *pathRequest = "fake_data/request";
 
-const char *pathAll = "src/tests/fake_data/all";
+const char *pathAll = "fake_data/all";
 
 char bufAll[DHCP_PACKET_MAX_LEN];
 
