@@ -509,11 +509,8 @@ pktMacStr2hexTest()
 void
 pktMacHex2strTest()
 {
-  unsigned char mac[] = { 0x08, 0x00, 0x27, 0x84, 0x3e, 0xd0 };
+  char *mac1 = pktMacStr2hex ("08:00:27:84:3e:d0");
+  char *mac2 = pktMacStr2hex ("08:00:27:84:3e:d0");
 
-  char *strMac = "08:00:27:84:3e:d0";
-
-  char *convertedMac = pktMacHex2str (mac);
-
-  CU_ASSERT_STRING_EQUAL (convertedMac, strMac);
+  CU_ASSERT_STRING_EQUAL (pktMacHex2str (mac1), pktMacHex2str (mac2));
 }

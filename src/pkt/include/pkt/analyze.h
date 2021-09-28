@@ -7,9 +7,9 @@
 
 #define DHCP_MAGIC_COOKIE_SIZE               4
 
-#define PKT_IP_MAX_LEN                      16  /* len (255.255.255.255) == 16 */
+#define PKT_IP_MAX_LEN                      16  /* len (255.255.255.255) == 15(+ 1 for avoiding undefined bahavior) */
 
-#define PKT_ADDR_MAX_LEN                    17  /* len (FF:FF:FF:FF:FF:FF) == 17 */
+#define PKT_ADDR_MAX_LEN                    18  /* len (FF:FF:FF:FF:FF:FF) == 17(+ 1 for avoiding undefined bahavior) */
 
 #define HEX                                 16
 

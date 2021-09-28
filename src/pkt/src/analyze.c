@@ -167,6 +167,7 @@ pktAddrHex2str (char *addr, size_t len, char separator, int type)
 char *
 pktAddrStr2hex (char *addr, size_t len, char *separator, int type)
 {
+  /* Fix undefined behavior with increasing pkt addr max len*/
   char tmpAddr[PKT_ADDR_MAX_LEN];
 
   char *retIp = (char *)malloc (len);
@@ -201,7 +202,6 @@ pktMacStr2hex (char *mac)
 char *
 pktMacHex2str (char *hexMac)
 {
-  /* TODO Bug pktGenOfferTest  */
   return pktAddrHex2str (hexMac, 6, ':', PKT_ADDR_TYPE_MAC);
 }
 

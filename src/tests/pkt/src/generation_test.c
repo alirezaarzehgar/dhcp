@@ -40,7 +40,7 @@ packetGenMainTest()
 
   /* commons */
 
-  unsigned char *chaddr = pktMacStr2hex ("08:00:27:84:3e:d0");
+  char *chaddr = pktMacStr2hex ("08:00:27:84:3e:d0");
 
   char *cookie = pktGetMagicCookie (discovery);
 
@@ -84,7 +84,7 @@ packetGenMainTest()
 
   CU_ASSERT_EQUAL (offer->htype, PKT_HTYPE_ETHERNET);
 
-  CU_ASSERT_STRING_EQUAL (offer->chaddr, chaddr);
+  CU_ASSERT_STRING_EQUAL (pktMacHex2str (offer->chaddr), pktMacHex2str (chaddr));
 
   CU_ASSERT_EQUAL (offer->hlen, 6);
 
@@ -115,7 +115,7 @@ pktGenOfferTest()
   pktDhcpPacket_t *offer = (pktDhcpPacket_t *)calloc (sizeof (pktDhcpPacket_t),
                            sizeof (pktDhcpPacket_t));
 
-  unsigned char *chaddr = pktMacStr2hex ("08:00:27:84:3e:d0");
+  char *chaddr = pktMacStr2hex ("08:00:27:84:3e:d0");
 
 
   pktGenCallback_t blocks[] =
@@ -140,7 +140,7 @@ pktGenOfferTest()
 
   CU_ASSERT_EQUAL (offer->htype, PKT_HTYPE_ETHERNET);
 
-  CU_ASSERT_STRING_EQUAL (offer->chaddr, chaddr);
+  CU_ASSERT_STRING_EQUAL (pktMacHex2str (offer->chaddr), pktMacHex2str (chaddr));
 
   CU_ASSERT_EQUAL (offer->hlen, 6);
 
