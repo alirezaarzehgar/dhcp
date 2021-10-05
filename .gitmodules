@@ -17,3 +17,4 @@
 [submodule "src/dhcp-pkt"]
 	path = src/dhcp-pkt
 	url = https://github.com/alirezaarzehgar/dhcp-pkt
+	branch = dev
