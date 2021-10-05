@@ -10,3 +10,6 @@
 [submodule "src/dhcp-network"]
 	path = src/dhcp-network
 	url = https://github.com/alirezaarzehgar/dhcp-network.git
+[submodule "src/dhcpd"]
+	path = src/dhcpd
+	url = https://github.com/RaminNietzsche/dhcpd
