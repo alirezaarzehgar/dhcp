@@ -14,7 +14,3 @@
 	path = src/dhcpd
 	url = https://github.com/RaminNietzsche/dhcpd
 	branch = dev
-[submodule "src/dhcp-pkt"]
-	path = src/dhcp-pkt
-	url = https://github.com/alirezaarzehgar/dhcp-pkt
-	branch = dev
