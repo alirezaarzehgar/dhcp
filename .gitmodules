@@ -14,3 +14,6 @@
 	path = src/dhcpd
 	url = https://github.com/RaminNietzsche/dhcpd
 	branch = dev
+[submodule "system-tests"]
+	path = system-tests
+	url = git@github.com:alirezaarzehgar/dhcp-system-tests.git
