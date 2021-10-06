@@ -1,12 +1,16 @@
-[submodule "src/dhcp-pkt"]
-	path = src/dhcp-pkt
-	url = https://github.com/alirezaarzehgar/dhcp-pkt
 [submodule "src/dhcp-lease"]
 	path = src/dhcp-lease
 	url = https://github.com/alirezaarzehgar/dhcp-lease.git
+	branch = dev
 [submodule "src/dhcp-cli"]
 	path = src/dhcp-cli
 	url = https://github.com/alirezaarzehgar/dhcp-cli.git
+	branch = dev
 [submodule "src/dhcp-network"]
 	path = src/dhcp-network
 	url = https://github.com/alirezaarzehgar/dhcp-network.git
+	branch = dev
+[submodule "src/dhcpd"]
+	path = src/dhcpd
+	url = https://github.com/RaminNietzsche/dhcpd
+	branch = dev
