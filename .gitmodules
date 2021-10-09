@@ -16,4 +16,4 @@
 	branch = dev
 [submodule "system-tests"]
 	path = system-tests
-	url = git@github.com:alirezaarzehgar/dhcp-system-tests.git
+	url = https://github.com/alirezaarzehgar/dhcp-system-tests.git
