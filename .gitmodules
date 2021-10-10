@@ -6,10 +6,6 @@
 	path = src/dhcp-cli
 	url = https://github.com/alirezaarzehgar/dhcp-cli.git
 	branch = dev
-[submodule "src/dhcp-network"]
-	path = src/dhcp-network
-	url = https://github.com/alirezaarzehgar/dhcp-network.git
-	branch = dev
 [submodule "system-tests"]
 	path = system-tests
 	url = https://github.com/alirezaarzehgar/dhcp-system-tests.git
