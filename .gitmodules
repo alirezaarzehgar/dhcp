@@ -12,7 +12,7 @@
 	branch = dev
 [submodule "src/dhcpd"]
 	path = src/dhcpd
-	url = https://github.com/RaminNietzsche/dhcpd
+	url = https://github.com/alirezaarzehgar/dhcpd.git
 	branch = dev
 [submodule "system-tests"]
 	path = system-tests
