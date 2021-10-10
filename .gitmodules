@@ -13,3 +13,6 @@
 [submodule "system-tests"]
 	path = system-tests
 	url = https://github.com/alirezaarzehgar/dhcp-system-tests.git
+[submodule "src/dhcpd"]
+	path = src/dhcpd
+	url = https://github.com/alirezaarzehgar/dhcpd.git
