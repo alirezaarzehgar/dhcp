@@ -10,10 +10,6 @@
 	path = src/dhcp-network
 	url = https://github.com/alirezaarzehgar/dhcp-network.git
 	branch = dev
-[submodule "src/dhcpd"]
-	path = src/dhcpd
-	url = https://github.com/alirezaarzehgar/dhcpd.git
-	branch = dev
 [submodule "system-tests"]
 	path = system-tests
 	url = https://github.com/alirezaarzehgar/dhcp-system-tests.git
