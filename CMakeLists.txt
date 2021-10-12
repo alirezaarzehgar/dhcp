@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.6)
 
 SET(PROJECT_NAME dhcp)
-SET(DHCP_NETWORK src/dhcp-network)
 SET(DHCP_CLI src/dhcp-cli)
 SET(DHCP_LEASE src/dhcp-lease)
 SET(DHCPD src/dhcpd)
@@ -49,7 +48,6 @@ IF(GIT_FOUND AND EXISTS "../.git")
     ENDIF()
 ENDIF()
 
-ADD_SUBDIRECTORY(${DHCP_NETWORK})
 ADD_SUBDIRECTORY(${DHCP_CLI})
 ADD_SUBDIRECTORY(${DHCP_LEASE})
 ADD_SUBDIRECTORY(${DHCPD})
