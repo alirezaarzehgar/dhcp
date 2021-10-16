@@ -1,7 +1,3 @@
-[submodule "src/dhcp-lease"]
-	path = src/dhcp-lease
-	url = https://github.com/alirezaarzehgar/dhcp-lease.git
-	branch = dev
 [submodule "src/dhcp-cli"]
 	path = src/dhcp-cli
 	url = https://github.com/alirezaarzehgar/dhcp-cli.git
